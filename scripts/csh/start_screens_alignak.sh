@@ -6,4 +6,4 @@ screen -d -S alignak_receiver -m csh -c "alignak-receiver -c /usr/local/etc/alig
 screen -d -S alignak_reactionner -m csh -c "alignak-reactionner -c /usr/local/etc/alignak/daemons/reactionnerd.ini"
 sleep 1
 echo "Start Alignak arbiter..."
-screen -d -S alignak_arbiter -m csh -c "alignak-arbiter -c /usr/local/etc/alignak/alignak.cfg"
+screen -d -S alignak_arbiter -m csh -a "alignak-arbiter -c /usr/local/etc/alignak/daemons/arbiterd.ini -a /usr/local/etc/alignak/alignak.cfg"
