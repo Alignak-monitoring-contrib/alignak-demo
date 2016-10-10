@@ -1,4 +1,4 @@
-#!/bin/csh
+#!/bin/sh
 echo "Stop Python processes..."
 killall python2.7
 sleep 5

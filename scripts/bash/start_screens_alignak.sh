@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 echo "Start All realm daemons..."
 screen -d -S alignak_broker -m bash -c "alignak-broker -c /usr/local/etc/alignak/daemons/brokerd.ini"
 screen -d -S alignak_poller -m bash -c "alignak-poller -c /usr/local/etc/alignak/daemons/pollerd.ini"
