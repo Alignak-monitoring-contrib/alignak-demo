@@ -34,8 +34,8 @@ What is in?
 Monitored configuration
 -----------------------
 
-On a single server, the monitored configuration is separated in two **realms** (*All* and *North*).
-Some hosts are in the *All* realm and others are in the North realm, member of *All* realm.
+On a single server, the monitored configuration is separated in three **realms** (*All*, *North* and *South*).
+Some hosts are in the *All* realm and others are in the *North* and *South* realm, both sub-realms of *All* realm.
 
 The *All* realm is (let's say...) a primary datacenter where main servers are located.
 *North* realm is a logical group for a part of our monitored hosts. This realm may be seen as a secondary site
@@ -51,6 +51,12 @@ We must declare, for each realm:
 In the *All* realm, we find the following hosts:
 
   - localhost
+  - and some others
+
+In the *North* realm, we find some passive hosts checked thanks to NSCA.
+
+In the *South* realm, we find two hosts.
+
 
 Directory 'scripts'
 -------------------
@@ -65,14 +71,17 @@ In each sub-directory, you will find:
 
   - `alignak_backend_start.sh` to launch Alignak backend
   - `alignak_webui_start.sh` to launch Alignak Web UI
-  - `alignak_start.sh` to launch Alignak
+  - `alignak_start.sh` to launch Alignak with one instance of each daemon (mainly a sample script ...)
+  - `alignak_start_all.sh` to launch Alignak with all the necesarry daemons for this configuration
+  - `alignak_stop.sh` to stop all the Alignak daemons
 
 Directory 'etc'
 ---------------
 
-This directory is an Alignak configuration for:
+This directory is an Alignak flat-files configuration for:
 
-    - loading monitored objects from the Alignak backend
+  - loading monitored objects from the Alignak backend (file *alignak.backend-import.cfg*)
+  - launching Alignak (file *alignak.backend-run.cfg* which is a copy of *alignak.cfg*)
 
 Configuration building logic
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
