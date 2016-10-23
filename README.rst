@@ -26,7 +26,67 @@ To set-up this demo, you must:
 
 Setting-up the demo
 ===================
+
+Get all
+-------
+Get base components::
+
+  git clone https://github.com/Alignak-monitoring/alignak
+  cd alignak
+  pip install -r requirements
+  python setup.py install
+
+  git clone https://github.com/Alignak-monitoring-contrib/alignak-backend
+  cd alignak-backend
+  pip install -r requirements
+  python setup.py install
+
+  git clone https://github.com/Alignak-monitoring-contrib/alignak-webui
+  cd alignak-webui
+  pip install -r requirements
+  python setup.py install
+
+
+Get extensions::
+
+  pip install alignak-module-backend
+  pip install alignak-module-nsca
+  pip install alignak-module-logs
+
+
+Get checks packages::
+
+  pip install alignak-checks-nrpe
+  pip install alignak-checks-windows-nsca
+  pip install alignak-checks-snmp
+  pip install alignak-checks-monitoring
+
+
+Alignak
+-------
   TO DO ...
+
+
+
+Alignak backend
+---------------
+Update the */usr/local/etc/alignak-backend/settings.json* configuration file to set-up the parameters:
+
+  * mongo DB parameters
+
+  * graphite / grafana parameters
+
+Run::
+
+
+Alignak Web UI
+--------------
+Update the */usr/local/etc/alignak-backend/settings.json* configuration file to set-up the parameters:
+
+  * mongo DB parameters
+
+  * graphite / grafana parameters
+
 
 What is in?
 ===========
@@ -58,7 +118,7 @@ In the *North* realm, we find some passive hosts checked thanks to NSCA.
 In the *South* realm, we find two hosts.
 
 
-Directory 'scripts'
+'scripts' directory
 -------------------
 
 This directory contains some example scripts to start/stop Alignak demonstration components.
@@ -75,16 +135,13 @@ In each sub-directory, you will find:
   - `alignak_start_all.sh` to launch Alignak with all the necesarry daemons for this configuration
   - `alignak_stop.sh` to stop all the Alignak daemons
 
-Directory 'etc'
+'etc' directory
 ---------------
 
 This directory is an Alignak flat-files configuration for:
 
   - loading monitored objects from the Alignak backend (file *alignak.backend-import.cfg*)
   - launching Alignak (file *alignak.backend-run.cfg* which is a copy of *alignak.cfg*)
-
-Configuration building logic
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To make the flat-files configuration easier to edit, we choose to :
 
@@ -101,3 +158,33 @@ To make the flat-files configuration easier to edit, we choose to :
     - templates,
     - groups,
     - contacts
+
+
+What we see?
+============
+
+Monitored system status
+-----------------------
+TBC...
+  http://demo.alignak.net
+
+
+Alignak internal metrics
+------------------------
+  http://grafana.demo.alignak.net
+TBC
+
+For techies::
+
+  $cd /usr/local/share/statsd
+  $cat alignak.js
+    {
+      graphitePort: 2003
+    , graphiteHost: "10.0.0.10"
+    , port: 8125
+    , backends: [ "./backends/graphite" ]
+    }
+
+  $screen -S statsd
+  $node stats.js alignak.js
+  $Ctrl+A Ctrl+D
