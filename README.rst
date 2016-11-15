@@ -24,6 +24,12 @@ To set-up this demo, you must:
     - start the backend, the Web UI and Alignak
     - open your web browser and rest for a while looking at what happens :)
 
+Requirements
+------------
+The scripts provided with this demo use the `screen` utility found on all Linux/Unix distro. Thus::
+
+  sudo apt-get install
+
 Setting-up the demo
 ===================
 
@@ -76,25 +82,39 @@ Get Alignak modules::
   pip install alignak-module-nsca
   pip install alignak-module-logs
   pip install alignak-module-ws
+  # Note that the default module configuration is not suitable, but it will be installed later...
 
 
 Get checks packages::
 
-  pip install alignak-checks-nrpe
-  pip install alignak-checks-windows-nsca
-  pip install alignak-checks-snmp
   pip install alignak-checks-monitoring
+  pip install alignak-checks-mysql
+  pip install alignak-checks-nrpe
+  pip install alignak-checks-snmp
+  pip install alignak-checks-windows-nsca
+  pip install alignak-checks-wmi
+  # Note that the default packs configuration is not suitable, but it will be installed later...
 
 
-Alignak
--------
+Configure Alignak
+-----------------
   TO DO ...
 
 
 
-Alignak backend
----------------
-Update the */usr/local/etc/alignak-backend/settings.json* configuration file to set-up the parameters:
+Configure Alignak backend
+-------------------------
+Update the *(/usr/local)/etc/alignak-backend/settings.json* configuration file to set-up the parameters:
+
+  * mongo DB parameters
+  * graphite / grafana parameters
+
+.. note:: the default parameters are suitable for a simple demo.
+
+
+Feed the Alignak backend
+------------------------
+Update the *(/usr/local)/etc/alignak-backend/settings.json* configuration file to set-up the parameters:
 
   * mongo DB parameters
 
@@ -103,14 +123,11 @@ Update the */usr/local/etc/alignak-backend/settings.json* configuration file to 
 Run::
 
 
-Alignak Web UI
---------------
-Update the */usr/local/etc/alignak-backend/settings.json* configuration file to set-up the parameters:
+Configure Alignak Web UI
+------------------------
+Update the *(/usr/local)/etc/alignak-webui/settings.cfg* configuration file to set-up the parameters.
 
-  * mongo DB parameters
-
-  * graphite / grafana parameters
-
+.. note:: the default parameters are suitable for a simple demo.
 
 What is in?
 ===========
@@ -139,7 +156,7 @@ In the *All* realm, we find the following hosts:
 
 In the *North* realm, we find some passive hosts checked thanks to NSCA.
 
-In the *South* realm, we find two hosts.
+In the *South* realm, we find other hosts.
 
 
 'scripts' directory
