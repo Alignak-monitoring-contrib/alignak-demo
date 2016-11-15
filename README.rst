@@ -27,31 +27,55 @@ To set-up this demo, you must:
 Setting-up the demo
 ===================
 
-Get all
--------
+Get all components
+------------------
+
+.. note:: All the Alignak components need a root account (or *sudo* privilege) to get installed.
+
 Get base components::
 
+  mkdir ~/repos
+  cd ~/repos
+
+  adduser alignak
+  adduser alignak sudo
+
+  # Alignak framework
   git clone https://github.com/Alignak-monitoring/alignak
   cd alignak
-  pip install -r requirements
+  pip install -r requirements.txt
   python setup.py install
+  # User permissions
+  sudo chown -R alignak:alignak /usr/local/var/run/alignak
+  sudo chown -R alignak:alignak /usr/local/var/log/alignak
+  sudo chown -R alignak:alignak /usr/local/etc/alignak
 
+
+  # Alignak backend
   git clone https://github.com/Alignak-monitoring-contrib/alignak-backend
   cd alignak-backend
-  pip install -r requirements
+  pip install -r requirements.txt
   python setup.py install
 
+
+  # Alignak WebUI
   git clone https://github.com/Alignak-monitoring-contrib/alignak-webui
   cd alignak-webui
-  pip install -r requirements
+  pip install -r requirements.txt
   python setup.py install
 
 
-Get extensions::
+Get Alignak modules/checks setup utility (useful to install all the components)::
+
+  pip install alignak-setup
+
+
+Get Alignak modules::
 
   pip install alignak-module-backend
   pip install alignak-module-nsca
   pip install alignak-module-logs
+  pip install alignak-module-ws
 
 
 Get checks packages::
