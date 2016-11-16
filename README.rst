@@ -98,36 +98,54 @@ Get checks packages::
 
 Configure Alignak
 -----------------
-  TO DO ...
+
+This repository contains a default demo configuration that uses all the previously installed components::
+
+  # Alignak demo configuration
+  git clone https://github.com/Alignak-monitoring-contrib/alignak-demo
+  cp -R alignak-demo/etc/* /usr/local/etc/alignak/.
+  pip install -r requirements.txt
+  python setup.py install
 
 
 
-Configure Alignak backend
--------------------------
+Configure/run Alignak backend
+-----------------------------
 Update the *(/usr/local)/etc/alignak-backend/settings.json* configuration file to set-up the parameters:
 
   * mongo DB parameters
   * graphite / grafana parameters
 
 .. note:: the default parameters are suitable for a simple demo.
+
+Run the Alignak backend::
+
+  cd ~/repos/alignak-backend
+  ./bin/run.sh
 
 
 Feed the Alignak backend
 ------------------------
-Update the *(/usr/local)/etc/alignak-backend/settings.json* configuration file to set-up the parameters:
+Run the Alignak backend import script to push the demo configuration into the backend:
 
-  * mongo DB parameters
+  alignak-backend-import -m /usr/local/etc/alignak/alignak-backend-import.cfg
 
-  * graphite / grafana parameters
-
-Run::
+.. note:: there are other solution to feed the Alignak backend but we choose to show how to get an existing configuration and import this configuration in the Alignak backend to migrate from an existing Nagios/Shinken to Alignak.
 
 
-Configure Alignak Web UI
-------------------------
+Configure/run Alignak Web UI
+----------------------------
 Update the *(/usr/local)/etc/alignak-webui/settings.cfg* configuration file to set-up the parameters.
 
 .. note:: the default parameters are suitable for a simple demo.
+
+Run the Alignak WebUI::
+
+  cd ~/repos/alignak-webui
+  ./bin/run.sh
+
+Use your Web browser to navigate to http://localhost:5001 and login with *admin* / *admin*
+
 
 What is in?
 ===========
