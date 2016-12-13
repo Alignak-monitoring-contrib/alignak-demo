@@ -26,9 +26,12 @@ To set-up this demo, you must:
 
 Requirements
 ------------
-The scripts provided with this demo use the `screen` utility found on all Linux/Unix distro. Thus::
+The scripts provided with this demo use the `screen` utility found on all Linux/Unix distro. As such::
 
-  sudo apt-get install
+  sudo apt-get install screen
+
+.. note:: It is not mandatory to use the provided scripts, but it is more simple for a first try;)
+
 
 Setting-up the demo
 ===================
@@ -56,6 +59,8 @@ Get base components::
   sudo chown -R alignak:alignak /usr/local/var/log/alignak
   sudo chown -R alignak:alignak /usr/local/etc/alignak
 
+  # uwsgihi ddurieux
+  sudo apt-get install uwsgi uwsgi-plugin-python
 
   # Alignak backend
   git clone https://github.com/Alignak-monitoring-contrib/alignak-backend
@@ -104,9 +109,7 @@ This repository contains a default demo configuration that uses all the previous
   # Alignak demo configuration
   git clone https://github.com/Alignak-monitoring-contrib/alignak-demo
   cp -R alignak-demo/etc/* /usr/local/etc/alignak/.
-  pip install -r requirements.txt
   python setup.py install
-
 
 
 Configure/run Alignak backend
