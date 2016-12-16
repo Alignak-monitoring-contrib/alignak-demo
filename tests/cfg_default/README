@@ -1,0 +1,9 @@
+This configuration is based on the alignak default configuration.
+
+From the default configuration, it defines:
+
+    * a passive host template
+    * a passive service template and some passively checked services
+
+Freshness thresholds are defined as quite short durations (10 / 20 seconds) as such the hosts and services will quite rapidly go to their freshness state.
+
