@@ -3,13 +3,32 @@ Alignak demonstration server
 
 *Setting-up a demonstration server for Alignak monitoring framework ...*
 
+This repository contains many stuff for Alignak:
+
+  - demo configuration to set-up a demo server (the one used for http://demo.alignak.net)
+
+  - some various tests configurations (each having a README to explain what they are made for)
+
+  - scripts to run the Alignak daemons for the demo server (may be used for other configurations)
+
+  - a script to create, delete and get elements in the alignak backend
 
 
-This demo configuration is built to set-up a demo server
+What's behind the backend script
+================================
+
+This simple script may be used to make simple operations with the Alignak backend:
+
+  - create a new element based (or not) on a template
+
+  - delete an element
+
+  - get an element and dump its properties to the console or a file (in /tmp)
 
 
-What's behind this demo?
-========================
+
+What's behind the demo server
+=============================
 
 This demonstration is made to involve the most possible Alignak components on a single node server.
 
