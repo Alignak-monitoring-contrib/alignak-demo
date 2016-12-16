@@ -26,6 +26,61 @@ This simple script may be used to make simple operations with the Alignak backen
   - get an element and dump its properties to the console or a file (in /tmp)
 
 
+A simple usage example for this script:
+::
+
+    # Assuming that you installed: alignak, alignak-backend and alignak-backend-import
+
+    # From the root of this repository
+    cd tests/cfg_passive_templates
+    # Import the test configuration in the Alignak backend
+    alignak-backend-import -d -m ./cfg_passive_templates.cfg
+    # The script imports the configuration and makes some console logs:
+        alignak_backend_import, inserted elements:
+        - 6 command(s)
+        - 3 host(s)
+        - 3 host_template(s)
+        - no hostdependency(s)
+        - no hostescalation(s)
+        - 12 hostgroup(s)
+        - 1 realm(s)
+        - 1 service(s)
+        - 14 service_template(s)
+        - no servicedependency(s)
+        - no serviceescalation(s)
+        - 12 servicegroup(s)
+        - 2 timeperiod(s)
+        - 2 user(s)
+        - 3 usergroup(s)
+
+    # Get an host from the backend
+    backend_client -t host get test_host_0
+
+    # The script dumps the json host on the console and creates a file: */tmp/alignak-object-dump-host-test_host_0*
+    {
+        ...
+        "active_checks_enabled": true,
+        "address": "127.0.0.1",
+        "address6": "",
+        "alias": "test_host_0",
+        ...
+        "customs": {
+            "_OSLICENSE": "gpl",
+            "_OSTYPE": "gnulinux"
+        },
+        ...
+    }
+
+    # Create an host into the backend
+    backend_client -T windows-nsca-host -t host add myHost
+    # The script inform on the console
+        Created host 'myHost'
+
+    # Delete an host from the backend
+    backend_client -T windows-nsca-host -t host delete myHost
+    # The script inform on the console
+        Deleted host 'myHost'
+
 
 What's behind the demo server
 =============================
