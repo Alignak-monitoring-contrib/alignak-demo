@@ -76,6 +76,16 @@ A simple usage example for this script:
     # The script inform on the console
         Created host 'myHost'
 
+    # Create an host into the backend with extra data
+    backend_client -T windows-nsca-host -t host --data='/tmp/create_data.json' add myHost
+    # The script reads the JSON content of the file /tmp/create_data.json and tries to create
+    # the host named myHost with the template and the read data
+
+    # Update an host into the backend
+    backend_client -t host --data='/tmp/update_data.json' update myHost
+    # The script reads the JSON content of the file /tmp/update_data.json and tries to update
+    # the host named myHost with the read data
+
     # Delete an host from the backend
     backend_client -T windows-nsca-host -t host delete myHost
     # The script inform on the console
