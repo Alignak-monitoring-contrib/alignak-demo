@@ -23,6 +23,7 @@ backend_client command line interface::
         backend_client [-V]
         backend_client [-v] [-c] [-l]
                        [-b=url] [-u=username] [-p=password]
+                       [-d=data]
                        [-T=template] [-t=type] <action> <item>
 
     Options:
@@ -34,6 +35,7 @@ backend_client command line interface::
         -b, --backend url           Specify backend URL [default: http://127.0.0.1:5000]
         -u, --username=username     Backend login username [default: admin]
         -p, --password=password     Backend login password [default: admin]
+        -d, --data=data             Data for the new item to create [default: none]
         -t, --type=host             Type of the provided item
         -T, --template=template     Template to use for the new item
 
@@ -70,10 +72,24 @@ backend_client command line interface::
             backend_client -t user new_contact
             This will add a user named new_contact
 
+        Add an item to the backend (with some data):
+            backend_client --data="/tmp/input_host.json" add new_host
+            This will add an host named new_host with the data that are read from the
+            JSON file /tmp/input_host.json
+
+            backend_client -t user new_contact --data="stdin"
+            This will add a user named new_contact with the JSON data read from the
+            stdin. You can 'cat file > backend_client -t user new_contact --data="stdin"'
+
         Add an item to the backend based on a template:
-            backend_client -T host_template new_host
+            backend_client -T host_template add new_host
             This will add an host named new_host with the data existing in the template
             host_template
+
+        Update an item into the backend (with some data):
+            backend_client --data="/tmp/update_host.json" update test_host
+            This will update an host named test_host with the data that are read from the
+            JSON file /tmp/update_host.json
 
         Specify you backend parameters if they are different from the default
             backend_client -b=http://127.0.0.1:5000 -u=admin -p=admin get host_name
@@ -88,6 +104,7 @@ backend_client command line interface::
 from __future__ import print_function
 
 import os
+import sys
 import json
 import tempfile
 import logging
@@ -102,7 +119,7 @@ logging.basicConfig(level=logging.DEBUG,
 # Name the logger to get the backend client logs
 logger = logging.getLogger('alignak_backend_client.client')
 
-__version__ = "0.3"
+__version__ = "0.4"
 
 class BackendUpdate(object):
     """
@@ -207,7 +224,7 @@ class BackendUpdate(object):
         # Get the action to execute
         self.action = args['<action>']
         logger.info("Action to execute: %s", self.action)
-        if self.action not in ['add', 'get', 'delete']:
+        if self.action not in ['add', 'update', 'get', 'delete']:
             print("Action '%s' is not authorized." % (self.action))
             exit(64)
 
@@ -223,8 +240,9 @@ class BackendUpdate(object):
             self.item_type = self.item
             logger.info("Item type (computed): %s", self.item_type)
 
-        # Not yet any data
-        self.data = None
+        # Get the targeted item
+        self.data = args['--data']
+        logger.info("Item data provided: %s", self.data)
 
     def initialize(self):
         """
@@ -466,11 +484,39 @@ class BackendUpdate(object):
 
         return True
 
-    def create_update_resource(self, resource_name, name):
+    def create_update_resource(self, resource_name, name, update=False):
+        """
+
+        :param resource_name: backend resource endpoint (eg. host, user, ...)
+        :param name: name of the resource to create/update
+        :param update: True to update an existing resource, else will try to create
+        :return:
+        """
         self.update_backend_data = True
 
         if self.data is None:
             data = {}
+
+        # If some data are provided, try to get them
+        json_data = None
+        if self.data != 'none':
+            try:
+                if self.data == 'stdin':
+                    inf = sys.stdin
+                else:
+                    inf = open(self.data)
+
+                print(inf)
+                json_data = json.load(inf)
+                logger.info("Got provided data: %s", json_data)
+                if inf is not sys.stdin:
+                    inf.close()
+            except IOError as e:
+                logger.exception("Error reading data file: %s", e)
+                return False
+            except ValueError as e:
+                logger.exception("Error malformed data file: %s", e)
+                return False
 
         try:
             logger.info("Trying to get %s: '%s'", resource_name, name)
@@ -482,19 +528,38 @@ class BackendUpdate(object):
 
                 logger.info("-> found %s '%s': %s", resource_name, name, response['_id'])
 
+                if not update:
+                    logger.warning("-> %s should be updated and not created: %s",
+                                   resource_name, name)
+                    return False
+
+                # Host data and provided information if some
+                host_data = {
+                    'name': name,
+                    '_realm': self.realm_all
+                }
+                if json_data is not None:
+                    host_data.update(json_data)
+
                 # Exists in the backend, we should update if required...
                 if not self.dry_run:
                     headers = {
                         'Content-Type': 'application/json',
                         'If-Match': response['_etag']
                     }
-                    # self.backend.patch(
-                    #     resource_name + '/' + response['_id'], item,
-                    #     headers=headers, inception=True
-                    # )
-                    logger.warning("-> %s should be updated and not created: %s",
-                                   resource_name, name)
-                    return False
+                    response = self.backend.patch(
+                        resource_name + '/' + response['_id'], host_data,
+                        headers=headers, inception=True
+                    )
+                else:
+                    response = {'_id': '_fake', '_etag': '_fake'}
+                    logger.info("Dry-run mode: should have updated an %s '%s' with %s",
+                                resource_name, name, host_data)
+
+                logger.info("-> updated: '%s': %s, with %s",
+                            resource_name, response['_id'], host_data)
+
+                return True
             else:
                 logger.info("-> %s '%s' not existing, it can be created.", resource_name, name)
 
@@ -521,6 +586,8 @@ class BackendUpdate(object):
                 if host_template is not None:
                     host_data.update({'_templates': [host_template['_id']],
                                       '_templates_with_services': True})
+                if json_data is not None:
+                    host_data.update(json_data)
 
                 if not self.dry_run:
                     logger.info("-> trying to create the %s: %s, with: %s",
@@ -558,8 +625,8 @@ def main():
         else:
             success = bc.get_resource(bc.item_type, bc.item)
 
-    if bc.item and bc.action == 'add':
-        success = bc.create_update_resource(bc.item_type, bc.item)
+    if bc.item and bc.action in ['add', 'update']:
+        success = bc.create_update_resource(bc.item_type, bc.item, bc.action == 'update')
 
     if bc.item and bc.action == 'delete':
         success = bc.delete_resource(bc.item_type, bc.item)
