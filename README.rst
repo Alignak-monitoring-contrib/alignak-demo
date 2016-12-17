@@ -21,10 +21,13 @@ This simple script may be used to make simple operations with the Alignak backen
 
   - create a new element based (or not) on a template
 
+  - update a backend element
+
   - delete an element
 
   - get an element and dump its properties to the console or a file (in /tmp)
 
+  - get (and dump) a list of elements
 
 A simple usage example for this script:
 ::
@@ -56,7 +59,25 @@ A simple usage example for this script:
     # Get an host from the backend
     backend_client -t host get test_host_0
 
-    # The script dumps the json host on the console and creates a file: */tmp/alignak-object-dump-host-test_host_0*
+    # The script dumps the json host on the console and creates a file: */tmp/alignak-object-dump-host-test_host_0.json*
+    {
+        ...
+        "active_checks_enabled": true,
+        "address": "127.0.0.1",
+        "address6": "",
+        "alias": "test_host_0",
+        ...
+        "customs": {
+            "_OSLICENSE": "gpl",
+            "_OSTYPE": "gnulinux"
+        },
+        ...
+    }
+
+    # Get the list of all hosts from the backend
+    backend_client --list -t host get
+
+    # The script dumps the json list of hosts on the console and creates a file: */tmp/alignak-object-list-hosts.json*
     {
         ...
         "active_checks_enabled": true,

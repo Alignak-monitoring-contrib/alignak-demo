@@ -119,7 +119,7 @@ logging.basicConfig(level=logging.DEBUG,
 # Name the logger to get the backend client logs
 logger = logging.getLogger('alignak_backend_client.client')
 
-__version__ = "0.4"
+__version__ = "0.4.1"
 
 class BackendUpdate(object):
     """
@@ -353,12 +353,12 @@ class BackendUpdate(object):
                         print(dump)
                         try:
                             temp_d = tempfile.gettempdir()
-                            path = os.path.join(temp_d, 'alignak-object-list-%ss' % (resource_name))
+                            path = os.path.join(temp_d, 'alignak-object-list-%ss.json' % (resource_name))
                             dfile = open(path, "wb")
                             dfile.write(dump)
                             dfile.close()
                         except (OSError, IndexError) as exp:
-                            logger.exception("Error when writing the dump file %s : %s", path, str(exp))
+                            logger.exception("Error when writing the list dump file %s : %s", path, str(exp))
 
                     logger.info("-> dumped %ss list", resource_name)
                 else:
@@ -418,7 +418,7 @@ class BackendUpdate(object):
                     print(dump)
                     try:
                         temp_d = tempfile.gettempdir()
-                        path = os.path.join(temp_d, 'alignak-object-dump-%s-%s' %
+                        path = os.path.join(temp_d, 'alignak-object-dump-%s-%s.json' %
                                             (resource_name, name))
                         dfile = open(path, "wb")
                         dfile.write(dump)
