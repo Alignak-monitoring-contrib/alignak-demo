@@ -20,16 +20,17 @@ backend_client command line interface::
 
     Usage:
         backend_client [-h]
-        backend_client [--version]
-        backend_client [-v] [-c]
-                  [-b=url] [-u=username] [-p=password]
-                  [-T=template] [-t=type] <action> <item>
+        backend_client [-V]
+        backend_client [-v] [-c] [-l]
+                       [-b=url] [-u=username] [-p=password]
+                       [-T=template] [-t=type] <action> <item>
 
     Options:
         -h, --help                  Show this screen.
         -V, --version               Show application version.
         -v, --verbose               Run in verbose mode (more info to display)
         -c, --check                 Check only (dry run), do not change the backend.
+        -l, --list                  Get an items list
         -b, --backend url           Specify backend URL [default: http://127.0.0.1:5000]
         -u, --username=username     Backend login username [default: admin]
         -p, --password=password     Backend login password [default: admin]
@@ -43,6 +44,15 @@ backend_client command line interface::
         Display current version:
             backend_client -V
             backend_client --version
+
+        Get an items list from the backend:
+            backend_client -l
+            Try to get the list of all hosts and copy the JSON dump in a file named
+            '/tmp/alignak-object-list-hosts'
+
+            backend_client -l -t user
+            Try to get the list of all users and copy the JSON dump in a file named
+            '/tmp/alignak-object-list-users'
 
         Get an item from the backend:
             backend_client get host_name
@@ -92,7 +102,7 @@ logging.basicConfig(level=logging.DEBUG,
 # Name the logger to get the backend client logs
 logger = logging.getLogger('alignak_backend_client.client')
 
-__version__ = "0.2"
+__version__ = "0.3"
 
 class BackendUpdate(object):
     """
@@ -186,6 +196,10 @@ class BackendUpdate(object):
         self.password = args['--password']
         logger.info("Backend login with credentials: %s/%s", self.username, self.password)
 
+        # Get a list
+        self.list = args['--list']
+        logger.info("Get a list: %s", self.list)
+
         # Get the item type
         self.item_type = args['--type']
         logger.info("Item type: %s", self.item_type)
@@ -204,6 +218,10 @@ class BackendUpdate(object):
         # Get the template to use
         self.template = args['--template']
         logger.info("Using the template: %s", self.template)
+
+        if self.list and not self.item_type:
+            self.item_type = self.item
+            logger.info("Item type (computed): %s", self.item_type)
 
         # Not yet any data
         self.data = None
@@ -272,6 +290,74 @@ class BackendUpdate(object):
             self.service_templates_names = sorted([template['name'] for template in templates['_items']])
             logger.info("Existing service templates: %s", ','.join(self.service_templates_names ))
 
+    def get_resource_list(self, resource_name):
+        try:
+            logger.info("Trying to get %s list", resource_name)
+
+            params = {}
+            if resource_name in self.embedded_resources:
+                params.update({'embedded': json.dumps(self.embedded_resources[resource_name])})
+
+            response = self.backend.get_all(resource_name, params=params)
+            if len(response['_items']) > 0 and response['_status'] == 'OK':
+                response = response['_items']
+
+                logger.info("-> found %ss", resource_name)
+
+                # Exists in the backend, we got the element
+                if not self.dry_run:
+                    logger.info("-> dumping %ss list", resource_name)
+                    for item in response:
+                        print(item['name'])
+                        # Filter fields prefixed with an _ (internal backend fields)
+                        for field in item.keys():
+                            print(field)
+                            if field.startswith('_'):
+                                item.pop(field)
+                                continue
+
+                            # Filter fields prefixed with an _ in embedded items
+                            if resource_name in self.embedded_resources and \
+                                            field in self.embedded_resources[resource_name]:
+                                # Embedded items may be a list or a simple dictionary,
+                                # always make it a list
+                                embedded_items = item[field]
+                                if not isinstance(item[field], list):
+                                    embedded_items = [item[field]]
+                                # Filter fields in each embedded item
+                                for embedded_item in embedded_items:
+                                    for embedded_field in embedded_item.keys():
+                                        if embedded_field.startswith('_'):
+                                            embedded_item.pop(embedded_field)
+
+                        dump = json.dumps(response, indent=4,
+                                          separators=(',', ': '), sort_keys=True)
+                        print(dump)
+                        try:
+                            temp_d = tempfile.gettempdir()
+                            path = os.path.join(temp_d, 'alignak-object-list-%ss' % (resource_name))
+                            dfile = open(path, "wb")
+                            dfile.write(dump)
+                            dfile.close()
+                        except (OSError, IndexError) as exp:
+                            logger.exception("Error when writing the dump file %s : %s", path, str(exp))
+
+                    logger.info("-> dumped %ss list", resource_name)
+                else:
+                    logger.info("Dry-run mode: should have dumped an %s list", resource_name)
+
+                return True
+            else:
+                logger.warning("-> %s list is empty", resource_name)
+                return False
+
+        except BackendException as e:
+            print("Get error for '%s' list" % (resource_name))
+            logger.exception(e)
+            print("~~~~~~~~~~~~~~~~~~~~~~~~~~")
+            print("Exiting with error code: 5")
+            return False
+
     def get_resource(self, resource_name, name):
         try:
             logger.info("Trying to get %s: '%s'", resource_name, name)
@@ -288,7 +374,7 @@ class BackendUpdate(object):
 
                 # Exists in the backend, we got the element
                 if not self.dry_run:
-                    logger.info(" -> dumping %s: %s", resource_name, name)
+                    logger.info("-> dumping %s: %s", resource_name, name)
                     # Filter fields prefixed with an _ (internal backend fields)
                     for field in response.keys():
                         if field.startswith('_'):
@@ -329,7 +415,7 @@ class BackendUpdate(object):
 
                 return True
             else:
-                logger.warning("-> %s %s template '%s' not found", resource_name, self.template)
+                logger.warning("-> %s '%s' not found", resource_name, name)
                 return False
 
         except BackendException as e:
@@ -338,8 +424,6 @@ class BackendUpdate(object):
             print("~~~~~~~~~~~~~~~~~~~~~~~~~~")
             print("Exiting with error code: 5")
             return False
-
-        return True
 
     def delete_resource(self, resource_name, name):
         try:
@@ -358,17 +442,19 @@ class BackendUpdate(object):
                         'Content-Type': 'application/json',
                         'If-Match': response['_etag']
                     }
-                    logger.info(" -> deleting %s: %s", resource_name, name)
+                    logger.info("-> deleting %s: %s", resource_name, name)
                     self.backend.delete(resource_name + '/' + response['_id'], headers)
                     logger.info("-> deleted %s: %s", resource_name, name)
                 else:
                     response = {'_id': '_fake', '_etag': '_fake'}
                     logger.info("Dry-run mode: should have deleted an %s '%s'",
                                 resource_name, name)
+                logger.info("-> deleted: '%s': %s",
+                            resource_name, response['_id'])
 
                 return True
             else:
-                logger.warning("-> %s %s template '%s' not found", resource_name, self.template)
+                logger.warning("-> %s %s template '%s' not found", resource_name, name)
                 return False
 
         except BackendException as e:
@@ -437,23 +523,23 @@ class BackendUpdate(object):
                                       '_templates_with_services': True})
 
                 if not self.dry_run:
-                    logger.info("Trying to create the %s: %s, with: %s",
+                    logger.info("-> trying to create the %s: %s, with: %s",
                                 resource_name, name, host_data)
                     response = self.backend.post(resource_name, host_data, headers=None)
                 else:
                     response = {'_id': '_fake', '_etag': '_fake'}
                     logger.info("Dry-run mode: should have created an %s '%s' with %s",
                                 resource_name, name, host_data)
-                logger.info("Created: '%s': %s, with %s",
+                logger.info("-> created: '%s': %s, with %s",
                             resource_name, response['_id'], host_data)
+
+                return True
         except BackendException as e:
             print("Creation error for  '%s' : %s" % (resource_name, name))
             logger.exception(e)
             print("~~~~~~~~~~~~~~~~~~~~~~~~~~")
             print("Exiting with error code: 5")
             return False
-
-        return True
 
 
 def main():
@@ -465,38 +551,26 @@ def main():
     logger.debug("backend_client, version: %s" % __version__)
     logger.debug("~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
 
-    exit_code = 0
+    success = False
     if bc.item and bc.action == 'get':
-        item_dump = bc.get_resource(bc.item_type, bc.item)
-        if item_dump:
-            logger.info("Dumped %s '%s'" % (bc.item_type, bc.item))
+        if bc.list:
+            success = bc.get_resource_list(bc.item_type)
         else:
-            exit_code = 2
-            logger.error("%s '%s' dump failed" % (bc.item_type, bc.item))
-            if not bc.verbose:
-                logger.info("Set verbose mode to have more information (-v)")
+            success = bc.get_resource(bc.item_type, bc.item)
 
     if bc.item and bc.action == 'add':
-        item_creation = bc.create_update_resource(bc.item_type, bc.item)
-        if item_creation:
-            logger.info("Created %s '%s'" % (bc.item_type, bc.item))
-        else:
-            exit_code = 2
-            logger.error("%s '%s' creation failed" % (bc.item_type, bc.item))
-            if not bc.verbose:
-                logger.info("Set verbose mode to have more information (-v)")
+        success = bc.create_update_resource(bc.item_type, bc.item)
 
     if bc.item and bc.action == 'delete':
-        item_deletion = bc.delete_resource(bc.item_type, bc.item)
-        if item_deletion:
-            logger.info("Deleted %s '%s'" % (bc.item_type, bc.item))
-        else:
-            exit_code = 2
-            logger.error("%s '%s' deletion failed" % (bc.item_type, bc.item))
-            if not bc.verbose:
-                logger.info("Set verbose mode to have more information (-v)")
+        success = bc.delete_resource(bc.item_type, bc.item)
 
-    exit(exit_code)
+    if not success:
+        logger.error("%s '%s' %s failed" % (bc.item_type, bc.item, bc.action))
+        if not bc.verbose:
+            logger.info("Set verbose mode to have more information (-v)")
+        exit(2)
+
+    exit(0)
 
 
 if __name__ == "__main__":  # pragma: no cover
