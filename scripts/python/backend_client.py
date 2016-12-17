@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 
 """
-alignak_backend_client command line interface::
+backend_client command line interface::
 
     Usage:
-        {command} [-h]
-        {command} [--version]
-        {command} [-v] [-c]
+        backend_client [-h]
+        backend_client [--version]
+        backend_client [-v] [-c]
                   [-b=url] [-u=username] [-p=password]
                   [-T=template] [-t=type] <action> <item>
 
@@ -24,20 +24,32 @@ alignak_backend_client command line interface::
 
     Use cases:
         Display help message:
-            {command} (-h | --help)
+            backend_client (-h | --help)
 
         Display current version:
-            {command} -V
-            {command} --version
+            backend_client -V
+            backend_client --version
+
+        Get an item from the backend:
+            backend_client get host_name
+            Try to get the definition of an host named 'host_name' and copy the JSON dump
+            in a file named '/tmp/alignak-object-dump-host-host_name'
+
+            backend_client -t contact get contact_name
+            Try to get the definition of a contact named 'contact_name' and copy the JSON dump
+            in a file named '/tmp/alignak-object-dump-contact-contact_name'
 
         Add an item in the backend:
-            {command} [-b=backend] [-u=username] [-p=password] item
+            backend_client [-b=backend] [-u=username] [-p=password] item
 
         Add an item in the backend based on a template (default is host):
-            {command} [-b=backend] [-u=username] [-p=password] -T template item
+            backend_client [-b=backend] [-u=username] [-p=password] -T template item
 
         Add an item in the backend based on a template:
-            {command} [-b=backend] [-u=username] [-p=password] -T template -t host item
+            backend_client [-b=backend] [-u=username] [-p=password] -T template -t host item
+
+        Specify you backend parameters if they are different from the default
+            backend_client -b=http://127.0.0.1:5000 -u=admin -p=admin get host_name
 
         Exit code:
             0 if required operation succeeded
@@ -115,9 +127,9 @@ class BackendUpdate(object):
             print("Action '%s' is not authorized." % (self.action))
             exit(64)
 
-        # Get the new item to create
+        # Get the targeted item
         self.item = args['<item>']
-        logger.info("Host to get created: %s", self.item)
+        logger.info("Targeted item name: %s", self.item)
 
         # Get the template to use
         self.template = args['--template']
@@ -172,6 +184,10 @@ class BackendUpdate(object):
                 logger.info("Found TP 'Never': %s", self.tp_never)
 
         if self.verbose:
+            users = self.backend.get_all('user')
+            self.users_names = sorted([user['name'] for user in users['_items']])
+            logger.info("Existing users: %s", ','.join(self.users_names))
+
             hosts = self.backend.get_all('host')
             self.hosts_names = sorted([host['name'] for host in hosts['_items']])
             logger.info("Existing hosts: %s", ','.join(self.hosts_names))
@@ -351,15 +367,9 @@ def main():
     """
     Main function
     """
-    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-          "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-    print("backend_import, version: %s" % __version__)
-    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-          "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+    print("backend_client, version: %s" % __version__)
 
     bc = BackendUpdate()
-    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-          "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
     bc.initialize()
     print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
           "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
