@@ -92,12 +92,65 @@ logging.basicConfig(level=logging.DEBUG,
 # Name the logger to get the backend client logs
 logger = logging.getLogger('alignak_backend_client.client')
 
-__version__ = "0.1"
+__version__ = "0.2"
 
 class BackendUpdate(object):
     """
-    Class to connect the Alignak backend
+    Class to interface the Alignak backend to make some operations
     """
+    embedded_resources = {
+        'realm': {
+            '_parent': 1,
+        },
+        'command': {
+            '_realm': 1,
+        },
+        'timeperiod': {
+            '_realm': 1,
+        },
+        'usergroup': {
+            '_realm': 1, '_parent': 1,
+        },
+        'hostgroup': {
+            '_realm': 1, '_parent': 1, 'hostgroups': 1, 'hosts': 1
+        },
+        'servicegroup': {
+            '_realm': 1, '_parent': 1, 'hostgroups': 1, 'hosts': 1
+        },
+        'user': {
+            '_realm': 1,
+            'host_notification_period': 1, 'host_notification_commands': 1,
+            'service_notification_period': 1, 'service_notification_commands': 1
+        },
+        'host': {
+            '_realm': 1, '_templates': 1,
+            'check_command': 1, 'snapshot_command': 1, 'event_handler': 1,
+            'check_period': 1, 'notification_period': 1,
+            'snapshot_period': 1, 'maintenance_period': 1,
+            'parents': 1, 'hostgroups': 1, 'users': 1, 'usergroups': 1
+        },
+        'service': {
+            '_realm': 1,
+            'host': 1,
+            'check_command': 1, 'snapshot_command': 1, 'event_handler': 1,
+            'check_period': 1, 'notification_period': 1,
+            'snapshot_period': 1, 'maintenance_period': 1,
+            'service_dependencies': 1, 'servicegroups': 1, 'users': 1, 'usergroups': 1
+        },
+        'hostdependency': {
+            '_realm': 1,
+            'hosts': 1, 'hostgroups': 1,
+            'dependent_hosts': 1, 'dependent_hostgroups': 1,
+            'dependency_period': 1
+        },
+        'servicedependency': {
+            '_realm': 1,
+            'hosts': 1, 'hostgroups': 1,
+            'dependent_hosts': 1, 'dependent_hostgroups': 1,
+            'services': 1, 'dependent_services': 1,
+            'dependency_period': 1
+        }
+    }
 
     def __init__(self):
         self.logged_in = False
@@ -224,6 +277,9 @@ class BackendUpdate(object):
             logger.info("Trying to get %s: '%s'", resource_name, name)
 
             params = {'where': json.dumps({'name': name})}
+            if resource_name in self.embedded_resources:
+                params.update({'embedded': json.dumps(self.embedded_resources[resource_name])})
+
             response = self.backend.get(resource_name, params=params)
             if len(response['_items']) > 0:
                 response = response['_items'][0]
@@ -237,6 +293,22 @@ class BackendUpdate(object):
                     for field in response.keys():
                         if field.startswith('_'):
                             response.pop(field)
+                            continue
+
+                        # Filter fields prefixed with an _ in embedded items
+                        if resource_name in self.embedded_resources and \
+                                        field in self.embedded_resources[resource_name]:
+                            # Embedded items may be a list or a simple dictionary,
+                            # always make it a list
+                            embedded_items = response[field]
+                            if not isinstance(response[field], list):
+                                embedded_items = [response[field]]
+                            # Filter fields in each embedded item
+                            for embedded_item in embedded_items:
+                                for embedded_field in embedded_item.keys():
+                                    if embedded_field.startswith('_'):
+                                        embedded_item.pop(embedded_field)
+
                     dump = json.dumps(response, indent=4,
                                       separators=(',', ': '), sort_keys=True)
                     print(dump)
@@ -250,7 +322,7 @@ class BackendUpdate(object):
                     except (OSError, IndexError) as exp:
                         logger.exception("Error when writing the dump file %s : %s", path, str(exp))
 
-                    logger.warning("-> dumped %s: %s", resource_name, name)
+                    logger.info("-> dumped %s: %s", resource_name, name)
                 else:
                     logger.info("Dry-run mode: should have dumped an %s '%s'",
                                 resource_name, name)
@@ -288,7 +360,7 @@ class BackendUpdate(object):
                     }
                     logger.info(" -> deleting %s: %s", resource_name, name)
                     self.backend.delete(resource_name + '/' + response['_id'], headers)
-                    logger.warning("-> deleted %s: %s", resource_name, name)
+                    logger.info("-> deleted %s: %s", resource_name, name)
                 else:
                     response = {'_id': '_fake', '_etag': '_fake'}
                     logger.info("Dry-run mode: should have deleted an %s '%s'",
@@ -388,46 +460,42 @@ def main():
     """
     Main function
     """
-    print("backend_client, version: %s" % __version__)
-
     bc = BackendUpdate()
     bc.initialize()
-    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-          "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+    logger.debug("backend_client, version: %s" % __version__)
+    logger.debug("~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
 
     exit_code = 0
     if bc.item and bc.action == 'get':
         item_dump = bc.get_resource(bc.item_type, bc.item)
         if item_dump:
-            print("Dumped %s '%s'" % (bc.item_type, bc.item))
+            logger.info("Dumped %s '%s'" % (bc.item_type, bc.item))
         else:
             exit_code = 2
-            print("%s '%s' dump failed" % (bc.item_type, bc.item))
+            logger.error("%s '%s' dump failed" % (bc.item_type, bc.item))
             if not bc.verbose:
-                print("Set verbose mode to have more information (-v)")
+                logger.info("Set verbose mode to have more information (-v)")
 
     if bc.item and bc.action == 'add':
         item_creation = bc.create_update_resource(bc.item_type, bc.item)
         if item_creation:
-            print("Created %s '%s'" % (bc.item_type, bc.item))
+            logger.info("Created %s '%s'" % (bc.item_type, bc.item))
         else:
             exit_code = 2
-            print("%s '%s' creation failed" % (bc.item_type, bc.item))
+            logger.error("%s '%s' creation failed" % (bc.item_type, bc.item))
             if not bc.verbose:
-                print("Set verbose mode to have more information (-v)")
+                logger.info("Set verbose mode to have more information (-v)")
 
     if bc.item and bc.action == 'delete':
         item_deletion = bc.delete_resource(bc.item_type, bc.item)
         if item_deletion:
-            print("Deleted %s '%s'" % (bc.item_type, bc.item))
+            logger.info("Deleted %s '%s'" % (bc.item_type, bc.item))
         else:
             exit_code = 2
-            print("%s '%s' deletion failed" % (bc.item_type, bc.item))
+            logger.error("%s '%s' deletion failed" % (bc.item_type, bc.item))
             if not bc.verbose:
-                print("Set verbose mode to have more information (-v)")
+                logger.info("Set verbose mode to have more information (-v)")
 
-    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-          "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
     exit(exit_code)
 
 
