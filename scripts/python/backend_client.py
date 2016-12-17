@@ -1,6 +1,20 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+#
+# Copyright (C) 2015-2016: Frédéric Mohier
+#
+# Alignak Backend Client script is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by the Free
+# Software Foundation, either version 3 of the License, or (at your option) any later version.
+#
+# Alignak Backend Client is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE.  See the GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this script.  If not, see <http://www.gnu.org/licenses/>.
+
 """
 backend_client command line interface::
 
@@ -35,18 +49,21 @@ backend_client command line interface::
             Try to get the definition of an host named 'host_name' and copy the JSON dump
             in a file named '/tmp/alignak-object-dump-host-host_name'
 
-            backend_client -t contact get contact_name
-            Try to get the definition of a contact named 'contact_name' and copy the JSON dump
-            in a file named '/tmp/alignak-object-dump-contact-contact_name'
+            backend_client -t user get contact_name
+            Try to get the definition of a user (contact) contact named 'contact_name' and
+            copy the JSON dump in a file named '/tmp/alignak-object-dump-contact-contact_name'
 
-        Add an item in the backend:
-            backend_client [-b=backend] [-u=username] [-p=password] item
+        Add an item to the backend (without templating):
+            backend_client new_host
+            This will add an host named new_host
 
-        Add an item in the backend based on a template (default is host):
-            backend_client [-b=backend] [-u=username] [-p=password] -T template item
+            backend_client -t user new_contact
+            This will add a user named new_contact
 
-        Add an item in the backend based on a template:
-            backend_client [-b=backend] [-u=username] [-p=password] -T template -t host item
+        Add an item to the backend based on a template:
+            backend_client -T host_template new_host
+            This will add an host named new_host with the data existing in the template
+            host_template
 
         Specify you backend parameters if they are different from the default
             backend_client -b=http://127.0.0.1:5000 -u=admin -p=admin get host_name
@@ -216,6 +233,10 @@ class BackendUpdate(object):
                 # Exists in the backend, we got the element
                 if not self.dry_run:
                     logger.info(" -> dumping %s: %s", resource_name, name)
+                    # Filter fields prefixed with an _ (internal backend fields)
+                    for field in response.keys():
+                        if field.startswith('_'):
+                            response.pop(field)
                     dump = json.dumps(response, indent=4,
                                       separators=(',', ': '), sort_keys=True)
                     print(dump)
