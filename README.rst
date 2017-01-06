@@ -154,12 +154,17 @@ Install check plugins
 
 Some extra installation steps are still necessary because we are using some external plugins and then we need to install them.
 
-The NRPE checks package requires the `check_nrpe` plugin tha tis commonly available as:
+The NRPE checks package requires the `check_nrpe` plugin that is commonly available as:
 ::
 
     sudo apt-get install nagios-nrpe-plugin
 
 The monitoring checks package requires some extra plugins. Installation and configuration procedure is `available here <https://github.com/Alignak-monitoring-contrib/alignak-checks-monitoring/tree/updates#configuration>`_ or on the Monitoring Plugins project page.
+
+You may instead install the Nagios plugins that are commonly available as:
+::
+
+    sudo apt-get install nagios-plugins
 
 As of now, you really installed all the necessary stuff for starting a demo monitoring application, 2nd step achieved!
 
@@ -212,7 +217,8 @@ It is not necessary to change anything in the Alignak backend configuration file
 
 **Note:** *the default parameters are suitable for a simple demo on a single server.*
 
-Run the Alignak backend::
+Run the Alignak backend:
+::
 
   cd ~/demo
   # Detach a screen session identified as "alignak-backend"
@@ -249,6 +255,43 @@ Once imported, you can check that the configuration is correctly parsed by Align
 
 **Note** *because the backend is now started and available, there is no more ERROR raised during the configuration check! You may still have some information about duplicate elements but nothing to take care of...*
 
+As of now, Alignak is ready to start... let us go!
+
+Run Alignak:
+::
+
+  cd ~/demo
+  # Detach a screen session identified as "alignak-backend"
+  ./alignak_demo_start.sh
+
+  # Stopping Alignak is './alignak_demo_stop.sh'
+
+You can follow the Alignak activity thanks to the monitoring events log created  by the Logs module. You can tail the log file:
+::
+
+    [1483714809] INFO: CURRENT SERVICE STATE: chazay;System up-to-date;UNKNOWN;HARD;0;
+    [1483714809] INFO: CURRENT SERVICE STATE: passive-01;svc_TagReading_C;UNKNOWN;HARD;0;
+    [1483714809] INFO: CURRENT SERVICE STATE: passive-01;dev_TouchUI;UNKNOWN;HARD;0;
+    [1483714809] INFO: CURRENT SERVICE STATE: denice;Shinken Main Poller;UNKNOWN;HARD;0;
+    [1483714809] INFO: CURRENT SERVICE STATE: localhost;Cpu;UNKNOWN;HARD;0;
+    [1483714812] INFO: SERVICE ALERT: chazay;CPU;OK;HARD;0;OK - CPU usage is 39% for server chazay.siprossii.com.
+    [1483714816] INFO: SERVICE ALERT: alignak_glpi;Zombies;OK;HARD;0;PROCS OK: 0 processes with STATE = Z
+    [1483714837] INFO: SERVICE ALERT: chazay;NTP;OK;HARD;0;NTP OK: Offset -0.003250718117 secs
+    [1483714851] INFO: SERVICE ALERT: chazay;Memory;OK;HARD;0;Memory OK - 69.7% (23959990272 kB) used
+    [1483714853] ERROR: HOST NOTIFICATION: guest;cogny;DOWN;notify-host-by-xmpp;CHECK_NRPE: Received 0 bytes from daemon.  Check the remote server logs for error messages.
+    [1483714853] ERROR: HOST NOTIFICATION: imported_admin;cogny;DOWN;notify-host-by-xmpp;CHECK_NRPE: Received 0 bytes from daemon.  Check the remote server logs for error messages.
+    [1483714862] INFO: SERVICE ALERT: chazay;I/O stats;OK;HARD;0;OK - data received
+    [1483714886] INFO: SERVICE ALERT: chazay;Users;OK;HARD;0;USERS OK - 0 users currently logged in
+    [1483714902] INFO: SERVICE ALERT: alignak_glpi;Load;OK;HARD;0;OK - load average: 0.60, 0.54, 0.52
+    [1483714903] INFO: SERVICE ALERT: chazay;Firewall routes;OK;HARD;0;PF OK - states: 1316 (6% - limit: 20000)
+    [1483714903] INFO: SERVICE ALERT: cogny;Http;OK;HARD;0;HTTP OK: HTTP/1.1 200 OK - 2535 bytes in 0,199 second response time
+    [1483714905] INFO: HOST ALERT: alignak_glpi;UP;HARD;0;NRPE v2.15
+    [1483714909] ERROR: HOST NOTIFICATION: imported_admin;localhost;DOWN;notify-host-by-xmpp;[Errno 2] No such file or directory
+    [1483714909] ERROR: HOST ALERT: localhost;DOWN;HARD;0;[Errno 2] No such file or directory
+    [1483714910] ERROR: HOST ALERT: always_down;DOWN;HARD;0;[Errno 2] No such file or directory
+    [1483714910] ERROR: HOST NOTIFICATION: imported_admin;always_down;DOWN;notify-host-by-xmpp;[Errno 2] No such file or directory
+    [1483714939] INFO: HOST ALERT: chazay;UP;HARD;0;NRPE v2.15
+    [1483714966] INFO: SERVICE ALERT: m2m-asso.fr;Http;OK;HARD;0;HTTP OK: HTTP/1.1 200 OK - 6016 bytes in 3,227 second response time
 
 Configure/run Alignak Web UI
 ----------------------------
