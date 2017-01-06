@@ -157,7 +157,7 @@ As of now, you really installed all the necessary stuff for starting a demo moni
 Configure Alignak and monitored hosts/services
 ----------------------------------------------
 
-**Note:** *you may configure Alignak on your known and set your proper hosts to monitor and how to monitor. But we are in a demo process, and, as such, this repository has its already prepared configuration to help going faster to a demonstration of Alignak features.*
+**Note:** *you may configure Alignak on your own and set your proper monitored hosts and declare how to monitor them. This is the usual way for setting-up your monitoring solution... But, as we are in a demo process, and we want to make it simple, this repository has a prepared configuration to help going faster to a demonstration of Alignak features.*
 
 
 For this demonstration we imagined a distributed configuration in two *realms*: North and South. This is not the default Alignak configuration (eg. one instance of each daemon in one realm) and thus implies declaring and configuring the extra daemons. As we are using some modules we also need to declare those modules in the corresponding daemons configuration. Alignak also has some configuration parameters that may be tuned.
