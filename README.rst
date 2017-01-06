@@ -5,112 +5,13 @@ Alignak demonstration server
 
 This repository contains many stuff for Alignak:
 
-  - demo configuration to set-up a demo server (the one used for http://demo.alignak.net)
+- demo configuration to set-up a demo server (the one used for http://demo.alignak.net)
 
-  - some various tests configurations (each having a README to explain what they are made for)
+- some various tests configurations (each having a README to explain what they are made for)
 
-  - scripts to run the Alignak daemons for the demo server (may be used for other configurations)
+- scripts to run the Alignak daemons for the demo server (may be used for other configurations)
 
-  - a script to create, delete and get elements in the alignak backend
-
-
-What's behind the backend script
-================================
-
-This simple script may be used to make simple operations with the Alignak backend:
-
-  - create a new element based (or not) on a template
-
-  - update a backend element
-
-  - delete an element
-
-  - get an element and dump its properties to the console or a file (in /tmp)
-
-  - get (and dump) a list of elements
-
-A simple usage example for this script:
-::
-
-    # Assuming that you installed: alignak, alignak-backend and alignak-backend-import
-
-    # From the root of this repository
-    cd tests/cfg_passive_templates
-    # Import the test configuration in the Alignak backend
-    alignak-backend-import -d -m ./cfg_passive_templates.cfg
-    # The script imports the configuration and makes some console logs:
-        alignak_backend_import, inserted elements:
-        - 6 command(s)
-        - 3 host(s)
-        - 3 host_template(s)
-        - no hostdependency(s)
-        - no hostescalation(s)
-        - 12 hostgroup(s)
-        - 1 realm(s)
-        - 1 service(s)
-        - 14 service_template(s)
-        - no servicedependency(s)
-        - no serviceescalation(s)
-        - 12 servicegroup(s)
-        - 2 timeperiod(s)
-        - 2 user(s)
-        - 3 usergroup(s)
-
-    # Get an host from the backend
-    backend_client -t host get test_host_0
-
-    # The script dumps the json host on the console and creates a file: */tmp/alignak-object-dump-host-test_host_0.json*
-    {
-        ...
-        "active_checks_enabled": true,
-        "address": "127.0.0.1",
-        "address6": "",
-        "alias": "test_host_0",
-        ...
-        "customs": {
-            "_OSLICENSE": "gpl",
-            "_OSTYPE": "gnulinux"
-        },
-        ...
-    }
-
-    # Get the list of all hosts from the backend
-    backend_client --list -t host get
-
-    # The script dumps the json list of hosts on the console and creates a file: */tmp/alignak-object-list-hosts.json*
-    {
-        ...
-        "active_checks_enabled": true,
-        "address": "127.0.0.1",
-        "address6": "",
-        "alias": "test_host_0",
-        ...
-        "customs": {
-            "_OSLICENSE": "gpl",
-            "_OSTYPE": "gnulinux"
-        },
-        ...
-    }
-
-    # Create an host into the backend
-    backend_client -T windows-nsca-host -t host add myHost
-    # The script inform on the console
-        Created host 'myHost'
-
-    # Create an host into the backend with extra data
-    backend_client -T windows-nsca-host -t host --data='/tmp/create_data.json' add myHost
-    # The script reads the JSON content of the file /tmp/create_data.json and tries to create
-    # the host named myHost with the template and the read data
-
-    # Update an host into the backend
-    backend_client -t host --data='/tmp/update_data.json' update myHost
-    # The script reads the JSON content of the file /tmp/update_data.json and tries to update
-    # the host named myHost with the read data
-
-    # Delete an host from the backend
-    backend_client -T windows-nsca-host -t host delete myHost
-    # The script inform on the console
-        Deleted host 'myHost'
+- a script to create, delete and get elements in the alignak backend
 
 
 What's behind the demo server
@@ -120,14 +21,14 @@ This demonstration is made to involve the most possible Alignak components on a 
 
 To set-up this demo, you must:
 
-    - install Alignak
-    - install Alignak backend
-    - install Alignak Web UI
-    - install Alignak modules (backend and nsca)
-    - install Alignak checks packs (NRPE, WMI, SNMP, ...)
-    - import the configuration into the backend
-    - start the backend, the Web UI and Alignak
-    - open your web browser and rest for a while looking at what happens :)
+- install Alignak
+- install Alignak backend
+- install Alignak Web UI
+- install Alignak modules (backend and nsca)
+- install Alignak checks packs (NRPE, WMI, SNMP, ...)
+- import the configuration into the backend
+- start the backend, the Web UI and Alignak
+- open your web browser and rest for a while looking at what happens :)
 
 **Note**: it is possible to run Alignak without the backend and the WebUI. all the monitoring events are then available in the monitoring logs but, with this small configuration, one will loose the benefits ;)
 
@@ -417,3 +318,103 @@ For techies::
   $screen -S statsd
   $node stats.js alignak.js
   $Ctrl+A Ctrl+D
+
+What's behind the backend script
+================================
+
+This simple script may be used to make simple operations with the Alignak backend:
+
+- create a new element based (or not) on a template
+
+- update a backend element
+
+- delete an element
+
+- get an element and dump its properties to the console or a file (in /tmp)
+
+- get (and dump) a list of elements
+
+A simple usage example for this script:
+::
+
+    # Assuming that you installed: alignak, alignak-backend and alignak-backend-import
+
+    # From the root of this repository
+    cd tests/cfg_passive_templates
+    # Import the test configuration in the Alignak backend
+    alignak-backend-import -d -m ./cfg_passive_templates.cfg
+    # The script imports the configuration and makes some console logs:
+        alignak_backend_import, inserted elements:
+        - 6 command(s)
+        - 3 host(s)
+        - 3 host_template(s)
+        - no hostdependency(s)
+        - no hostescalation(s)
+        - 12 hostgroup(s)
+        - 1 realm(s)
+        - 1 service(s)
+        - 14 service_template(s)
+        - no servicedependency(s)
+        - no serviceescalation(s)
+        - 12 servicegroup(s)
+        - 2 timeperiod(s)
+        - 2 user(s)
+        - 3 usergroup(s)
+
+    # Get an host from the backend
+    backend_client -t host get test_host_0
+
+    # The script dumps the json host on the console and creates a file: */tmp/alignak-object-dump-host-test_host_0.json*
+    {
+        ...
+        "active_checks_enabled": true,
+        "address": "127.0.0.1",
+        "address6": "",
+        "alias": "test_host_0",
+        ...
+        "customs": {
+            "_OSLICENSE": "gpl",
+            "_OSTYPE": "gnulinux"
+        },
+        ...
+    }
+
+    # Get the list of all hosts from the backend
+    backend_client --list -t host get
+
+    # The script dumps the json list of hosts on the console and creates a file: */tmp/alignak-object-list-hosts.json*
+    {
+        ...
+        "active_checks_enabled": true,
+        "address": "127.0.0.1",
+        "address6": "",
+        "alias": "test_host_0",
+        ...
+        "customs": {
+            "_OSLICENSE": "gpl",
+            "_OSTYPE": "gnulinux"
+        },
+        ...
+    }
+
+    # Create an host into the backend
+    backend_client -T windows-nsca-host -t host add myHost
+    # The script inform on the console
+        Created host 'myHost'
+
+    # Create an host into the backend with extra data
+    backend_client -T windows-nsca-host -t host --data='/tmp/create_data.json' add myHost
+    # The script reads the JSON content of the file /tmp/create_data.json and tries to create
+    # the host named myHost with the template and the read data
+
+    # Update an host into the backend
+    backend_client -t host --data='/tmp/update_data.json' update myHost
+    # The script reads the JSON content of the file /tmp/update_data.json and tries to update
+    # the host named myHost with the read data
+
+    # Delete an host from the backend
+    backend_client -T windows-nsca-host -t host delete myHost
+    # The script inform on the console
+        Deleted host 'myHost'
+
+
