@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 echo "Start Alignak backend..."
-screen -d -S alignak_backend -m bash -c "cd /root/git/alignak-backend && ./bin/run.sh"
+screen -d -S alignak-backend -m bash -c "alignak-backend"
 sleep 1

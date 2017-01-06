@@ -129,6 +129,9 @@ To set-up this demo, you must:
     - start the backend, the Web UI and Alignak
     - open your web browser and rest for a while looking at what happens :)
 
+**Note**: it is possible to run Alignak without the backend and the WebUI. all the monitoring events are then available in the monitoring logs but, with this small configuration, one will loose the benefits ;)
+
+
 Requirements
 ------------
 The scripts provided with this demo use the `screen` utility found on all Linux/Unix distro. As such::
@@ -141,90 +144,147 @@ The scripts provided with this demo use the `screen` utility found on all Linux/
 Setting-up the demo
 ===================
 
-Get all components
-------------------
+Get base components
+-------------------
 
 .. note:: All the Alignak components need a root account (or *sudo* privilege) to get installed.
 
+  **Note** that this pitch is based on the current `update-installer` branch of Alignak that is not yet merged on upstream. This branch will be merged for the 1.0 release.
+
 Get base components::
 
-  mkdir ~/repos
-  cd ~/repos
+    mkdir ~/repos
+    cd ~/repos
 
-  adduser alignak
-  adduser alignak sudo
+    # Needed for the PyOpenSSL / Cryptography dependencies of Alignak
+    sudo apt-get install libssl-dev
 
-  # Alignak framework
-  git clone https://github.com/Alignak-monitoring/alignak
-  cd alignak
-  pip install -r requirements.txt
-  python setup.py install
-  # User permissions
-  sudo chown -R alignak:alignak /usr/local/var/run/alignak
-  sudo chown -R alignak:alignak /usr/local/var/log/alignak
-  sudo chown -R alignak:alignak /usr/local/etc/alignak
+    # Alignak framework
+    git clone https://github.com/Alignak-monitoring/alignak
+    cd alignak
+    # Install alignak and all its python dependencies
+    sudo pip install -v .
 
-  # uwsgihi ddurieux
-  sudo apt-get install uwsgi uwsgi-plugin-python
+    # Create alignak user/group and set correct permissions on installed configuration files
+    sudo ./dev/set_permissions.sh
 
-  # Alignak backend
-  git clone https://github.com/Alignak-monitoring-contrib/alignak-backend
-  cd alignak-backend
-  pip install -r requirements.txt
-  python setup.py install
+    # Alignak backend
+    sudo pip install alignak_backend
+
+    # Alignak WebUI
+    sudo pip install alignak_webui
+
+Get extension components
+------------------------
+
+Get and install Alignak modules::
+
+    # Those two modules are "almost" necessary for the essential alignak features
+    # If you do not install this module, you will not benefit from the Alignak backend features (retention, logs, timeseries, ...)
+    sudo pip install alignak-module-backend
+    # If you do not install this module, you will miss a log of all the alignak monitoring events: alerts, notifications, ...
+    sudo pip install alignak-module-logs
+
+    # Those are optional...
+    # Collect passive NSCA checks
+    sudo pip install alignak-module-nsca
+    # Write external commands (Nagios-like) to a local named file
+    sudo pip install alignak-module-external-commands
+    # Notify external commands though a WS and get Alignak state with your web browser
+    sudo pip install alignak-module-ws
+
+    # Note that the default module configuration is not suitable, but it will be installed later...
 
 
-  # Alignak WebUI
-  git clone https://github.com/Alignak-monitoring-contrib/alignak-webui
-  cd alignak-webui
-  pip install -r requirements.txt
-  python setup.py install
+Get notifications package::
 
-
-Get Alignak modules/checks setup utility (useful to install all the components)::
-
-  pip install alignak-setup
-
-
-Get Alignak modules::
-
-  pip install alignak-module-backend
-  pip install alignak-module-nsca
-  pip install alignak-module-logs
-  pip install alignak-module-ws
-  # Note that the default module configuration is not suitable, but it will be installed later...
+    # Install extra notifications package
+    sudo pip install alignak-notifications
 
 
 Get checks packages::
 
-  pip install alignak-checks-monitoring
-  pip install alignak-checks-mysql
-  pip install alignak-checks-nrpe
-  pip install alignak-checks-snmp
-  pip install alignak-checks-windows-nsca
-  pip install alignak-checks-wmi
-  # Note that the default packs configuration is not suitable, but it will be installed later...
+    # Install checks packages according to the hosts you want to monitor
+    # Checks hosts thanks to NRPE Nagios active checks protocol
+    sudo pip install alignak-checks-nrpe
+    # Checks hosts thanks to old plain SNMP protocol
+    sudo pip install alignak-checks-snmp
+    # Checks hosts with "open source" Nagios plugins (eg. check_http, check_tcp, ...)
+    sudo pip install alignak-checks-monitoring
+    # Checks mysql database server
+    sudo pip install alignak-checks-mysql
+    # Checks Windows passively checked hosts/services (NSClient++ agent)
+    sudo pip install alignak-checks-windows-nsca
+    # Checks Windows with Microsoft Windows Management Instrumentation
+    sudo pip install alignak-checks-wmi
+
+    # Note that the default packs configuration is not always suitable, but it will be installed later...
+
+    # Restore alignak user/group and set correct permissions on installed configuration files
+    sudo ./dev/set_permissions.sh
+
+    # Check what is installed (note that I also installed some RC packages...)
+    pip freeze | grep alignak
+        alignak==0.2
+        alignak-backend==0.6.0
+        alignak-backend-client==0.5.2
+        alignak-backend-import==1.0rc2
+        alignak-checks-monitoring==0.3.0
+        alignak-checks-mysql==0.3.0
+        alignak-checks-nrpe==0.3.1
+        alignak-checks-snmp==0.3.0
+        alignak-checks-windows-nsca==1.0rc1
+        alignak-checks-wmi==0.3.0
+        alignak-module-backend==0.3.1
+        alignak-module-external-commands==0.3.0
+        alignak-module-logs==0.3.0
+        alignak-module-nrpe-booster==0.3.1
+        alignak-module-ws==0.3.0
+
+As of now, you installed all the necessary Alignak stuff for starting a demo monitoring application, 1st step achieved!
+
+Install check plugins
+---------------------
+
+Some extra installation steps are still necessary because we are using some external plugins and then we need to install them. Thus, you must install them. We recommend that you download and install the `Monitoring plugins <https://www.monitoring-plugins.org/download.html>`_.
+
+The installation and configuration procedure is `available here <https://github.com/Alignak-monitoring-contrib/alignak-checks-monitoring/tree/updates#configuration>`_ or on the Monitoring Plugins project page.
+
+As of now, you really installed all the necessary stuff for starting a demo monitoring application, 2nd step achieved!
 
 
-Configure Alignak
------------------
+Configure Alignak and monitored hosts/services
+----------------------------------------------
 
-This repository contains a default demo configuration that uses all the previously installed components::
+**Note:** *you may configure Alignak on your known and set your proper hosts to monitor and how to monitor. But we are in a demo process, and, as such, this repository has its already prepared configuration to help going faster to a demonstration of Alignak features.*
 
-  # Alignak demo configuration
-  git clone https://github.com/Alignak-monitoring-contrib/alignak-demo
-  cp -R alignak-demo/etc/* /usr/local/etc/alignak/.
-  python setup.py install
+
+For this demonstration we imagined a distributed configuration in two *realms*: North and South. This is not the default Alignak configuration (eg. one instance of each daemon in one realm) and thus implies declaring and configuring the extra daemons. As we are using some modules we also need to declare those modules in the corresponding daemons configuration. Alignak also has some configuration parameters that may be tuned.
+
+If you need more information `about alignak configuration <http://alignak-doc.readthedocs.io/en/update/04-1_alignak_configuration/index.html>`_.
+
+
+How-to add monitored elements:
+
+This repository contains a default demo configuration that uses all (or almost...) the previously installed components::
+
+    # Alignak demo configuration
+    git clone https://github.com/Alignak-monitoring-contrib/alignak-demo
+    cp -R alignak-demo/etc/* /usr/local/etc/alignak/.
+
+
+As of now, you configured alignak, its daemons and the monitoring plugins used for the demo monitoring application, 2nd step!
 
 
 Configure/run Alignak backend
 -----------------------------
-Update the *(/usr/local)/etc/alignak-backend/settings.json* configuration file to set-up the parameters:
 
-  * mongo DB parameters
-  * graphite / grafana parameters
+Update the *(/usr/local)/etc/alignak-backend/settings.json* configuration file to set-up the parameters according to your proper configuration:
 
-.. note:: the default parameters are suitable for a simple demo.
+* mongo DB parameters
+* graphite / grafana parameters
+
+**Note:** *the default parameters are suitable for a simple demo on a single server.*
 
 Run the Alignak backend::
 
@@ -234,7 +294,9 @@ Run the Alignak backend::
 
 Feed the Alignak backend
 ------------------------
+
 Run the Alignak backend import script to push the demo configuration into the backend:
+::
 
   alignak-backend-import -m /usr/local/etc/alignak/alignak-backend-import.cfg
 
