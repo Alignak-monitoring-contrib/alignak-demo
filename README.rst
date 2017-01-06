@@ -160,21 +160,22 @@ Configure Alignak and monitored hosts/services
 **Note:** *you may configure Alignak on your own and set your proper monitored hosts and declare how to monitor them. This is the usual way for setting-up your monitoring solution... But, as we are in a demo process, and we want to make it simple, this repository has a prepared configuration to help going faster to a demonstration of Alignak features.*
 
 
-For this demonstration we imagined a distributed configuration in two *realms*: North and South. This is not the default Alignak configuration (eg. one instance of each daemon in one realm) and thus implies declaring and configuring the extra daemons. As we are using some modules we also need to declare those modules in the corresponding daemons configuration. Alignak also has some configuration parameters that may be tuned.
+For this demonstration, we imagined a distributed configuration in two *realms*: North and South. This is not the default Alignak configuration (*eg. one instance of each daemon in one realm*) and thus it implies declaring and configuring extra daemons. As we are using some modules we also need to declare those modules in the corresponding daemons configuration. Alignak also has some configuration parameters that may be tuned.
 
 If you need more information `about alignak configuration <http://alignak-doc.readthedocs.io/en/update/04-1_alignak_configuration/index.html>`_.
 
-
-How-to add monitored elements:
-
-This repository contains a default demo configuration that uses all (or almost...) the previously installed components::
+To avoid dealing with all this configuration steps, this repository contains a default demo configuration that uses all (or almost...) the previously installed components::
 
     # Alignak demo configuration
-    git clone https://github.com/Alignak-monitoring-contrib/alignak-demo
-    cp -R alignak-demo/etc/* /usr/local/etc/alignak/.
+    sudo pip install alignak-demo
+
+    # Check Alignak demo configuration
+    alignak-arbiter -V -a /usr/local/etc/alignak/alignak.cfg
 
 
-As of now, you configured alignak, its daemons and the monitoring plugins used for the demo monitoring application, 2nd step!
+Once installed, some extra configuration files got copied in the */usr/local/etc/alignak* directory and some pre-existing files were overriden (eg. default daemons configuration).
+
+As of now, alignak is configured, 3rd step achieved!
 
 
 Configure/run Alignak backend
