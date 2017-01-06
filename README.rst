@@ -39,7 +39,7 @@ The scripts provided with this demo use the `screen` utility found on all Linux/
 
   sudo apt-get install screen
 
-.. note:: It is not mandatory to use the provided scripts, but it is more simple for a first try;)
+**Note**: *It is not mandatory to use the provided scripts, but it is more simple for a first try;)*
 
 
 Setting-up the demo
@@ -48,9 +48,9 @@ Setting-up the demo
 Get base components
 -------------------
 
-.. note:: All the Alignak components need a root account (or *sudo* privilege) to get installed.
+**Note** that all the Alignak components need a root account (or *sudo* privilege) to get installed.
 
-  **Note** that this pitch is based on the current `update-installer` branch of Alignak that is not yet merged on upstream. This branch will be merged for the 1.0 release.
+**Note** that this pitch is based on the current `update-installer` branch of Alignak that is not yet merged on upstream. This branch will be merged for the 1.0 release.
 
 Get base components::
 
@@ -70,6 +70,8 @@ Get base components::
     sudo ./dev/set_permissions.sh
 
     # Alignak backend
+    # You need to have a running Mongo database.
+    # See the Alignak backend installation procedure if you need to set one up and running (http://alignak-backend.readthedocs.io/en/develop/install.html)
     sudo pip install alignak_backend
 
     # Alignak WebUI
@@ -133,23 +135,31 @@ Get checks packages::
         alignak-checks-monitoring==0.3.0
         alignak-checks-mysql==0.3.0
         alignak-checks-nrpe==0.3.1
-        alignak-checks-snmp==0.3.0
+        alignak-checks-snmp==0.3.5
         alignak-checks-windows-nsca==1.0rc1
         alignak-checks-wmi==0.3.0
-        alignak-module-backend==0.3.1
+        alignak-demo==0.1.3
+        alignak-module-backend==0.3.2
         alignak-module-external-commands==0.3.0
-        alignak-module-logs==0.3.0
+        alignak-module-logs==0.3.2
+        alignak-module-nsca==0.3.0
         alignak-module-nrpe-booster==0.3.1
         alignak-module-ws==0.3.0
+        alignak-notifications==0.3.0
 
 As of now, you installed all the necessary Alignak stuff for starting a demo monitoring application, 1st step achieved!
 
 Install check plugins
 ---------------------
 
-Some extra installation steps are still necessary because we are using some external plugins and then we need to install them. Thus, you must install them. We recommend that you download and install the `Monitoring plugins <https://www.monitoring-plugins.org/download.html>`_.
+Some extra installation steps are still necessary because we are using some external plugins and then we need to install them.
 
-The installation and configuration procedure is `available here <https://github.com/Alignak-monitoring-contrib/alignak-checks-monitoring/tree/updates#configuration>`_ or on the Monitoring Plugins project page.
+The NRPE checks package requires the `check_nrpe` plugin tha tis commonly available as:
+::
+
+    sudo apt-get install nagios-nrpe-plugin
+
+The monitoring checks package requires some extra plugins. Installation and configuration procedure is `available here <https://github.com/Alignak-monitoring-contrib/alignak-checks-monitoring/tree/updates#configuration>`_ or on the Monitoring Plugins project page.
 
 As of now, you really installed all the necessary stuff for starting a demo monitoring application, 2nd step achieved!
 
@@ -164,45 +174,80 @@ For this demonstration, we imagined a distributed configuration in two *realms*:
 
 If you need more information `about alignak configuration <http://alignak-doc.readthedocs.io/en/update/04-1_alignak_configuration/index.html>`_.
 
-To avoid dealing with all this configuration steps, this repository contains a default demo configuration that uses all (or almost...) the previously installed components::
+To avoid dealing with all this configuration steps, this repository contains a default demo configuration that uses all (or almost...) the previously installed components.::
 
     # Alignak demo configuration
     sudo pip install alignak-demo
 
+
+Once installed, some extra configuration files got copied in the */usr/local/etc/alignak* directory and some pre-existing files were overriden (eg. default daemons configuration). We may now check that the configuration is correctly parsed by Alignak:
+::
+
     # Check Alignak demo configuration
     alignak-arbiter -V -a /usr/local/etc/alignak/alignak.cfg
 
+**Note** *that an ERROR log will be raised because the backend connection is not available. this is correct because we configured to use the backend but did not yet started the backend! Some WARNING logs are also raised because of duplicate items. Both are nothing to take care of...*
 
-Once installed, some extra configuration files got copied in the */usr/local/etc/alignak* directory and some pre-existing files were overriden (eg. default daemons configuration).
+This Alignak demo project installs some shell scripts into the Alignak libexec folder. For ease of use, you may copy those scripts in your home directory.
+::
 
-As of now, alignak is configured, 3rd step achieved!
+    mkdir ~/demo
+
+    cp /usr/local/var/libexec/alignak/bash/* ~/demo
+    cp /usr/local/var/libexec/alignak/python/* ~/demo
+
+**Note** *a next version may install those scripts in the home directory but it is not yet possible;)*
+
+**FreeBSD users** have some scripts available in the *csh* sub-directory instead of *bash* :)
+
+As explained previously, the shell scripts that you just copied use the `screen` utility to detach the process execution from the current shell session.
+
+As of now, Alignak is configured and you are ready to run, 3rd step achieved!
 
 
-Configure/run Alignak backend
------------------------------
+Configure, run and feed Alignak backend
+---------------------------------------
 
-Update the *(/usr/local)/etc/alignak-backend/settings.json* configuration file to set-up the parameters according to your proper configuration:
-
-* mongo DB parameters
-* graphite / grafana parameters
+It is not necessary to change anything in the Alignak backend configuration file except if your MongoDB installation is not a local database configured by default. Else, open the */usr/local)/etc/alignak-backend/settings.json* configuration file to set-up the parameters according to your configuration.
 
 **Note:** *the default parameters are suitable for a simple demo on a single server.*
 
 Run the Alignak backend::
 
-  cd ~/repos/alignak-backend
-  ./bin/run.sh
+  cd ~/demo
+  # Detach a screen session identified as "alignak-backend"
+  ./alignak_backend_start.sh
 
+  # Joining the backend screen is 'screen -r alignak-backend'
+  # Stopping the backend is './alignak_backend_stop.sh'
 
-Feed the Alignak backend
-------------------------
 
 Run the Alignak backend import script to push the demo configuration into the backend:
 ::
 
-  alignak-backend-import -m /usr/local/etc/alignak/alignak-backend-import.cfg
+  alignak-backend-import -d -m /usr/local/etc/alignak/alignak-backend-import.cfg
 
-.. note:: there are other solution to feed the Alignak backend but we choose to show how to get an existing configuration and import this configuration in the Alignak backend to migrate from an existing Nagios/Shinken to Alignak.
+**Note**: *there are other solutions to feed the Alignak backend but we choose to show how to get an existing configuration imported in the Alignak backend to migrate from an existing Nagios/Shinken to Alignak.*
+
+Once imported, you can check that the configuration is correctly parsed by Alignak:
+::
+
+    # Check Alignak demo configuration
+    alignak-arbiter -V -a /usr/local/etc/alignak/alignak.cfg
+
+        [2017-01-06 11:57:28 CET] INFO: [alignak.objects.config] Creating packs for realms
+        [2017-01-06 11:57:28 CET] INFO: [alignak.objects.config] Number of hosts in the realm North: 2 (distributed in 2 linked packs)
+        [2017-01-06 11:57:28 CET] INFO: [alignak.objects.config] Number of hosts in the realm South: 3 (distributed in 2 linked packs)
+        [2017-01-06 11:57:28 CET] INFO: [alignak.objects.config] Number of hosts in the realm All: 7 (distributed in 7 linked packs)
+        [2017-01-06 11:57:28 CET] INFO: [alignak.objects.config] Number of Contacts : 5
+        [2017-01-06 11:57:28 CET] INFO: [alignak.objects.config] Number of Hosts : 12
+        [2017-01-06 11:57:28 CET] INFO: [alignak.objects.config] Number of Services : 305
+        [2017-01-06 11:57:28 CET] INFO: [alignak.objects.config] Number of Commands : 78
+        [2017-01-06 11:57:28 CET] INFO: [alignak.objects.config] Total number of hosts in all realms: 12
+        [2017-01-06 11:57:28 CET] INFO: [alignak.daemons.arbiterdaemon] Things look okay - No serious problems were detected during the pre-flight check
+        [2017-01-06 11:57:28 CET] INFO: [alignak.daemons.arbiterdaemon] Arbiter checked the configuration
+
+**Note** *because the backend is now started and available, there is no more ERROR raised during the configuration check! You may still have some information about duplicate elements but nothing to take care of...*
 
 
 Configure/run Alignak Web UI
