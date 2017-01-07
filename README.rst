@@ -33,6 +33,31 @@ To set-up this demo, you must:
 **Note**: it is possible to run Alignak without the backend and the WebUI. all the monitoring events are then available in the monitoring logs but, with this small configuration, one will loose the benefits ;)
 
 
+The monitored configuration
+---------------------------
+
+On a single server, the monitored configuration is separated in three **realms** (*All*, *North* and *South*).
+Some hosts are in the *All* realm and others are in the *North* and *South* realm, both sub-realms of *All* realm.
+
+The *All* realm is (let's say...) a primary datacenter where main servers are located. *North* and *South* realms are a logical group for a part of our monitored configuration. They may be seen as secondary sites.
+
+According to Alignak daemon logic, the master Arbiter dispatches the configuration to the daemons of each realm and we must declare, for each realm:
+
+  - a scheduler
+  - a broker
+  - a poller
+  - a receiver (not mandatory but we want to have NSCA collector)
+
+In the *All* realm, we find the following hosts:
+
+  - localhost
+  - and some others
+
+In the *North* realm, we find some passive hosts checked thanks to NSCA.
+
+In the *South* realm, we find some other hosts.
+
+
 Requirements
 ------------
 The scripts provided with this demo use the `screen` utility found on all Linux/Unix distro. As such::
@@ -44,6 +69,11 @@ The scripts provided with this demo use the `screen` utility found on all Linux/
 
 Setting-up the demo
 ===================
+
+We recommend having an up-to-date system;)
+::
+
+  sudo apt-get update
 
 Get base components
 -------------------
@@ -64,18 +94,20 @@ Get base components::
     git clone https://github.com/Alignak-monitoring/alignak
     cd alignak
     # Install alignak and all its python dependencies
+    # -v will activate the verbose mode of pip
     sudo pip install -v .
 
     # Create alignak user/group and set correct permissions on installed configuration files
+    # As of now, this script is not yet merged to the upstream (the commands are listed at the end of the installation script)
     sudo ./dev/set_permissions.sh
 
     # Alignak backend
     # You need to have a running Mongo database.
     # See the Alignak backend installation procedure if you need to set one up and running (http://alignak-backend.readthedocs.io/en/develop/install.html)
-    sudo pip install alignak_backend
+    sudo pip install alignak-backend
 
-    # Alignak WebUI
-    sudo pip install alignak_webui
+    # Alignak backend importation script
+    sudo pip install alignak-backend-import
 
 Get extension components
 ------------------------
@@ -104,6 +136,7 @@ Get notifications package::
     # Install extra notifications package
     sudo pip install alignak-notifications
 
+**Note** *that this pack requires an SMTP server for the mail notifications to be sent out. If none is available you will get WARNING logs and the notifications will not be sent out, but the demo will run anyway :) See later in this document how to configure the mail notifications...*
 
 Get checks packages::
 
@@ -117,6 +150,7 @@ Get checks packages::
     # Checks mysql database server
     sudo pip install alignak-checks-mysql
     # Checks Windows passively checked hosts/services (NSClient++ agent)
+    # As of now, use ==1.0rc1 to get the correct version
     sudo pip install alignak-checks-windows-nsca
     # Checks Windows with Microsoft Windows Management Instrumentation
     sudo pip install alignak-checks-wmi
@@ -129,23 +163,24 @@ Get checks packages::
     # Check what is installed (note that I also installed some RC packages...)
     pip freeze | grep alignak
         alignak==0.2
-        alignak-backend==0.6.0
+        alignak-backend==0.7.2
         alignak-backend-client==0.5.2
-        alignak-backend-import==1.0rc2
+        alignak-backend-import==0.6.7
         alignak-checks-monitoring==0.3.0
         alignak-checks-mysql==0.3.0
-        alignak-checks-nrpe==0.3.1
+        alignak-checks-nrpe==0.3.3
         alignak-checks-snmp==0.3.5
         alignak-checks-windows-nsca==1.0rc1
         alignak-checks-wmi==0.3.0
-        alignak-demo==0.1.3
-        alignak-module-backend==0.3.2
+        alignak-demo==0.1.5
+        alignak-module-backend==0.3.3
         alignak-module-external-commands==0.3.0
-        alignak-module-logs==0.3.2
-        alignak-module-nsca==0.3.0
+        alignak-module-logs==0.3.3
         alignak-module-nrpe-booster==0.3.1
+        alignak-module-nsca==0.3.1
         alignak-module-ws==0.3.0
         alignak-notifications==0.3.0
+        alignak-webui==0.6.4
 
 As of now, you installed all the necessary Alignak stuff for starting a demo monitoring application, 1st step achieved!
 
@@ -182,7 +217,8 @@ If you need more information `about alignak configuration <http://alignak-doc.re
 To avoid dealing with all this configuration steps, this repository contains a default demo configuration that uses all (or almost...) the previously installed components.::
 
     # Alignak demo configuration
-    sudo pip install alignak-demo
+    # IMPORTANT: use the --force argument to allow overwriting previously installed files!
+    sudo pip install alignak-demo --force
 
 
 Once installed, some extra configuration files got copied in the */usr/local/etc/alignak* directory and some pre-existing files were overriden (eg. default daemons configuration). We may now check that the configuration is correctly parsed by Alignak:
@@ -220,18 +256,22 @@ It is not necessary to change anything in the Alignak backend configuration file
 Run the Alignak backend:
 ::
 
-  cd ~/demo
-  # Detach a screen session identified as "alignak-backend"
-  ./alignak_backend_start.sh
+    cd ~/demo
+    # Detach a screen session identified as "alignak-backend"
+    ./alignak_backend_start.sh
 
-  # Joining the backend screen is 'screen -r alignak-backend'
-  # Stopping the backend is './alignak_backend_stop.sh'
+    ps -ef | grep alignak-
+        alignak  30166  1087  0 18:42 ?        00:00:00 SCREEN -d -S alignak-backend -m bash -c alignak-backend
+        alignak  30168 30166  0 18:42 pts/18   00:00:00 /usr/bin/python /usr/local/bin/alignak-backend
+
+    # Joining the backend screen is 'screen -r alignak-backend'
+    # Stopping the backend is './alignak_backend_stop.sh'
 
 
 Run the Alignak backend import script to push the demo configuration into the backend:
 ::
 
-  alignak-backend-import -d -m /usr/local/etc/alignak/alignak-backend-import.cfg
+  alignak-backend-import -d -m /usr/local/etc/alignak/alignak.cfg
 
 **Note**: *there are other solutions to feed the Alignak backend but we choose to show how to get an existing configuration imported in the Alignak backend to migrate from an existing Nagios/Shinken to Alignak.*
 
@@ -266,6 +306,63 @@ Run Alignak:
 
   # Stopping Alignak is './alignak_demo_stop.sh'
 
+Alignak runs many processes that you can check with:
+::
+
+    ps -ef --forest | grep alignak-
+
+        alignak  30166  1087  0 janv.06 ?      00:00:00          \_ SCREEN -d -S alignak-backend -m bash -c alignak-backend
+        alignak  30168 30166  0 janv.06 pts/18 00:08:31          |   \_ /usr/bin/python /usr/local/bin/alignak-backend
+        alignak  22289  1087  0 09:55 ?        00:00:00          \_ SCREEN -d -S alignak_north_broker -m bash -c alignak-broker -c /usr/local/etc/alignak/daemons/North/brokerd-north.ini
+        alignak  22291 22289  0 09:55 pts/20   00:01:14          |   \_ alignak-broker broker-north
+        alignak  22365 22291  0 09:55 pts/20   00:00:03          |       \_ alignak-broker
+        alignak  22542 22291  0 09:55 pts/20   00:00:00          |       \_ alignak-broker-north module: backend_broker
+        alignak  22292  1087  0 09:55 ?        00:00:00          \_ SCREEN -d -S alignak_north_poller -m bash -c alignak-poller -c /usr/local/etc/alignak/daemons/North//pollerd-north.ini
+        alignak  22296 22292  0 09:55 pts/21   00:00:49          |   \_ alignak-poller poller-north
+        alignak  22349 22296  0 09:55 pts/21   00:00:02          |       \_ alignak-poller
+        alignak  22601 22296  0 09:55 pts/21   00:00:01          |       \_ alignak-poller-north worker
+        alignak  22294  1087  0 09:55 ?        00:00:00          \_ SCREEN -d -S alignak_north_scheduler -m bash -c alignak-scheduler -c /usr/local/etc/alignak/daemons/North//schedulerd-north.ini
+        alignak  22297 22294  0 09:55 pts/22   00:00:52          |   \_ alignak-scheduler scheduler-north
+        alignak  22350 22297  0 09:55 pts/22   00:00:00          |       \_ alignak-scheduler
+        alignak  22298  1087  0 09:55 ?        00:00:00          \_ SCREEN -d -S alignak_north_receiver -m bash -c alignak-receiver -c /usr/local/etc/alignak/daemons/North//receiverd-north.ini
+        alignak  22300 22298  0 09:55 pts/23   00:00:31          |   \_ alignak-receiver receiver-north
+        alignak  22351 22300  0 09:55 pts/23   00:00:00          |       \_ alignak-receiver
+        alignak  22600 22300  0 09:55 pts/23   00:00:00          |       \_ alignak-receiver-north module: nsca_north
+        alignak  22310  1087  0 09:55 ?        00:00:00          \_ SCREEN -d -S alignak_south_broker -m bash -c alignak-broker -c /usr/local/etc/alignak/daemons/South/brokerd-south.ini
+        alignak  22312 22310  0 09:55 pts/24   00:01:01          |   \_ alignak-broker broker-south
+        alignak  22414 22312  0 09:55 pts/24   00:00:03          |       \_ alignak-broker
+        alignak  22547 22312  0 09:55 pts/24   00:00:07          |       \_ alignak-broker-south module: backend_broker
+        alignak  22313  1087  0 09:55 ?        00:00:00          \_ SCREEN -d -S alignak_south_poller -m bash -c alignak-poller -c /usr/local/etc/alignak/daemons/South/pollerd-south.ini
+        alignak  22315 22313  0 09:55 pts/25   00:01:04          |   \_ alignak-poller poller-south
+        alignak  22413 22315  0 09:55 pts/25   00:00:03          |       \_ alignak-poller
+        alignak  22616 22315  0 09:55 pts/25   00:00:05          |       \_ alignak-poller-south worker
+        alignak  22316  1087  0 09:55 ?        00:00:00          \_ SCREEN -d -S alignak_south_scheduler -m bash -c alignak-scheduler -c /usr/local/etc/alignak/daemons/South/schedulerd-south.ini
+        alignak  22318 22316  0 09:55 pts/26   00:00:53          |   \_ alignak-scheduler scheduler-south
+        alignak  22415 22318  0 09:55 pts/26   00:00:00          |       \_ alignak-scheduler
+        alignak  22326  1087  0 09:55 ?        00:00:00          \_ SCREEN -d -S alignak_broker -m bash -c alignak-broker -c /usr/local/etc/alignak/daemons/brokerd.ini
+        alignak  22328 22326  1 09:55 pts/27   00:01:48          |   \_ alignak-broker broker-master
+        alignak  22469 22328  0 09:55 pts/27   00:00:06          |       \_ alignak-broker
+        alignak  22551 22328  0 09:55 pts/27   00:00:31          |       \_ alignak-broker-master module: backend_broker
+        alignak  22605 22328  0 09:55 pts/27   00:00:01          |       \_ alignak-broker-master module: logs
+        alignak  22329  1087  0 09:55 ?        00:00:00          \_ SCREEN -d -S alignak_poller -m bash -c alignak-poller -c /usr/local/etc/alignak/daemons/pollerd.ini
+        alignak  22331 22329  0 09:55 pts/28   00:00:40          |   \_ alignak-poller poller-master
+        alignak  22456 22331  0 09:55 pts/28   00:00:07          |       \_ alignak-poller
+        alignak  22614 22331  0 09:55 pts/28   00:00:17          |       \_ alignak-poller-master worker
+        alignak  22332  1087  0 09:55 ?        00:00:00          \_ SCREEN -d -S alignak_scheduler -m bash -c alignak-scheduler -c /usr/local/etc/alignak/daemons/schedulerd.ini
+        alignak  22334 22332  0 09:55 pts/29   00:01:20          |   \_ alignak-scheduler scheduler-master
+        alignak  22475 22334  0 09:55 pts/29   00:00:00          |       \_ alignak-scheduler
+        alignak  22335  1087  0 09:55 ?        00:00:00          \_ SCREEN -d -S alignak_receiver -m bash -c alignak-receiver -c /usr/local/etc/alignak/daemons/receiverd.ini
+        alignak  22337 22335  0 09:55 pts/30   00:00:57          |   \_ alignak-receiver receiver-master
+        alignak  22457 22337  0 09:55 pts/30   00:00:00          |       \_ alignak-receiver
+        alignak  22555 22337  0 09:55 pts/30   00:00:00          |       \_ alignak-receiver-master module: nsca
+        alignak  22338  1087  0 09:55 ?        00:00:00          \_ SCREEN -d -S alignak_reactionner -m bash -c alignak-reactionner -c /usr/local/etc/alignak/daemons/reactionnerd.ini
+        alignak  22340 22338  0 09:55 pts/31   00:00:34          |   \_ alignak-reactionner reactionner-master
+        alignak  22484 22340  0 09:55 pts/31   00:00:02          |       \_ alignak-reactionner
+        alignak  22611 22340  0 09:55 pts/31   00:00:01          |       \_ alignak-reactionner-master worker
+        alignak  22403  1087  0 09:55 ?        00:00:00          \_ SCREEN -d -S alignak_arbiter -m bash -c alignak-arbiter -c /usr/local/etc/alignak/daemons/arbiterd.ini --arbiter /usr/local/etc/alignak/alignak.cfg
+        alignak  22404 22403  1 09:55 pts/32   00:02:34          |   \_ alignak-arbiter arbiter-master
+        alignak  22514 22404  0 09:55 pts/32   00:00:00          |       \_ alignak-arbiter
+
 You can follow the Alignak activity thanks to the monitoring events log created  by the Logs module. You can tail the log file:
 ::
 
@@ -293,91 +390,93 @@ You can follow the Alignak activity thanks to the monitoring events log created 
     [1483714939] INFO: HOST ALERT: chazay;UP;HARD;0;NRPE v2.15
     [1483714966] INFO: SERVICE ALERT: m2m-asso.fr;Http;OK;HARD;0;HTTP OK: HTTP/1.1 200 OK - 6016 bytes in 3,227 second response time
 
+This file is a log of all the monitoring activity of Alignak. The *alignak.cfg* allows to define what are the events that are logged to this file. By default, only the active and passive checks ran by Alignak are not logged to this file:
+::
+
+    # Monitoring log configuration
+    # ---
+    # Note that alerts and downtimes are always logged
+    # ---
+    # Notifications
+    # log_notifications=1
+
+    # Services retries
+    # log_service_retries=1
+
+    # Hosts retries
+    # log_host_retries=1
+
+    # Event handlers
+    # log_event_handlers=1
+
+    # Flappings
+    # log_flappings=1
+
+    # Snapshots
+    # log_snapshots=1
+
+    # External commands
+    # log_external_commands=1
+
+    # Active checks
+    # log_active_checks=0
+
+    # Passive checks
+    # log_passive_checks=0
+
+    # Initial states
+    # log_initial_states=1
+
+
+Configure Alignak notifications
+-------------------------------
+As explained previously the alignak notifications pack needs to be configured for sending out the mail notifications. This demo configuration is using default parameters for the mail server that may be adapted to your own configuration.
+
+With the default parameters, you will have some WARNING logs in the *schedulerd.log* file, such as:
+::
+
+    [2017-01-07 10:00:47 CET] WARNING: [alignak.scheduler] The notification command '/usr/local/var/libexec/alignak/notify_by_email.py -t service -S localhost -ST 25 -SL your_smtp_login -SP your_smtp_password -fh -to guest@localhost -fr alignak@monitoring -nt PROBLEM -hn "alignak_glpi" -ha 176.31.224.51 -sn "Disk /var" -s CRITICAL -ls UNKNOWN -o "NRPE: Command 'check_var' not defined" -dt 0 -db "1483779644.85" -i 2  -p ""' raised an error (exit code=1): 'Traceback (most recent call last):'
+
+To configure the Alignak mail notifications, edit the */usr/local/etc/alignak/arbiter/packs/resource.d/notifications.cfg* file and set the proper parameters for your configuration:
+::
+
+
+    #-- SMTP server configuration
+    $SMTP_SERVER$=localhost
+    $SMTP_PORT$=25
+    $SMTP_LOGIN$=your_smtp_login
+    $SMTP_PASSWORD$=your_smtp_password
+
+    # -- Mail configuration
+    $MAIL_FROM$=demo.server@alignak.net
+
+You may also adapt the contacts used in this demo configuration else WE will receive you notification mails :). the used contacts are defined as is:
+
+- alignak.administrator@alignak.net, as the administrator contact for the realm All
+- north.administrator@alignak.net, as the administrator contact for the realm North
+- south.administrator@alignak.net, as the administrator contact for the realm South
+
+You will find their definition in the */usr/local/etc/arbiter/realms* folder, in each realm (All, North,...) *contacts* sub-folder.
+
+
 Configure/run Alignak Web UI
 ----------------------------
-Update the *(/usr/local)/etc/alignak-webui/settings.cfg* configuration file to set-up the parameters.
+As of now, your configuration is monitored and you will receive notifications when something is detected as faulty. Everything is under control but why missing having an eye on what's happening in your system with a more sexy interface than tailing a log file and reading emails?
 
-.. note:: the default parameters are suitable for a simple demo.
+Install the Alignak Web User Interface:
+::
+
+    # Alignak WebUI
+    sudo pip install alignak-webui
+
+
+The default installation is suitable for this demonstration but you may update the *(/usr/local)/etc/alignak-webui/settings.cfg* configuration file to adapt this default configuration.
 
 Run the Alignak WebUI::
 
-  cd ~/repos/alignak-webui
-  ./bin/run.sh
+    alignak-webui
 
-Use your Web browser to navigate to http://localhost:5001 and login with *admin* / *admin*
-
-
-What is in?
-===========
-
-Monitored configuration
------------------------
-
-On a single server, the monitored configuration is separated in three **realms** (*All*, *North* and *South*).
-Some hosts are in the *All* realm and others are in the *North* and *South* realm, both sub-realms of *All* realm.
-
-The *All* realm is (let's say...) a primary datacenter where main servers are located.
-*North* realm is a logical group for a part of our monitored hosts. This realm may be seen as a secondary site
-
-According to Alignak daemon logic, the master Arbiter dispatches the configuration to the daemons of each realm.
-We must declare, for each realm:
-
-  - a scheduler
-  - a broker
-  - a poller
-  - a receiver (not mandatory but we want to have NSCA collector)
-
-In the *All* realm, we find the following hosts:
-
-  - localhost
-  - and some others
-
-In the *North* realm, we find some passive hosts checked thanks to NSCA.
-
-In the *South* realm, we find other hosts.
-
-
-'scripts' directory
--------------------
-
-This directory contains some example scripts to start/stop Alignak demonstration components.
-
-**Note**: The sub-directory *bash* is for `bash` shell environments (eg. Ubuntu, Debian, ...) and the *csh* sub-directory is for `C` shell environments (eg. FreeBSD, ...).
-
-**Note**: those scripts assume that you have previously installed the *screen* utility available on all Unix/Linux ...
-
-In each sub-directory, you will find:
-
-  - `alignak_backend_start.sh` to launch Alignak backend
-  - `alignak_webui_start.sh` to launch Alignak Web UI
-  - `alignak_start.sh` to launch Alignak with one instance of each daemon (mainly a sample script ...)
-  - `alignak_start_all.sh` to launch Alignak with all the necesarry daemons for this configuration
-  - `alignak_stop.sh` to stop all the Alignak daemons
-
-'etc' directory
----------------
-
-This directory is an Alignak flat-files configuration for:
-
-  - loading monitored objects from the Alignak backend (file *alignak.backend-import.cfg*)
-  - launching Alignak (file *alignak.backend-run.cfg* which is a copy of *alignak.cfg*)
-
-To make the flat-files configuration easier to edit, we choose to :
-
-  - use the standard Alignak configuration directory only for the common elements and the local server
-    -> update the default defined localhost
-
-  - create a configuration directory for each realm to define its own:
-    - daemons
-    - modules
-    - hosts
-    - contacts
-
-  - create a specific sub-directory in the *packs* directory to define specific:
-    - templates,
-    - groups,
-    - contacts
-
+Use your Web browser to navigate to http://127.0.0.1:5001 and log in with *admin* / *admin*
 
 What we see?
 ============
