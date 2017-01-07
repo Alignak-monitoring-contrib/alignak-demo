@@ -476,7 +476,43 @@ Run the Alignak WebUI::
 
     alignak-webui
 
-Use your Web browser to navigate to http://127.0.0.1:5001 and log in with *admin* / *admin*
+Use your Web browser to navigate to http://127.0.0.1:5001 and log in with *admin* / *admin*.
+
+
+Configure/run Alignak desktop applet
+------------------------------------
+Except when you are in Big Brother mode, you almost always do not need a full Web interface as the one provided by the Alignak WebUI. This is why Alignak provides a desktop applet available for Linux and Windows desktops.
+
+Install the Alignak App:
+::
+
+    # For Linux users with python2
+    sudo apt-get install python-qt4
+    # For Linux and Windows users with python3
+    pip3 install PyQt5 --user
+
+    # For Windows users, we recommend using python3, else install PyQt from the download page
+
+    # Alignak App
+    pip install alignak_app --user
+
+    # As of now, the last version is not yet pip installable, so we:
+    git clone https://github.com/Alignak-monitoring-contrib/alignak-app
+    cd alignak-app
+    pip install . --user
+
+    # Run the app (1st run)
+    $HOME/.local/alignak_app/alignak-app start
+
+    # Then you will be able for next runs to
+    alignak-app start
+
+The applet will require a username and a password that are the same os the one used for the Web UI (use *admin* / *admin*). Click on the Alignak icon in the desktop toolbar to activate the Alignak-app features: alignak status, host synthesis view, host/services states, ...
+
+A notification popup will appear if something changed in the hosts / services states existing in the Alignak backend.
+
+The default configuration is suitable for this demonstration but you may update the *$HOME/.local/alignak_app/settings.cfg* configuration file that is largely commented.
+
 
 What we see?
 ============
@@ -492,10 +528,11 @@ Alignak internal metrics
   http://grafana.demo.alignak.net
 TBC
 
-For techies::
+For techies, statsD configuration and run:
+::
 
-  $cd /usr/local/share/statsd
-  $cat alignak.js
+    $cd /usr/local/share/statsd
+    $cat alignak.js
     {
       graphitePort: 2003
     , graphiteHost: "10.0.0.10"
@@ -503,9 +540,9 @@ For techies::
     , backends: [ "./backends/graphite" ]
     }
 
-  $screen -S statsd
-  $node stats.js alignak.js
-  $Ctrl+A Ctrl+D
+    $screen -S statsd
+    $node stats.js alignak.js
+    $Ctrl+A Ctrl+D
 
 What's behind the backend script
 ================================
