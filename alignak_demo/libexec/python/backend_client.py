@@ -630,7 +630,7 @@ class BackendUpdate(object):
                             if len(response['_items']) > 0:
                                 response = response['_items'][0]
                                 logger.info("Replaced %s = %s with found item _id",
-                                            field, item_data[field], response['_id'])
+                                            field, item_data[field])
                                 item_data[field] = response['_id']
                         continue
 
