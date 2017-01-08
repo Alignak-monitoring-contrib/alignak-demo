@@ -1,0 +1,10 @@
+{
+    "name": "my_graphite",
+    "carbon_address": "127.0.0.1",
+    "carbon_port": 2004,
+    "graphite_address": "127.0.0.1",
+    "graphite_port": 8080,
+    "prefix": "demo",
+    "grafana": "my_grafana",
+    "_sub_realm": true
+}

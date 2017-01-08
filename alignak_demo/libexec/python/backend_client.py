@@ -24,7 +24,7 @@ backend_client command line interface::
         backend_client [-v] [-c] [-l]
                        [-b=url] [-u=username] [-p=password]
                        [-d=data]
-                       [-T=template] [-t=type] <action> <item>
+                       [-T=template] [-t=type] [<action>] [<item>]
 
     Options:
         -h, --help                  Show this screen.
@@ -36,7 +36,7 @@ backend_client command line interface::
         -u, --username=username     Backend login username [default: admin]
         -p, --password=password     Backend login password [default: admin]
         -d, --data=data             Data for the new item to create [default: none]
-        -t, --type=host             Type of the provided item
+        -t, --type=host             Type of the provided item [default: host]
         -T, --template=template     Template to use for the new item
 
     Use cases:
@@ -223,6 +223,8 @@ class BackendUpdate(object):
 
         # Get the action to execute
         self.action = args['<action>']
+        if self.action is None:
+            self.action = 'get'
         logger.info("Action to execute: %s", self.action)
         if self.action not in ['add', 'update', 'get', 'delete']:
             print("Action '%s' is not authorized." % (self.action))
@@ -326,13 +328,12 @@ class BackendUpdate(object):
                 if not self.dry_run:
                     logger.info("-> dumping %ss list", resource_name)
                     for item in response:
-                        print(item['name'])
                         # Filter fields prefixed with an _ (internal backend fields)
                         for field in item.keys():
-                            print(field)
                             if field.startswith('_'):
-                                item.pop(field)
-                                continue
+                                if field not in ['_realm', '_sub_realm']:
+                                    item.pop(field)
+                                    continue
 
                             # Filter fields prefixed with an _ in embedded items
                             if resource_name in self.embedded_resources and \
@@ -344,13 +345,16 @@ class BackendUpdate(object):
                                     embedded_items = [item[field]]
                                 # Filter fields in each embedded item
                                 for embedded_item in embedded_items:
+                                    if not embedded_item:
+                                        continue
                                     for embedded_field in embedded_item.keys():
                                         if embedded_field.startswith('_'):
                                             embedded_item.pop(embedded_field)
 
                         dump = json.dumps(response, indent=4,
                                           separators=(',', ': '), sort_keys=True)
-                        print(dump)
+                        if self.verbose:
+                            print(dump)
                         try:
                             temp_d = tempfile.gettempdir()
                             path = os.path.join(temp_d, 'alignak-object-list-%ss.json' % (resource_name))
@@ -533,31 +537,52 @@ class BackendUpdate(object):
                                    resource_name, name)
                     return False
 
-                # Host data and provided information if some
-                host_data = {
-                    'name': name,
-                    '_realm': self.realm_all
+                # Item data updated with provided information if some
+                headers = {
+                    'Content-Type': 'application/json',
+                    'If-Match': response['_etag']
                 }
+                item_data = response
                 if json_data is not None:
-                    host_data.update(json_data)
+                    item_data.update(json_data)
+
+                for field in item_data.copy():
+                    logger.debug("Field: %s = %s", field, item_data[field])
+                    # Filter Eve extra fields
+                    if field in ['_created', '_updated', '_etag', '_links', '_status']:
+                        item_data.pop(field)
+                        continue
+                    # Manage potential object link fields
+                    if field in ['realm', 'command', 'timeperiod', 'host', 'grafana']:
+                        try:
+                            id_value = int(item_data[field])
+                        except ValueError:
+                            # Not an integer, consider an item name
+                            params = {'where': json.dumps({'name': item_data[field]})}
+                            response = self.backend.get(field, params=params)
+                            if len(response['_items']) > 0:
+                                response = response['_items'][0]
+                                logger.info("Replaced %s = %s with found item _id",
+                                            field, item_data[field], response['_id'])
+                                item_data[field] = response['_id']
+                        continue
+
+                if '_realm' not in item_data:
+                    item_data.update({ '_realm': self.realm_all })
 
                 # Exists in the backend, we should update if required...
                 if not self.dry_run:
-                    headers = {
-                        'Content-Type': 'application/json',
-                        'If-Match': response['_etag']
-                    }
                     response = self.backend.patch(
-                        resource_name + '/' + response['_id'], host_data,
+                        resource_name + '/' + response['_id'], item_data,
                         headers=headers, inception=True
                     )
                 else:
                     response = {'_id': '_fake', '_etag': '_fake'}
                     logger.info("Dry-run mode: should have updated an %s '%s' with %s",
-                                resource_name, name, host_data)
+                                resource_name, name, item_data)
 
                 logger.info("-> updated: '%s': %s, with %s",
-                            resource_name, response['_id'], host_data)
+                            resource_name, response['_id'], item_data)
 
                 return True
             else:
@@ -579,26 +604,49 @@ class BackendUpdate(object):
                         return False
 
                 # Host data and template information if templating is required
-                host_data = {
+                item_data = {
                     'name': name,
-                    '_realm': self.realm_all
                 }
                 if host_template is not None:
-                    host_data.update({'_templates': [host_template['_id']],
+                    item_data.update({'_templates': [host_template['_id']],
                                       '_templates_with_services': True})
                 if json_data is not None:
-                    host_data.update(json_data)
+                    item_data.update(json_data)
+
+                for field in item_data.copy():
+                    logger.debug("Field: %s = %s", field, item_data[field])
+                    # Filter Eve extra fields
+                    if field in ['_created', '_updated', '_etag', '_links', '_status']:
+                        item_data.pop(field)
+                        continue
+                    # Manage potential object link fields
+                    if field in ['realm', 'command', 'timeperiod', 'grafana']:
+                        try:
+                            id_value = int(item_data[field])
+                        except ValueError:
+                            # Not an integer, consider an item name
+                            params = {'where': json.dumps({'name': item_data[field]})}
+                            response = self.backend.get(field, params=params)
+                            if len(response['_items']) > 0:
+                                response = response['_items'][0]
+                                logger.info("Replaced %s = %s with found item _id",
+                                            field, item_data[field], response['_id'])
+                                item_data[field] = response['_id']
+                        continue
+
+                if '_realm' not in item_data:
+                    item_data.update({ '_realm': self.realm_all })
 
                 if not self.dry_run:
                     logger.info("-> trying to create the %s: %s, with: %s",
-                                resource_name, name, host_data)
-                    response = self.backend.post(resource_name, host_data, headers=None)
+                                resource_name, name, item_data)
+                    response = self.backend.post(resource_name, item_data, headers=None)
                 else:
                     response = {'_id': '_fake', '_etag': '_fake'}
                     logger.info("Dry-run mode: should have created an %s '%s' with %s",
-                                resource_name, name, host_data)
+                                resource_name, name, item_data)
                 logger.info("-> created: '%s': %s, with %s",
-                            resource_name, response['_id'], host_data)
+                            resource_name, response['_id'], item_data)
 
                 return True
         except BackendException as e:
@@ -619,7 +667,7 @@ def main():
     logger.debug("~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
 
     success = False
-    if bc.item and bc.action == 'get':
+    if bc.item_type and bc.action == 'get':
         if bc.list:
             success = bc.get_resource_list(bc.item_type)
         else:
@@ -634,7 +682,7 @@ def main():
     if not success:
         logger.error("%s '%s' %s failed" % (bc.item_type, bc.item, bc.action))
         if not bc.verbose:
-            logger.info("Set verbose mode to have more information (-v)")
+            logger.warning("Set verbose mode to have more information (-v)")
         exit(2)
 
     exit(0)
