@@ -1,0 +1,755 @@
+[2017-01-08 12:34:46 CET] INFO: [alignak.daemon] -----
+[2017-01-08 12:34:46 CET] INFO: [alignak.daemon] Alignak 0.2 - arbiter daemon
+[2017-01-08 12:34:46 CET] INFO: [alignak.daemon] Copyright (c) 2015-2016: Alignak Team
+[2017-01-08 12:34:46 CET] INFO: [alignak.daemon] License: AGPL
+[2017-01-08 12:34:46 CET] INFO: [alignak.daemon] -----
+[2017-01-08 12:34:46 CET] INFO: [alignak.daemon] My configuration: 
+[2017-01-08 12:34:46 CET] INFO: [alignak.daemon]  - server_cert=etc/certs/server.cert
+[2017-01-08 12:34:46 CET] INFO: [alignak.daemon]  - workdir=./
+[2017-01-08 12:34:46 CET] INFO: [alignak.daemon]  - ca_cert=
+[2017-01-08 12:34:46 CET] INFO: [alignak.daemon]  - etcdir=./
+[2017-01-08 12:34:46 CET] INFO: [alignak.daemon]  - log_level=20
+[2017-01-08 12:34:46 CET] INFO: [alignak.daemon]  - hard_ssl_name_check=False
+[2017-01-08 12:34:46 CET] INFO: [alignak.daemon]  - host=0.0.0.0
+[2017-01-08 12:34:46 CET] INFO: [alignak.daemon]  - local_log=arbiterd.log
+[2017-01-08 12:34:46 CET] INFO: [alignak.daemon]  - spare=False
+[2017-01-08 12:34:46 CET] INFO: [alignak.daemon]  - user=alignak
+[2017-01-08 12:34:46 CET] INFO: [alignak.daemon]  - log_rotation_interval=1
+[2017-01-08 12:34:46 CET] INFO: [alignak.daemon]  - use_ssl=False
+[2017-01-08 12:34:46 CET] INFO: [alignak.daemon]  - use_local_log=True
+[2017-01-08 12:34:46 CET] INFO: [alignak.daemon]  - human_date_format=%Y-%m-%d %H:%M:%S %Z
+[2017-01-08 12:34:46 CET] INFO: [alignak.daemon]  - idontcareaboutsecurity=False
+[2017-01-08 12:34:46 CET] INFO: [alignak.daemon]  - log_rotation_count=7
+[2017-01-08 12:34:46 CET] INFO: [alignak.daemon]  - server_key=etc/certs/server.key
+[2017-01-08 12:34:46 CET] INFO: [alignak.daemon]  - group=alignak
+[2017-01-08 12:34:46 CET] INFO: [alignak.daemon]  - human_timestamp_log=True
+[2017-01-08 12:34:46 CET] INFO: [alignak.daemon]  - port=7770
+[2017-01-08 12:34:46 CET] INFO: [alignak.daemon]  - log_rotation_when=midnight
+[2017-01-08 12:34:46 CET] INFO: [alignak.daemon]  - daemon_type=arbiter
+[2017-01-08 12:34:46 CET] INFO: [alignak.daemon]  - max_queue_size=0
+[2017-01-08 12:34:46 CET] INFO: [alignak.daemon]  - logdir=./
+[2017-01-08 12:34:46 CET] INFO: [alignak.daemon]  - daemon_enabled=True
+[2017-01-08 12:34:46 CET] INFO: [alignak.daemon]  - server_dh=
+[2017-01-08 12:34:46 CET] INFO: [alignak.daemon]  - pidfile=arbiterd.pid
+[2017-01-08 12:34:46 CET] INFO: [alignak.daemon]  - daemon_thread_pool_size=8
+[2017-01-08 12:34:46 CET] INFO: [alignak.daemons.arbiterdaemon] Loading configuration
+[2017-01-08 12:34:46 CET] INFO: [alignak.objects.config] [config] opening 'tests/cfg_passive_templates/cfg_passive_templates.cfg' configuration file
+[2017-01-08 12:34:46 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/scheduler-master.cfg'
+[2017-01-08 12:34:46 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/receiver-master.cfg'
+[2017-01-08 12:34:46 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/poller-master.cfg'
+[2017-01-08 12:34:46 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/broker-master.cfg'
+[2017-01-08 12:34:46 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/arbiter-master.cfg'
+[2017-01-08 12:34:46 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/reactionner-master.cfg'
+[2017-01-08 12:34:46 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/modules/mod-nsca.cfg'
+[2017-01-08 12:34:46 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/modules/mod-alignak_backend_scheduler.cfg'
+[2017-01-08 12:34:46 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/modules/mod-logs.cfg'
+[2017-01-08 12:34:46 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/modules/mod-alignak_backend_arbiter.cfg'
+[2017-01-08 12:34:46 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/modules/mod-alignak_backend_broker.cfg'
+[2017-01-08 12:34:46 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/business-impacts.cfg'
+[2017-01-08 12:34:46 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/realms.cfg'
+[2017-01-08 12:34:46 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/timeperiods.cfg'
+[2017-01-08 12:34:46 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/commands.cfg'
+[2017-01-08 12:34:46 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/contacts.cfg'
+[2017-01-08 12:34:46 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/contactgroups.cfg'
+[2017-01-08 12:34:46 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/hosts.cfg'
+[2017-01-08 12:34:46 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/hostgroups.cfg'
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/services.cfg'
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/servicegroups.cfg'
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/passive_checks/templates.cfg'
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/passive_checks/hosts.cfg'
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/passive_checks/services.cfg'
+[2017-01-08 12:34:47 CET] INFO: [alignak.daemons.arbiterdaemon] I correctly loaded the configuration files
+[2017-01-08 12:34:47 CET] INFO: [alignak.daemons.arbiterdaemon] I am the master Arbiter: arbiter-master
+[2017-01-08 12:34:47 CET] INFO: [alignak.stats] Alignak internal statistics are disabled.
+[2017-01-08 12:34:47 CET] INFO: [alignak.daemon] Loading modules...
+[2017-01-08 12:34:47 CET] INFO: [alignak.modulesmanager] Importing Python module 'alignak_module_backend.arbiter' for backend_arbiter...
+[2017-01-08 12:34:47 CET] INFO: [alignak.modulesmanager] Module properties: {'daemons': ['arbiter'], 'phases': ['configuration'], 'type': 'backend_arbiter', 'external': False}
+[2017-01-08 12:34:47 CET] INFO: [alignak.modulesmanager] Imported 'alignak_module_backend.arbiter' for backend_arbiter
+[2017-01-08 12:34:47 CET] INFO: [alignak.modulesmanager] Loaded Python module 'alignak_module_backend.arbiter' (backend_arbiter)
+[2017-01-08 12:34:47 CET] INFO: [alignak.module] Give an instance of alignak_module_backend.arbiter for alias: backend_arbiter
+[2017-01-08 12:34:47 CET] INFO: [alignak.module.backend_arbiter] Alignak backend importation script is active.
+[2017-01-08 12:34:47 CET] INFO: [alignak.module.backend_arbiter] Alignak backend importation script is active. No backend connection.
+[2017-01-08 12:34:47 CET] INFO: [alignak.module.backend_arbiter] bypass objects loading when Arbiter is in verify mode: False
+[2017-01-08 12:34:47 CET] INFO: [alignak.module.backend_arbiter] configuration reload check period: 5 minutes
+[2017-01-08 12:34:47 CET] INFO: [alignak.module.backend_arbiter] actions check period: 15 seconds
+[2017-01-08 12:34:47 CET] INFO: [alignak.modulesmanager] Trying to initialize module: backend_arbiter
+[2017-01-08 12:34:47 CET] INFO: [alignak.daemon] I correctly loaded my modules: [backend_arbiter]
+[2017-01-08 12:34:47 CET] ERROR: [alignak.module.backend_arbiter] Alignak backend connection is not available. Skipping objects load and provide an empty list to the Arbiter.
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.realm] All: (in/potential) (schedulers:1) (pollers:1/1) (reactionners:1/1) (brokers:1/1) (receivers:1/1)
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Running pre-flight check on configuration data, initial state: True
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Checking global parameters...
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Checking hosts...
+[2017-01-08 12:34:47 CET] WARNING: [alignak.objects.item] [items] Host windows-passive-host use/inherit from an unknown template: generic-passive-host ! from: tests/cfg_passive_templates/passive_checks/templates.cfg:21
+[2017-01-08 12:34:47 CET] WARNING: [alignak.objects.item] [items] [host::test.host.C] no contacts nor contact_groups property
+[2017-01-08 12:34:47 CET] WARNING: [alignak.objects.item] [items] [host::test.host.A] no contacts nor contact_groups property
+[2017-01-08 12:34:47 CET] WARNING: [alignak.objects.item] [items] [host::test.host.D] no contacts nor contact_groups property
+[2017-01-08 12:34:47 CET] WARNING: [alignak.objects.item] [items] [host::test.host.E] no contacts nor contact_groups property
+[2017-01-08 12:34:47 CET] WARNING: [alignak.objects.item] [items] [host::test.host.B] no contacts nor contact_groups property
+[2017-01-08 12:34:47 CET] WARNING: [alignak.objects.config] 	hosts configuration warnings: 6, total: 6
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] 	Checked 7 hosts
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Checking hostgroups...
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] 	Checked 12 hostgroups
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Checking contacts...
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] 	Checked 1 contacts
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Checking contactgroups...
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] 	Checked 3 contactgroups
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Checking notificationways...
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] 	Checked 1 notificationways
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Checking escalations...
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] 	Checked 0 escalations
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Checking services...
+[2017-01-08 12:34:47 CET] WARNING: [alignak.objects.item] [items] duplicate service name (u'test.host.B', u'generic_passive_service'), from: tests/cfg_passive_templates/passive_checks/templates.cfg:63, using lastly defined. You may manually set the definition_order parameter to avoid this message.
+[2017-01-08 12:34:47 CET] WARNING: [alignak.objects.item] [items] duplicate service name (u'test.host.C', u'generic_passive_service'), from: tests/cfg_passive_templates/passive_checks/templates.cfg:63, using lastly defined. You may manually set the definition_order parameter to avoid this message.
+[2017-01-08 12:34:47 CET] WARNING: [alignak.objects.item] [items] duplicate service name (u'test.host.E', u'generic_passive_service'), from: tests/cfg_passive_templates/passive_checks/templates.cfg:63, using lastly defined. You may manually set the definition_order parameter to avoid this message.
+[2017-01-08 12:34:47 CET] WARNING: [alignak.objects.item] [items] duplicate service name (u'test.host.A', u'generic_passive_service'), from: tests/cfg_passive_templates/passive_checks/templates.cfg:63, using lastly defined. You may manually set the definition_order parameter to avoid this message.
+[2017-01-08 12:34:47 CET] WARNING: [alignak.objects.item] [items] duplicate service name (u'test.host.D', u'generic_passive_service'), from: tests/cfg_passive_templates/passive_checks/templates.cfg:63, using lastly defined. You may manually set the definition_order parameter to avoid this message.
+[2017-01-08 12:34:47 CET] WARNING: [alignak.objects.config] 	services configuration warnings: 5, total: 11
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] 	Checked 36 services
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Checking servicegroups...
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] 	Checked 12 servicegroups
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Checking timeperiods...
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] 	Checked 2 timeperiods
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Checking commands...
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] 	Checked 7 commands
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Checking hostsextinfo...
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] 	Checked 0 hostsextinfo
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Checking servicesextinfo...
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] 	Checked 0 servicesextinfo
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Checking checkmodulations...
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] 	Checked 0 checkmodulations
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Checking macromodulations...
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] 	Checked 0 macromodulations
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Checking realms...
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] 	Checked 1 realms
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Checking servicedependencies...
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] 	Checked 0 servicedependencies
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Checking hostdependencies...
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] 	Checked 0 hostdependencies
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Checking resultmodulations...
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] 	Checked 0 resultmodulations
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Checking businessimpactmodulations...
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] 	Checked 0 businessimpactmodulations
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Checking arbiters...
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] 	Checked 1 arbiters
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Checking schedulers...
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] 	Checked 1 schedulers
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Checking reactionners...
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] 	Checked 1 reactionners
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Checking pollers...
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] 	Checked 1 pollers
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Checking brokers...
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] 	Checked 1 brokers
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Checking receivers...
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] 	Checked 1 receivers
+[2017-01-08 12:34:47 CET] INFO: [alignak.daemons.arbiterdaemon] Splitting hosts and services into parts
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Creating packs for realms
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Number of hosts in the realm All: 7 (distributed in 6 linked packs)
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Number of Contacts : 1
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Number of Hosts : 7
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Number of Services : 36
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Number of Commands : 7
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Total number of hosts in all realms: 7
+[2017-01-08 12:34:47 CET] INFO: [alignak.daemons.arbiterdaemon] Things look okay - No serious problems were detected during the pre-flight check
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] [Arbiter] Serializing the configurations...
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Using the default serialization pass
+[2017-01-08 12:34:47 CET] INFO: [alignak.daemons.arbiterdaemon] Configuration Loaded
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Configuration warnings:
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Host windows-passive-host use/inherit from an unknown template: generic-passive-host ! from: tests/cfg_passive_templates/passive_checks/templates.cfg:21
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] [host::test.host.C] no contacts nor contact_groups property
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] [host::test.host.A] no contacts nor contact_groups property
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] [host::test.host.D] no contacts nor contact_groups property
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] [host::test.host.E] no contacts nor contact_groups property
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] [host::test.host.B] no contacts nor contact_groups property
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] duplicate service name (u'test.host.B', u'generic_passive_service'), from: tests/cfg_passive_templates/passive_checks/templates.cfg:63, using lastly defined. You may manually set the definition_order parameter to avoid this message.
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] duplicate service name (u'test.host.C', u'generic_passive_service'), from: tests/cfg_passive_templates/passive_checks/templates.cfg:63, using lastly defined. You may manually set the definition_order parameter to avoid this message.
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] duplicate service name (u'test.host.E', u'generic_passive_service'), from: tests/cfg_passive_templates/passive_checks/templates.cfg:63, using lastly defined. You may manually set the definition_order parameter to avoid this message.
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] duplicate service name (u'test.host.A', u'generic_passive_service'), from: tests/cfg_passive_templates/passive_checks/templates.cfg:63, using lastly defined. You may manually set the definition_order parameter to avoid this message.
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] duplicate service name (u'test.host.D', u'generic_passive_service'), from: tests/cfg_passive_templates/passive_checks/templates.cfg:63, using lastly defined. You may manually set the definition_order parameter to avoid this message.
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] [config] opening 'tests/cfg_passive_templates/cfg_passive_templates.cfg' configuration file
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/scheduler-master.cfg'
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/receiver-master.cfg'
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/poller-master.cfg'
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/broker-master.cfg'
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/arbiter-master.cfg'
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/reactionner-master.cfg'
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/modules/mod-nsca.cfg'
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/modules/mod-alignak_backend_scheduler.cfg'
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/modules/mod-logs.cfg'
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/modules/mod-alignak_backend_arbiter.cfg'
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/modules/mod-alignak_backend_broker.cfg'
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/business-impacts.cfg'
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/realms.cfg'
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/timeperiods.cfg'
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/commands.cfg'
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/contacts.cfg'
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/contactgroups.cfg'
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/hosts.cfg'
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/hostgroups.cfg'
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/services.cfg'
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/servicegroups.cfg'
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/passive_checks/templates.cfg'
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/passive_checks/hosts.cfg'
+[2017-01-08 12:34:47 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/passive_checks/services.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.daemon] -----
+[2017-01-08 12:35:31 CET] INFO: [alignak.daemon] Alignak 0.2 - arbiter daemon
+[2017-01-08 12:35:31 CET] INFO: [alignak.daemon] Copyright (c) 2015-2016: Alignak Team
+[2017-01-08 12:35:31 CET] INFO: [alignak.daemon] License: AGPL
+[2017-01-08 12:35:31 CET] INFO: [alignak.daemon] -----
+[2017-01-08 12:35:31 CET] INFO: [alignak.daemon] My configuration: 
+[2017-01-08 12:35:31 CET] INFO: [alignak.daemon]  - server_cert=etc/certs/server.cert
+[2017-01-08 12:35:31 CET] INFO: [alignak.daemon]  - workdir=./
+[2017-01-08 12:35:31 CET] INFO: [alignak.daemon]  - ca_cert=
+[2017-01-08 12:35:31 CET] INFO: [alignak.daemon]  - etcdir=./
+[2017-01-08 12:35:31 CET] INFO: [alignak.daemon]  - log_level=20
+[2017-01-08 12:35:31 CET] INFO: [alignak.daemon]  - hard_ssl_name_check=False
+[2017-01-08 12:35:31 CET] INFO: [alignak.daemon]  - host=0.0.0.0
+[2017-01-08 12:35:31 CET] INFO: [alignak.daemon]  - local_log=arbiterd.log
+[2017-01-08 12:35:31 CET] INFO: [alignak.daemon]  - spare=False
+[2017-01-08 12:35:31 CET] INFO: [alignak.daemon]  - user=alignak
+[2017-01-08 12:35:31 CET] INFO: [alignak.daemon]  - log_rotation_interval=1
+[2017-01-08 12:35:31 CET] INFO: [alignak.daemon]  - use_ssl=False
+[2017-01-08 12:35:31 CET] INFO: [alignak.daemon]  - use_local_log=True
+[2017-01-08 12:35:31 CET] INFO: [alignak.daemon]  - human_date_format=%Y-%m-%d %H:%M:%S %Z
+[2017-01-08 12:35:31 CET] INFO: [alignak.daemon]  - idontcareaboutsecurity=False
+[2017-01-08 12:35:31 CET] INFO: [alignak.daemon]  - log_rotation_count=7
+[2017-01-08 12:35:31 CET] INFO: [alignak.daemon]  - server_key=etc/certs/server.key
+[2017-01-08 12:35:31 CET] INFO: [alignak.daemon]  - group=alignak
+[2017-01-08 12:35:31 CET] INFO: [alignak.daemon]  - human_timestamp_log=True
+[2017-01-08 12:35:31 CET] INFO: [alignak.daemon]  - port=7770
+[2017-01-08 12:35:31 CET] INFO: [alignak.daemon]  - log_rotation_when=midnight
+[2017-01-08 12:35:31 CET] INFO: [alignak.daemon]  - daemon_type=arbiter
+[2017-01-08 12:35:31 CET] INFO: [alignak.daemon]  - max_queue_size=0
+[2017-01-08 12:35:31 CET] INFO: [alignak.daemon]  - logdir=./
+[2017-01-08 12:35:31 CET] INFO: [alignak.daemon]  - daemon_enabled=True
+[2017-01-08 12:35:31 CET] INFO: [alignak.daemon]  - server_dh=
+[2017-01-08 12:35:31 CET] INFO: [alignak.daemon]  - pidfile=arbiterd.pid
+[2017-01-08 12:35:31 CET] INFO: [alignak.daemon]  - daemon_thread_pool_size=8
+[2017-01-08 12:35:31 CET] INFO: [alignak.daemons.arbiterdaemon] Loading configuration
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] [config] opening 'tests/cfg_passive_templates/cfg_passive_templates.cfg' configuration file
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/scheduler-master.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/receiver-master.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/poller-master.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/broker-master.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/arbiter-master.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/reactionner-master.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/modules/mod-nsca.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/modules/mod-alignak_backend_scheduler.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/modules/mod-logs.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/modules/mod-alignak_backend_arbiter.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/modules/mod-alignak_backend_broker.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/business-impacts.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/realms.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/timeperiods.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/commands.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/contacts.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/contactgroups.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/hosts.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/hostgroups.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/services.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/servicegroups.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/passive_checks/templates.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/passive_checks/hosts.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/passive_checks/services.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.daemons.arbiterdaemon] I correctly loaded the configuration files
+[2017-01-08 12:35:31 CET] INFO: [alignak.daemons.arbiterdaemon] I am the master Arbiter: arbiter-master
+[2017-01-08 12:35:31 CET] INFO: [alignak.stats] Alignak internal statistics are disabled.
+[2017-01-08 12:35:31 CET] INFO: [alignak.daemon] Loading modules...
+[2017-01-08 12:35:31 CET] INFO: [alignak.modulesmanager] Importing Python module 'alignak_module_backend.arbiter' for backend_arbiter...
+[2017-01-08 12:35:31 CET] INFO: [alignak.modulesmanager] Module properties: {'daemons': ['arbiter'], 'phases': ['configuration'], 'type': 'backend_arbiter', 'external': False}
+[2017-01-08 12:35:31 CET] INFO: [alignak.modulesmanager] Imported 'alignak_module_backend.arbiter' for backend_arbiter
+[2017-01-08 12:35:31 CET] INFO: [alignak.modulesmanager] Loaded Python module 'alignak_module_backend.arbiter' (backend_arbiter)
+[2017-01-08 12:35:31 CET] INFO: [alignak.module] Give an instance of alignak_module_backend.arbiter for alias: backend_arbiter
+[2017-01-08 12:35:31 CET] INFO: [alignak.module.backend_arbiter] Alignak backend importation script is active.
+[2017-01-08 12:35:31 CET] INFO: [alignak.module.backend_arbiter] Alignak backend importation script is active. No backend connection.
+[2017-01-08 12:35:31 CET] INFO: [alignak.module.backend_arbiter] bypass objects loading when Arbiter is in verify mode: False
+[2017-01-08 12:35:31 CET] INFO: [alignak.module.backend_arbiter] configuration reload check period: 5 minutes
+[2017-01-08 12:35:31 CET] INFO: [alignak.module.backend_arbiter] actions check period: 15 seconds
+[2017-01-08 12:35:31 CET] INFO: [alignak.modulesmanager] Trying to initialize module: backend_arbiter
+[2017-01-08 12:35:31 CET] INFO: [alignak.daemon] I correctly loaded my modules: [backend_arbiter]
+[2017-01-08 12:35:31 CET] ERROR: [alignak.module.backend_arbiter] Alignak backend connection is not available. Skipping objects load and provide an empty list to the Arbiter.
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.realm] All: (in/potential) (schedulers:1) (pollers:1/1) (reactionners:1/1) (brokers:1/1) (receivers:1/1)
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Running pre-flight check on configuration data, initial state: True
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Checking global parameters...
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Checking hosts...
+[2017-01-08 12:35:31 CET] WARNING: [alignak.objects.item] [items] Host windows-passive-host use/inherit from an unknown template: generic-passive-host ! from: tests/cfg_passive_templates/passive_checks/templates.cfg:21
+[2017-01-08 12:35:31 CET] WARNING: [alignak.objects.item] [items] [host::test.host.A] no contacts nor contact_groups property
+[2017-01-08 12:35:31 CET] WARNING: [alignak.objects.item] [items] [host::test.host.C] no contacts nor contact_groups property
+[2017-01-08 12:35:31 CET] WARNING: [alignak.objects.item] [items] [host::test.host.E] no contacts nor contact_groups property
+[2017-01-08 12:35:31 CET] WARNING: [alignak.objects.item] [items] [host::test.host.B] no contacts nor contact_groups property
+[2017-01-08 12:35:31 CET] WARNING: [alignak.objects.item] [items] [host::test.host.D] no contacts nor contact_groups property
+[2017-01-08 12:35:31 CET] WARNING: [alignak.objects.config] 	hosts configuration warnings: 6, total: 6
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] 	Checked 7 hosts
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Checking hostgroups...
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] 	Checked 12 hostgroups
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Checking contacts...
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] 	Checked 1 contacts
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Checking contactgroups...
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] 	Checked 3 contactgroups
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Checking notificationways...
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] 	Checked 1 notificationways
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Checking escalations...
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] 	Checked 0 escalations
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Checking services...
+[2017-01-08 12:35:31 CET] WARNING: [alignak.objects.item] [items] duplicate service name (u'test.host.B', u'generic_passive_service'), from: tests/cfg_passive_templates/passive_checks/templates.cfg:63, using lastly defined. You may manually set the definition_order parameter to avoid this message.
+[2017-01-08 12:35:31 CET] WARNING: [alignak.objects.item] [items] duplicate service name (u'test.host.A', u'generic_passive_service'), from: tests/cfg_passive_templates/passive_checks/templates.cfg:63, using lastly defined. You may manually set the definition_order parameter to avoid this message.
+[2017-01-08 12:35:31 CET] WARNING: [alignak.objects.item] [items] duplicate service name (u'test.host.D', u'generic_passive_service'), from: tests/cfg_passive_templates/passive_checks/templates.cfg:63, using lastly defined. You may manually set the definition_order parameter to avoid this message.
+[2017-01-08 12:35:31 CET] WARNING: [alignak.objects.item] [items] duplicate service name (u'test.host.C', u'generic_passive_service'), from: tests/cfg_passive_templates/passive_checks/templates.cfg:63, using lastly defined. You may manually set the definition_order parameter to avoid this message.
+[2017-01-08 12:35:31 CET] WARNING: [alignak.objects.item] [items] duplicate service name (u'test.host.E', u'generic_passive_service'), from: tests/cfg_passive_templates/passive_checks/templates.cfg:63, using lastly defined. You may manually set the definition_order parameter to avoid this message.
+[2017-01-08 12:35:31 CET] WARNING: [alignak.objects.config] 	services configuration warnings: 5, total: 11
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] 	Checked 36 services
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Checking servicegroups...
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] 	Checked 12 servicegroups
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Checking timeperiods...
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] 	Checked 2 timeperiods
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Checking commands...
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] 	Checked 7 commands
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Checking hostsextinfo...
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] 	Checked 0 hostsextinfo
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Checking servicesextinfo...
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] 	Checked 0 servicesextinfo
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Checking checkmodulations...
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] 	Checked 0 checkmodulations
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Checking macromodulations...
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] 	Checked 0 macromodulations
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Checking realms...
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] 	Checked 1 realms
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Checking servicedependencies...
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] 	Checked 0 servicedependencies
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Checking hostdependencies...
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] 	Checked 0 hostdependencies
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Checking resultmodulations...
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] 	Checked 0 resultmodulations
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Checking businessimpactmodulations...
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] 	Checked 0 businessimpactmodulations
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Checking arbiters...
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] 	Checked 1 arbiters
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Checking schedulers...
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] 	Checked 1 schedulers
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Checking reactionners...
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] 	Checked 1 reactionners
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Checking pollers...
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] 	Checked 1 pollers
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Checking brokers...
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] 	Checked 1 brokers
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Checking receivers...
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] 	Checked 1 receivers
+[2017-01-08 12:35:31 CET] INFO: [alignak.daemons.arbiterdaemon] Splitting hosts and services into parts
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Creating packs for realms
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Number of hosts in the realm All: 7 (distributed in 6 linked packs)
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Number of Contacts : 1
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Number of Hosts : 7
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Number of Services : 36
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Number of Commands : 7
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Total number of hosts in all realms: 7
+[2017-01-08 12:35:31 CET] INFO: [alignak.daemons.arbiterdaemon] Things look okay - No serious problems were detected during the pre-flight check
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] [Arbiter] Serializing the configurations...
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Using the default serialization pass
+[2017-01-08 12:35:31 CET] INFO: [alignak.daemons.arbiterdaemon] Configuration Loaded
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Configuration warnings:
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Host windows-passive-host use/inherit from an unknown template: generic-passive-host ! from: tests/cfg_passive_templates/passive_checks/templates.cfg:21
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] [host::test.host.A] no contacts nor contact_groups property
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] [host::test.host.C] no contacts nor contact_groups property
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] [host::test.host.E] no contacts nor contact_groups property
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] [host::test.host.B] no contacts nor contact_groups property
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] [host::test.host.D] no contacts nor contact_groups property
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] duplicate service name (u'test.host.B', u'generic_passive_service'), from: tests/cfg_passive_templates/passive_checks/templates.cfg:63, using lastly defined. You may manually set the definition_order parameter to avoid this message.
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] duplicate service name (u'test.host.A', u'generic_passive_service'), from: tests/cfg_passive_templates/passive_checks/templates.cfg:63, using lastly defined. You may manually set the definition_order parameter to avoid this message.
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] duplicate service name (u'test.host.D', u'generic_passive_service'), from: tests/cfg_passive_templates/passive_checks/templates.cfg:63, using lastly defined. You may manually set the definition_order parameter to avoid this message.
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] duplicate service name (u'test.host.C', u'generic_passive_service'), from: tests/cfg_passive_templates/passive_checks/templates.cfg:63, using lastly defined. You may manually set the definition_order parameter to avoid this message.
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] duplicate service name (u'test.host.E', u'generic_passive_service'), from: tests/cfg_passive_templates/passive_checks/templates.cfg:63, using lastly defined. You may manually set the definition_order parameter to avoid this message.
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] [config] opening 'tests/cfg_passive_templates/cfg_passive_templates.cfg' configuration file
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/scheduler-master.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/receiver-master.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/poller-master.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/broker-master.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/arbiter-master.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/reactionner-master.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/modules/mod-nsca.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/modules/mod-alignak_backend_scheduler.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/modules/mod-logs.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/modules/mod-alignak_backend_arbiter.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/modules/mod-alignak_backend_broker.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/business-impacts.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/realms.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/timeperiods.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/commands.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/contacts.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/contactgroups.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/hosts.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/hostgroups.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/services.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/servicegroups.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/passive_checks/templates.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/passive_checks/hosts.cfg'
+[2017-01-08 12:35:31 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/passive_checks/services.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.daemon] -----
+[2017-01-08 12:37:27 CET] INFO: [alignak.daemon] Alignak 0.2 - arbiter daemon
+[2017-01-08 12:37:27 CET] INFO: [alignak.daemon] Copyright (c) 2015-2016: Alignak Team
+[2017-01-08 12:37:27 CET] INFO: [alignak.daemon] License: AGPL
+[2017-01-08 12:37:27 CET] INFO: [alignak.daemon] -----
+[2017-01-08 12:37:27 CET] INFO: [alignak.daemon] My configuration: 
+[2017-01-08 12:37:27 CET] INFO: [alignak.daemon]  - server_cert=etc/certs/server.cert
+[2017-01-08 12:37:27 CET] INFO: [alignak.daemon]  - workdir=./
+[2017-01-08 12:37:27 CET] INFO: [alignak.daemon]  - ca_cert=
+[2017-01-08 12:37:27 CET] INFO: [alignak.daemon]  - etcdir=./
+[2017-01-08 12:37:27 CET] INFO: [alignak.daemon]  - log_level=20
+[2017-01-08 12:37:27 CET] INFO: [alignak.daemon]  - hard_ssl_name_check=False
+[2017-01-08 12:37:27 CET] INFO: [alignak.daemon]  - host=0.0.0.0
+[2017-01-08 12:37:27 CET] INFO: [alignak.daemon]  - local_log=arbiterd.log
+[2017-01-08 12:37:27 CET] INFO: [alignak.daemon]  - spare=False
+[2017-01-08 12:37:27 CET] INFO: [alignak.daemon]  - user=alignak
+[2017-01-08 12:37:27 CET] INFO: [alignak.daemon]  - log_rotation_interval=1
+[2017-01-08 12:37:27 CET] INFO: [alignak.daemon]  - use_ssl=False
+[2017-01-08 12:37:27 CET] INFO: [alignak.daemon]  - use_local_log=True
+[2017-01-08 12:37:27 CET] INFO: [alignak.daemon]  - human_date_format=%Y-%m-%d %H:%M:%S %Z
+[2017-01-08 12:37:27 CET] INFO: [alignak.daemon]  - idontcareaboutsecurity=False
+[2017-01-08 12:37:27 CET] INFO: [alignak.daemon]  - log_rotation_count=7
+[2017-01-08 12:37:27 CET] INFO: [alignak.daemon]  - server_key=etc/certs/server.key
+[2017-01-08 12:37:27 CET] INFO: [alignak.daemon]  - group=alignak
+[2017-01-08 12:37:27 CET] INFO: [alignak.daemon]  - human_timestamp_log=True
+[2017-01-08 12:37:27 CET] INFO: [alignak.daemon]  - port=7770
+[2017-01-08 12:37:27 CET] INFO: [alignak.daemon]  - log_rotation_when=midnight
+[2017-01-08 12:37:27 CET] INFO: [alignak.daemon]  - daemon_type=arbiter
+[2017-01-08 12:37:27 CET] INFO: [alignak.daemon]  - max_queue_size=0
+[2017-01-08 12:37:27 CET] INFO: [alignak.daemon]  - logdir=./
+[2017-01-08 12:37:27 CET] INFO: [alignak.daemon]  - daemon_enabled=True
+[2017-01-08 12:37:27 CET] INFO: [alignak.daemon]  - server_dh=
+[2017-01-08 12:37:27 CET] INFO: [alignak.daemon]  - pidfile=arbiterd.pid
+[2017-01-08 12:37:27 CET] INFO: [alignak.daemon]  - daemon_thread_pool_size=8
+[2017-01-08 12:37:27 CET] INFO: [alignak.daemons.arbiterdaemon] Loading configuration
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] [config] opening 'tests/cfg_passive_templates/cfg_passive_templates.cfg' configuration file
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/scheduler-master.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/receiver-master.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/poller-master.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/broker-master.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/arbiter-master.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/reactionner-master.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/modules/mod-nsca.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/modules/mod-alignak_backend_scheduler.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/modules/mod-logs.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/modules/mod-alignak_backend_arbiter.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/modules/mod-alignak_backend_broker.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/business-impacts.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/realms.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/timeperiods.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/commands.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/contacts.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/contactgroups.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/hosts.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/hostgroups.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/services.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/servicegroups.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/passive_checks/templates.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/passive_checks/hosts.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/passive_checks/services.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.daemons.arbiterdaemon] I correctly loaded the configuration files
+[2017-01-08 12:37:27 CET] INFO: [alignak.daemons.arbiterdaemon] I am the master Arbiter: arbiter-master
+[2017-01-08 12:37:27 CET] INFO: [alignak.stats] Alignak internal statistics are disabled.
+[2017-01-08 12:37:27 CET] INFO: [alignak.daemon] Loading modules...
+[2017-01-08 12:37:27 CET] INFO: [alignak.modulesmanager] Importing Python module 'alignak_module_backend.arbiter' for backend_arbiter...
+[2017-01-08 12:37:27 CET] INFO: [alignak.modulesmanager] Module properties: {'daemons': ['arbiter'], 'phases': ['configuration'], 'type': 'backend_arbiter', 'external': False}
+[2017-01-08 12:37:27 CET] INFO: [alignak.modulesmanager] Imported 'alignak_module_backend.arbiter' for backend_arbiter
+[2017-01-08 12:37:27 CET] INFO: [alignak.modulesmanager] Loaded Python module 'alignak_module_backend.arbiter' (backend_arbiter)
+[2017-01-08 12:37:27 CET] INFO: [alignak.module] Give an instance of alignak_module_backend.arbiter for alias: backend_arbiter
+[2017-01-08 12:37:27 CET] INFO: [alignak.module.backend_arbiter] Alignak backend importation script is active.
+[2017-01-08 12:37:27 CET] INFO: [alignak.module.backend_arbiter] Alignak backend importation script is active. No backend connection.
+[2017-01-08 12:37:27 CET] INFO: [alignak.module.backend_arbiter] bypass objects loading when Arbiter is in verify mode: False
+[2017-01-08 12:37:27 CET] INFO: [alignak.module.backend_arbiter] configuration reload check period: 5 minutes
+[2017-01-08 12:37:27 CET] INFO: [alignak.module.backend_arbiter] actions check period: 15 seconds
+[2017-01-08 12:37:27 CET] INFO: [alignak.modulesmanager] Trying to initialize module: backend_arbiter
+[2017-01-08 12:37:27 CET] INFO: [alignak.daemon] I correctly loaded my modules: [backend_arbiter]
+[2017-01-08 12:37:27 CET] ERROR: [alignak.module.backend_arbiter] Alignak backend connection is not available. Skipping objects load and provide an empty list to the Arbiter.
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.realm] All: (in/potential) (schedulers:1) (pollers:1/1) (reactionners:1/1) (brokers:1/1) (receivers:1/1)
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Running pre-flight check on configuration data, initial state: True
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Checking global parameters...
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Checking hosts...
+[2017-01-08 12:37:27 CET] WARNING: [alignak.objects.item] [items] Host windows-passive-host use/inherit from an unknown template: generic-passive-host ! from: tests/cfg_passive_templates/passive_checks/templates.cfg:21
+[2017-01-08 12:37:27 CET] WARNING: [alignak.objects.item] [items] [host::test.host.C] no contacts nor contact_groups property
+[2017-01-08 12:37:27 CET] WARNING: [alignak.objects.item] [items] [host::test.host.E] no contacts nor contact_groups property
+[2017-01-08 12:37:27 CET] WARNING: [alignak.objects.item] [items] [host::test.host.B] no contacts nor contact_groups property
+[2017-01-08 12:37:27 CET] WARNING: [alignak.objects.item] [items] [host::test.host.D] no contacts nor contact_groups property
+[2017-01-08 12:37:27 CET] WARNING: [alignak.objects.item] [items] [host::test.host.A] no contacts nor contact_groups property
+[2017-01-08 12:37:27 CET] WARNING: [alignak.objects.config] 	hosts configuration warnings: 6, total: 6
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] 	Checked 7 hosts
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Checking hostgroups...
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] 	Checked 12 hostgroups
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Checking contacts...
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] 	Checked 1 contacts
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Checking contactgroups...
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] 	Checked 3 contactgroups
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Checking notificationways...
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] 	Checked 1 notificationways
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Checking escalations...
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] 	Checked 0 escalations
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Checking services...
+[2017-01-08 12:37:27 CET] WARNING: [alignak.objects.item] [items] duplicate service name (u'test.host.E', u'generic_passive_service'), from: tests/cfg_passive_templates/passive_checks/templates.cfg:34, using lastly defined. You may manually set the definition_order parameter to avoid this message.
+[2017-01-08 12:37:27 CET] WARNING: [alignak.objects.item] [items] duplicate service name (u'test.host.B', u'generic_passive_service'), from: tests/cfg_passive_templates/passive_checks/templates.cfg:34, using lastly defined. You may manually set the definition_order parameter to avoid this message.
+[2017-01-08 12:37:27 CET] WARNING: [alignak.objects.item] [items] duplicate service name (u'test.host.D', u'generic_passive_service'), from: tests/cfg_passive_templates/passive_checks/templates.cfg:34, using lastly defined. You may manually set the definition_order parameter to avoid this message.
+[2017-01-08 12:37:27 CET] WARNING: [alignak.objects.item] [items] duplicate service name (u'test.host.C', u'generic_passive_service'), from: tests/cfg_passive_templates/passive_checks/templates.cfg:34, using lastly defined. You may manually set the definition_order parameter to avoid this message.
+[2017-01-08 12:37:27 CET] WARNING: [alignak.objects.item] [items] duplicate service name (u'test.host.A', u'generic_passive_service'), from: tests/cfg_passive_templates/passive_checks/templates.cfg:34, using lastly defined. You may manually set the definition_order parameter to avoid this message.
+[2017-01-08 12:37:27 CET] WARNING: [alignak.objects.config] 	services configuration warnings: 5, total: 11
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] 	Checked 36 services
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Checking servicegroups...
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] 	Checked 12 servicegroups
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Checking timeperiods...
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] 	Checked 2 timeperiods
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Checking commands...
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] 	Checked 7 commands
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Checking hostsextinfo...
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] 	Checked 0 hostsextinfo
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Checking servicesextinfo...
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] 	Checked 0 servicesextinfo
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Checking checkmodulations...
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] 	Checked 0 checkmodulations
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Checking macromodulations...
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] 	Checked 0 macromodulations
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Checking realms...
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] 	Checked 1 realms
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Checking servicedependencies...
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] 	Checked 0 servicedependencies
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Checking hostdependencies...
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] 	Checked 0 hostdependencies
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Checking resultmodulations...
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] 	Checked 0 resultmodulations
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Checking businessimpactmodulations...
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] 	Checked 0 businessimpactmodulations
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Checking arbiters...
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] 	Checked 1 arbiters
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Checking schedulers...
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] 	Checked 1 schedulers
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Checking reactionners...
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] 	Checked 1 reactionners
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Checking pollers...
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] 	Checked 1 pollers
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Checking brokers...
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] 	Checked 1 brokers
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Checking receivers...
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] 	Checked 1 receivers
+[2017-01-08 12:37:27 CET] INFO: [alignak.daemons.arbiterdaemon] Splitting hosts and services into parts
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Creating packs for realms
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Number of hosts in the realm All: 7 (distributed in 6 linked packs)
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Number of Contacts : 1
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Number of Hosts : 7
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Number of Services : 36
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Number of Commands : 7
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Total number of hosts in all realms: 7
+[2017-01-08 12:37:27 CET] INFO: [alignak.daemons.arbiterdaemon] Things look okay - No serious problems were detected during the pre-flight check
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] [Arbiter] Serializing the configurations...
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Using the default serialization pass
+[2017-01-08 12:37:27 CET] INFO: [alignak.daemons.arbiterdaemon] Configuration Loaded
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Configuration warnings:
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Host windows-passive-host use/inherit from an unknown template: generic-passive-host ! from: tests/cfg_passive_templates/passive_checks/templates.cfg:21
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] [host::test.host.C] no contacts nor contact_groups property
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] [host::test.host.E] no contacts nor contact_groups property
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] [host::test.host.B] no contacts nor contact_groups property
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] [host::test.host.D] no contacts nor contact_groups property
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] [host::test.host.A] no contacts nor contact_groups property
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] duplicate service name (u'test.host.E', u'generic_passive_service'), from: tests/cfg_passive_templates/passive_checks/templates.cfg:34, using lastly defined. You may manually set the definition_order parameter to avoid this message.
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] duplicate service name (u'test.host.B', u'generic_passive_service'), from: tests/cfg_passive_templates/passive_checks/templates.cfg:34, using lastly defined. You may manually set the definition_order parameter to avoid this message.
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] duplicate service name (u'test.host.D', u'generic_passive_service'), from: tests/cfg_passive_templates/passive_checks/templates.cfg:34, using lastly defined. You may manually set the definition_order parameter to avoid this message.
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] duplicate service name (u'test.host.C', u'generic_passive_service'), from: tests/cfg_passive_templates/passive_checks/templates.cfg:34, using lastly defined. You may manually set the definition_order parameter to avoid this message.
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] duplicate service name (u'test.host.A', u'generic_passive_service'), from: tests/cfg_passive_templates/passive_checks/templates.cfg:34, using lastly defined. You may manually set the definition_order parameter to avoid this message.
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] [config] opening 'tests/cfg_passive_templates/cfg_passive_templates.cfg' configuration file
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/scheduler-master.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/receiver-master.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/poller-master.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/broker-master.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/arbiter-master.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/reactionner-master.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/modules/mod-nsca.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/modules/mod-alignak_backend_scheduler.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/modules/mod-logs.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/modules/mod-alignak_backend_arbiter.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/modules/mod-alignak_backend_broker.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/business-impacts.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/realms.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/timeperiods.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/commands.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/contacts.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/contactgroups.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/hosts.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/hostgroups.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/services.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/servicegroups.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/passive_checks/templates.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/passive_checks/hosts.cfg'
+[2017-01-08 12:37:27 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/passive_checks/services.cfg'
+[2017-01-08 12:40:36 CET] INFO: [alignak.daemon] -----
+[2017-01-08 12:40:36 CET] INFO: [alignak.daemon] Alignak 0.2 - arbiter daemon
+[2017-01-08 12:40:36 CET] INFO: [alignak.daemon] Copyright (c) 2015-2016: Alignak Team
+[2017-01-08 12:40:36 CET] INFO: [alignak.daemon] License: AGPL
+[2017-01-08 12:40:36 CET] INFO: [alignak.daemon] -----
+[2017-01-08 12:40:36 CET] INFO: [alignak.daemon] My configuration: 
+[2017-01-08 12:40:36 CET] INFO: [alignak.daemon]  - server_cert=etc/certs/server.cert
+[2017-01-08 12:40:36 CET] INFO: [alignak.daemon]  - workdir=./
+[2017-01-08 12:40:36 CET] INFO: [alignak.daemon]  - ca_cert=
+[2017-01-08 12:40:36 CET] INFO: [alignak.daemon]  - etcdir=./
+[2017-01-08 12:40:36 CET] INFO: [alignak.daemon]  - log_level=20
+[2017-01-08 12:40:36 CET] INFO: [alignak.daemon]  - hard_ssl_name_check=False
+[2017-01-08 12:40:36 CET] INFO: [alignak.daemon]  - host=0.0.0.0
+[2017-01-08 12:40:36 CET] INFO: [alignak.daemon]  - local_log=arbiterd.log
+[2017-01-08 12:40:36 CET] INFO: [alignak.daemon]  - spare=False
+[2017-01-08 12:40:36 CET] INFO: [alignak.daemon]  - user=alignak
+[2017-01-08 12:40:36 CET] INFO: [alignak.daemon]  - log_rotation_interval=1
+[2017-01-08 12:40:36 CET] INFO: [alignak.daemon]  - use_ssl=False
+[2017-01-08 12:40:36 CET] INFO: [alignak.daemon]  - use_local_log=True
+[2017-01-08 12:40:36 CET] INFO: [alignak.daemon]  - human_date_format=%Y-%m-%d %H:%M:%S %Z
+[2017-01-08 12:40:36 CET] INFO: [alignak.daemon]  - idontcareaboutsecurity=False
+[2017-01-08 12:40:36 CET] INFO: [alignak.daemon]  - log_rotation_count=7
+[2017-01-08 12:40:36 CET] INFO: [alignak.daemon]  - server_key=etc/certs/server.key
+[2017-01-08 12:40:36 CET] INFO: [alignak.daemon]  - group=alignak
+[2017-01-08 12:40:36 CET] INFO: [alignak.daemon]  - human_timestamp_log=True
+[2017-01-08 12:40:36 CET] INFO: [alignak.daemon]  - port=7770
+[2017-01-08 12:40:36 CET] INFO: [alignak.daemon]  - log_rotation_when=midnight
+[2017-01-08 12:40:36 CET] INFO: [alignak.daemon]  - daemon_type=arbiter
+[2017-01-08 12:40:36 CET] INFO: [alignak.daemon]  - max_queue_size=0
+[2017-01-08 12:40:36 CET] INFO: [alignak.daemon]  - logdir=./
+[2017-01-08 12:40:36 CET] INFO: [alignak.daemon]  - daemon_enabled=True
+[2017-01-08 12:40:36 CET] INFO: [alignak.daemon]  - server_dh=
+[2017-01-08 12:40:36 CET] INFO: [alignak.daemon]  - pidfile=arbiterd.pid
+[2017-01-08 12:40:36 CET] INFO: [alignak.daemon]  - daemon_thread_pool_size=8
+[2017-01-08 12:40:36 CET] INFO: [alignak.daemons.arbiterdaemon] Loading configuration
+[2017-01-08 12:40:36 CET] INFO: [alignak.objects.config] [config] opening 'tests/cfg_passive_templates/cfg_passive_templates.cfg' configuration file
+[2017-01-08 12:40:36 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/scheduler-master.cfg'
+[2017-01-08 12:40:36 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/receiver-master.cfg'
+[2017-01-08 12:40:36 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/poller-master.cfg'
+[2017-01-08 12:40:36 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/broker-master.cfg'
+[2017-01-08 12:40:36 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/arbiter-master.cfg'
+[2017-01-08 12:40:36 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/reactionner-master.cfg'
+[2017-01-08 12:40:36 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/modules/mod-nsca.cfg'
+[2017-01-08 12:40:36 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/modules/mod-alignak_backend_scheduler.cfg'
+[2017-01-08 12:40:36 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/modules/mod-logs.cfg'
+[2017-01-08 12:40:36 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/modules/mod-alignak_backend_arbiter.cfg'
+[2017-01-08 12:40:36 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/modules/mod-alignak_backend_broker.cfg'
+[2017-01-08 12:40:36 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/business-impacts.cfg'
+[2017-01-08 12:40:36 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/realms.cfg'
+[2017-01-08 12:40:36 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/timeperiods.cfg'
+[2017-01-08 12:40:36 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/commands.cfg'
+[2017-01-08 12:40:36 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/contacts.cfg'
+[2017-01-08 12:40:36 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/contactgroups.cfg'
+[2017-01-08 12:40:36 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/hosts.cfg'
+[2017-01-08 12:40:36 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/hostgroups.cfg'
+[2017-01-08 12:40:36 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/services.cfg'
+[2017-01-08 12:40:36 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/servicegroups.cfg'
+[2017-01-08 12:40:36 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/passive_checks/templates.cfg'
+[2017-01-08 12:40:36 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/passive_checks/hosts.cfg'
+[2017-01-08 12:40:36 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/passive_checks/services.cfg'
+[2017-01-08 12:40:36 CET] INFO: [alignak.daemons.arbiterdaemon] I correctly loaded the configuration files
+[2017-01-08 12:40:36 CET] INFO: [alignak.daemons.arbiterdaemon] I am the master Arbiter: arbiter-master
+[2017-01-08 12:40:36 CET] INFO: [alignak.stats] Alignak internal statistics are disabled.
+[2017-01-08 12:40:36 CET] INFO: [alignak.daemon] Loading modules...
+[2017-01-08 12:40:36 CET] INFO: [alignak.modulesmanager] Importing Python module 'alignak_module_backend.arbiter' for backend_arbiter...
+[2017-01-08 12:40:36 CET] INFO: [alignak.modulesmanager] Module properties: {'daemons': ['arbiter'], 'phases': ['configuration'], 'type': 'backend_arbiter', 'external': False}
+[2017-01-08 12:40:36 CET] INFO: [alignak.modulesmanager] Imported 'alignak_module_backend.arbiter' for backend_arbiter
+[2017-01-08 12:40:36 CET] INFO: [alignak.modulesmanager] Loaded Python module 'alignak_module_backend.arbiter' (backend_arbiter)
+[2017-01-08 12:40:36 CET] INFO: [alignak.module] Give an instance of alignak_module_backend.arbiter for alias: backend_arbiter
+[2017-01-08 12:40:36 CET] INFO: [alignak.module.backend_arbiter] Alignak backend importation script is active.
+[2017-01-08 12:40:36 CET] INFO: [alignak.module.backend_arbiter] Alignak backend importation script is active. No backend connection.
+[2017-01-08 12:40:36 CET] INFO: [alignak.module.backend_arbiter] bypass objects loading when Arbiter is in verify mode: False
+[2017-01-08 12:40:36 CET] INFO: [alignak.module.backend_arbiter] configuration reload check period: 5 minutes
+[2017-01-08 12:40:36 CET] INFO: [alignak.module.backend_arbiter] actions check period: 15 seconds
+[2017-01-08 12:40:36 CET] INFO: [alignak.modulesmanager] Trying to initialize module: backend_arbiter
+[2017-01-08 12:40:36 CET] INFO: [alignak.daemon] I correctly loaded my modules: [backend_arbiter]
+[2017-01-08 12:40:36 CET] ERROR: [alignak.module.backend_arbiter] Alignak backend connection is not available. Skipping objects load and provide an empty list to the Arbiter.
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.realm] All: (in/potential) (schedulers:1) (pollers:1/1) (reactionners:1/1) (brokers:1/1) (receivers:1/1)
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Running pre-flight check on configuration data, initial state: True
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Checking global parameters...
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Checking hosts...
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] 	Checked 7 hosts
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Checking hostgroups...
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] 	Checked 12 hostgroups
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Checking contacts...
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] 	Checked 1 contacts
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Checking contactgroups...
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] 	Checked 3 contactgroups
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Checking notificationways...
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] 	Checked 1 notificationways
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Checking escalations...
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] 	Checked 0 escalations
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Checking services...
+[2017-01-08 12:40:37 CET] WARNING: [alignak.objects.item] [items] duplicate service name (u'test.host.E', u'generic_passive_service'), from: tests/cfg_passive_templates/passive_checks/templates.cfg:63, using lastly defined. You may manually set the definition_order parameter to avoid this message.
+[2017-01-08 12:40:37 CET] WARNING: [alignak.objects.item] [items] duplicate service name (u'test.host.C', u'generic_passive_service'), from: tests/cfg_passive_templates/passive_checks/templates.cfg:63, using lastly defined. You may manually set the definition_order parameter to avoid this message.
+[2017-01-08 12:40:37 CET] WARNING: [alignak.objects.item] [items] duplicate service name (u'test.host.A', u'generic_passive_service'), from: tests/cfg_passive_templates/passive_checks/templates.cfg:63, using lastly defined. You may manually set the definition_order parameter to avoid this message.
+[2017-01-08 12:40:37 CET] WARNING: [alignak.objects.item] [items] duplicate service name (u'test.host.D', u'generic_passive_service'), from: tests/cfg_passive_templates/passive_checks/templates.cfg:63, using lastly defined. You may manually set the definition_order parameter to avoid this message.
+[2017-01-08 12:40:37 CET] WARNING: [alignak.objects.item] [items] duplicate service name (u'test.host.B', u'generic_passive_service'), from: tests/cfg_passive_templates/passive_checks/templates.cfg:63, using lastly defined. You may manually set the definition_order parameter to avoid this message.
+[2017-01-08 12:40:37 CET] WARNING: [alignak.objects.config] 	services configuration warnings: 5, total: 5
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] 	Checked 36 services
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Checking servicegroups...
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] 	Checked 12 servicegroups
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Checking timeperiods...
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] 	Checked 2 timeperiods
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Checking commands...
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] 	Checked 7 commands
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Checking hostsextinfo...
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] 	Checked 0 hostsextinfo
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Checking servicesextinfo...
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] 	Checked 0 servicesextinfo
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Checking checkmodulations...
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] 	Checked 0 checkmodulations
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Checking macromodulations...
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] 	Checked 0 macromodulations
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Checking realms...
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] 	Checked 1 realms
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Checking servicedependencies...
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] 	Checked 0 servicedependencies
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Checking hostdependencies...
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] 	Checked 0 hostdependencies
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Checking resultmodulations...
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] 	Checked 0 resultmodulations
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Checking businessimpactmodulations...
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] 	Checked 0 businessimpactmodulations
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Checking arbiters...
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] 	Checked 1 arbiters
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Checking schedulers...
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] 	Checked 1 schedulers
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Checking reactionners...
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] 	Checked 1 reactionners
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Checking pollers...
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] 	Checked 1 pollers
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Checking brokers...
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] 	Checked 1 brokers
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Checking receivers...
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] 	Checked 1 receivers
+[2017-01-08 12:40:37 CET] INFO: [alignak.daemons.arbiterdaemon] Splitting hosts and services into parts
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Creating packs for realms
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Number of hosts in the realm All: 7 (distributed in 6 linked packs)
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Number of Contacts : 1
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Number of Hosts : 7
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Number of Services : 36
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Number of Commands : 7
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Total number of hosts in all realms: 7
+[2017-01-08 12:40:37 CET] INFO: [alignak.daemons.arbiterdaemon] Things look okay - No serious problems were detected during the pre-flight check
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] [Arbiter] Serializing the configurations...
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Using the default serialization pass
+[2017-01-08 12:40:37 CET] INFO: [alignak.daemons.arbiterdaemon] Configuration Loaded
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Configuration warnings:
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] duplicate service name (u'test.host.E', u'generic_passive_service'), from: tests/cfg_passive_templates/passive_checks/templates.cfg:63, using lastly defined. You may manually set the definition_order parameter to avoid this message.
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] duplicate service name (u'test.host.C', u'generic_passive_service'), from: tests/cfg_passive_templates/passive_checks/templates.cfg:63, using lastly defined. You may manually set the definition_order parameter to avoid this message.
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] duplicate service name (u'test.host.A', u'generic_passive_service'), from: tests/cfg_passive_templates/passive_checks/templates.cfg:63, using lastly defined. You may manually set the definition_order parameter to avoid this message.
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] duplicate service name (u'test.host.D', u'generic_passive_service'), from: tests/cfg_passive_templates/passive_checks/templates.cfg:63, using lastly defined. You may manually set the definition_order parameter to avoid this message.
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] duplicate service name (u'test.host.B', u'generic_passive_service'), from: tests/cfg_passive_templates/passive_checks/templates.cfg:63, using lastly defined. You may manually set the definition_order parameter to avoid this message.
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] [config] opening 'tests/cfg_passive_templates/cfg_passive_templates.cfg' configuration file
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/scheduler-master.cfg'
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/receiver-master.cfg'
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/poller-master.cfg'
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/broker-master.cfg'
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/arbiter-master.cfg'
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/daemons/reactionner-master.cfg'
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/modules/mod-nsca.cfg'
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/modules/mod-alignak_backend_scheduler.cfg'
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/modules/mod-logs.cfg'
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/modules/mod-alignak_backend_arbiter.cfg'
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/modules/mod-alignak_backend_broker.cfg'
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/business-impacts.cfg'
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/realms.cfg'
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/timeperiods.cfg'
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/commands.cfg'
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/contacts.cfg'
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/contactgroups.cfg'
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/hosts.cfg'
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/hostgroups.cfg'
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/services.cfg'
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/default/servicegroups.cfg'
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/passive_checks/templates.cfg'
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/passive_checks/hosts.cfg'
+[2017-01-08 12:40:37 CET] INFO: [alignak.objects.config] Processing object config file 'tests/cfg_passive_templates/passive_checks/services.cfg'
