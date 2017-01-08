@@ -1,5 +1,5 @@
-#!/usr/bin/env bash
+#!/bin/sh
 echo "Starting Alignak WebUI..."
-screen -d -S alignak_webui -m bash -c "alignak-webui"
+screen -d -S alignak-webui -m sh -c "alignak-webui"
 sleep 1
 echo "Started"

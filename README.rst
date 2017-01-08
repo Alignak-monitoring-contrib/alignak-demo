@@ -459,6 +459,16 @@ You may also adapt the contacts used in this demo configuration else WE will rec
 You will find their definition in the */usr/local/etc/arbiter/realms* folder, in each realm (All, North,...) *contacts* sub-folder.
 
 
+Use Alignak Web services
+------------------------
+The alignak Web Services module exposes some Web Services on the port 8888.
+
+Get the Alignak daemons status:
+::
+
+    http://127.0.0.1:8888/alignak_map
+
+
 Configure/run Alignak Web UI
 ----------------------------
 As of now, your configuration is monitored and you will receive notifications when something is detected as faulty. Everything is under control but why missing having an eye on what's happening in your system with a more sexy interface than tailing a log file and reading emails?
