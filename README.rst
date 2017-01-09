@@ -524,6 +524,22 @@ A notification popup will appear if something changed in the hosts / services st
 The default configuration is suitable for this demonstration but you may update the *$HOME/.local/alignak_app/settings.cfg* configuration file that is largely commented.
 
 
+Configure Alignak backend for timeseries
+----------------------------------------
+
+The Alignak backend allows to send collected performance data but it must be configured to know about where to send the timeseries data. Using the backend_client CLI script make it easy to configure this:
+::
+
+    cd ~/demo
+
+    # Use python CLI to add a Grafana instance
+    python2.7 backend_client.py -v add -t grafana --data=example_grafana.json my_grafana
+
+    # Use python CLI to add a Graphite instance
+    python2.7 backend_client.py -v add -t graphite --data=example_graphite.json my_graphite
+
+You can edit the *example_grafana.json* and *example_graphite.json* provided files to include your own Graphite / Grafana (or InfluxDB) parameters. For more information see the `Alignak backend documentation <http://alignak-backend.readthedocs.io/en/develop/api.html#timeseries-databases>`_.
+
 What we see?
 ============
 
