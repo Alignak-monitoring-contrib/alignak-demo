@@ -64,6 +64,22 @@ The scripts provided with this demo use the `screen` utility found on all Linux/
 
   sudo apt-get install screen
 
+Some screen hint and tips:
+::
+
+    # Listing the active screens
+    screen -ls
+
+    # Joining a screen
+    screen -r alignak-backend
+
+    # Leaving a screen (without killing it)
+    screen -r alignak-backend
+    Ctrl a+d
+
+    # Switching between active screens
+    Ctrl a+n
+
 **Note**: *It is not mandatory to use the provided scripts, but it is more simple for a first try;)*
 
 
