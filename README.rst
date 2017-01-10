@@ -379,7 +379,32 @@ Alignak runs many processes that you can check with:
         alignak  22404 22403  1 09:55 pts/32   00:02:34          |   \_ alignak-arbiter arbiter-master
         alignak  22514 22404  0 09:55 pts/32   00:00:00          |       \_ alignak-arbiter
 
-You can follow the Alignak activity thanks to the monitoring events log created  by the Logs module. You can tail the log file:
+
+Each Alignak daemon has its own log file that you can find in the */usr/local/var/log/alignak* folder. If any error happen there will be at least an ERROR log in the corresponding file. You can *tail* the log files or use more sophisticated tools like *multitail* to stay tuned with Alignak activity
+::
+
+    # Using tail
+    tail -f /usr/local/var/log/alignak/*.log
+
+    # Using multitail
+    sudo apt-get install multitail
+
+    multitail -f /usr/local/var/log/alignak/arbiterd.log\
+              -f /usr/local/var/log/alignak/brokerd.log \
+              -f /usr/local/var/log/alignak/brokerd-north.log \
+              -f /usr/local/var/log/alignak/brokerd-south.log \
+              -f /usr/local/var/log/alignak/pollerd.log \
+              -f /usr/local/var/log/alignak/pollerd-north.log \
+              -f /usr/local/var/log/alignak/pollerd-south.log \
+              -f /usr/local/var/log/alignak/reactionnerd.log \
+              -f /usr/local/var/log/alignak/receiverd.log \
+              -f /usr/local/var/log/alignak/receiverd-north.log \
+              -f /usr/local/var/log/alignak/schedulerd.log \
+              -f /usr/local/var/log/alignak/schedulerd-north.log \
+              -f /usr/local/var/log/alignak/schedulerd-south.log
+
+
+You can follow the Alignak monitoring activity thanks to the monitoring events log created  by the Logs module. You can *tail* the */usr/local/var/log/alignak/monitoring-logs.log* file:
 ::
 
     [1483714809] INFO: CURRENT SERVICE STATE: chazay;System up-to-date;UNKNOWN;HARD;0;
@@ -504,6 +529,10 @@ Run the Alignak WebUI:
     cd ~/demo
     # Detach a screen session identified as "alignak-webui"
     ./alignak_webui_start.sh
+
+    ps -ef | grep alignak-
+        alignak   3625  1429  0 07:32 ?        00:00:00 SCREEN -d -S alignak-webui -m bash -c alignak-webui
+        alignak   3627  3625  3 07:32 pts/18   00:00:00 /usr/bin/python /usr/local/bin/alignak-webui
 
     # Joining the webui screen is 'screen -r alignak-webui'
     # Stopping the webui is './alignak_webui_stop.sh'
