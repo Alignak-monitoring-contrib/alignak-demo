@@ -60,9 +60,20 @@ In the *South* realm, we find some other hosts.
 
 Requirements
 ------------
+You will need some requirements for setting-up this demonstration:
+::
+
+    # Update your server
+    sudo apt-get update
+    sudo apt-get upgrade
+
+    # Install git and python
+    sudo apt-get install git
+    sudo apt-get install python2.7 python2.7-dev python-pip
+
 The scripts provided with this demo use the `screen` utility found on all Linux/Unix distro. As such::
 
-  sudo apt-get install screen
+    sudo apt-get install screen
 
 Some screen hint and tips:
 ::
@@ -143,6 +154,8 @@ Get and install Alignak modules::
     sudo pip install alignak-module-external-commands
     # Notify external commands though a WS and get Alignak state with your web browser
     sudo pip install alignak-module-ws
+    # Improve NRPE checks
+    sudo pip install alignak-module-nrpe-booster
 
     # Note that the default module configuration is not suitable, but it will be installed later...
 
