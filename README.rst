@@ -287,7 +287,7 @@ Run the Alignak backend:
 Run the Alignak backend import script to push the demo configuration into the backend:
 ::
 
-  alignak-backend-import -d -m /usr/local/etc/alignak/alignak.cfg
+  alignak-backend-import -d /usr/local/etc/alignak/alignak.cfg
 
 **Note**: *there are other solutions to feed the Alignak backend but we choose to show how to get an existing configuration imported in the Alignak backend to migrate from an existing Nagios/Shinken to Alignak.*
 
@@ -609,7 +609,7 @@ A simple usage example for this script:
     # From the root of this repository
     cd tests/cfg_passive_templates
     # Import the test configuration in the Alignak backend
-    alignak-backend-import -d -m ./cfg_passive_templates.cfg
+    alignak-backend-import -d ./cfg_passive_templates.cfg
     # The script imports the configuration and makes some console logs:
         alignak_backend_import, inserted elements:
         - 6 command(s)
