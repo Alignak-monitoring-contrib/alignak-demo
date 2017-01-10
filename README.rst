@@ -317,7 +317,7 @@ Run Alignak:
 ::
 
   cd ~/demo
-  # Detach a screen session identified as "alignak-backend"
+  # Detach several screen sessions identified as "alignak-daemon_name"
   ./alignak_demo_start.sh
 
   # Stopping Alignak is './alignak_demo_stop.sh'
@@ -498,9 +498,15 @@ Install the Alignak Web User Interface:
 
 The default installation is suitable for this demonstration but you may update the *(/usr/local)/etc/alignak-webui/settings.cfg* configuration file to adapt this default configuration.
 
-Run the Alignak WebUI::
+Run the Alignak WebUI:
+::
 
-    alignak-webui
+    cd ~/demo
+    # Detach a screen session identified as "alignak-webui"
+    ./alignak_webui_start.sh
+
+    # Joining the webui screen is 'screen -r alignak-webui'
+    # Stopping the webui is './alignak_webui_stop.sh'
 
 Use your Web browser to navigate to http://127.0.0.1:5001 and log in with *admin* / *admin*.
 
