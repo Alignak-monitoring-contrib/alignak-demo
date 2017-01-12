@@ -43,15 +43,15 @@ The *All* realm is (let's say...) a primary datacenter where main servers are lo
 
 According to Alignak daemon logic, the master Arbiter dispatches the configuration to the daemons of each realm and we must declare, for each realm:
 
-  - a scheduler
-  - a broker
-  - a poller
-  - a receiver (not mandatory but we want to have NSCA collector)
+- a scheduler
+- a broker
+- a poller
+- a receiver (not mandatory but we want to have NSCA collector)
 
 In the *All* realm, we find the following hosts:
 
-  - localhost
-  - and some others
+- localhost
+- and some others
 
 In the *North* realm, we find some passive hosts checked thanks to NSCA.
 
@@ -604,6 +604,27 @@ The Alignak backend allows to send collected performance data but it must be con
 
 You can edit the *example_grafana.json* and *example_graphite.json* provided files to include your own Graphite / Grafana (or InfluxDB) parameters. For more information see the `Alignak backend documentation <http://alignak-backend.readthedocs.io/en/develop/api.html#timeseries-databases>`_.
 
+Upgrading
+---------
+Some updates are regularly pushed on the different alignak repositories and then you will sometime need to update this demo configuration. Before upgrading the application you should stop Alignak:
+::
+
+    cd ~/demo
+    # Stop all alignak processes
+    ./alignak_demo_start.sh
+
+    # Check everything is stopped
+    ps -ef | grep alignak-
+
+    # Kill remaining processes :)
+    pkill alignak-broker
+
+
+To upgrade all the alignak packages that were installed, you can:
+::
+    pip install -U pip list | grep alignak | awk '{ print $1}'
+
+
 What we see?
 ============
 
@@ -633,6 +654,7 @@ For techies, statsD configuration and run:
     $screen -S statsd
     $node stats.js alignak.js
     $Ctrl+A Ctrl+D
+
 
 What's behind the backend script
 ================================
