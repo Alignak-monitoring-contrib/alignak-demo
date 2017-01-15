@@ -96,7 +96,12 @@ setup(
     data_files = data_files,
 
     # Dependencies (if some) ...
-    install_requires=[],
+    install_requires=['alignak-checks-monitoring', 'alignak-checks-mysql', 'alignak-checks-nrpe',
+                      'alignak-checks-snmp', 'alignak-checks-windows-nsca', 'alignak-checks-wmi',
+                      'alignak-module-backend', 'alignak-module-external-commands',
+                      'alignak-module-logs', 'alignak-module-nrpe-booster',
+                      'alignak-module-nsca', 'alignak-module-ws',
+                      'alignak-notifications'],
 
     # Entry points (if some) ...
     entry_points={
