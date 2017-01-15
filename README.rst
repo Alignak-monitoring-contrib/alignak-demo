@@ -639,11 +639,19 @@ Alignak internal metrics
   http://grafana.demo.alignak.net
 TBC
 
-For techies, statsD configuration and run:
+Install node.js on your server according to the recommended installation process. On FreeBSD:
 ::
+    pkg install node
+    cd /usr/ports/www/node/ && make install clean
 
-    $cd /usr/local/share/statsd
-    $cat alignak.js
+To get the most recent StatsD (if you distro packaging do not provide it, you must clone the git repository:
+::
+    cd ~/repos
+    git clone https://github.com/etsy/statsd
+
+    # Create an alignak.js file with the following content (adapt to your graphite configuration)
+    cp exampleConfig.js alignak.js
+    cat alignak.js
     {
       graphitePort: 2003
     , graphiteHost: "10.0.0.10"
@@ -651,9 +659,11 @@ For techies, statsD configuration and run:
     , backends: [ "./backends/graphite" ]
     }
 
+    # Start the StatsD daemon in a screen
     $screen -S statsd
     $node stats.js alignak.js
-    $Ctrl+A Ctrl+D
+    # And leave the screen...
+    $Ctrl+AD
 
 
 What's behind the backend script
