@@ -674,6 +674,8 @@ We are running a `demo Grafana server <http://grafana.demo.alignak.net>`_ that a
 
 * `Graphite server <http://grafana.demo.alignak.net/dashboard/db/graphite-server-carbon-metrics>`_ reports on Carbon/Graphite own monitoring.
 
+**Note** that a Grafana dashboard sample is available in the */usr/local/etc/alignak/sample/grafana* directory created when you installed the alignak-demo package;)
+
 Install node.js on your server according to the recommended installation process. On FreeBSD:
 ::
 
