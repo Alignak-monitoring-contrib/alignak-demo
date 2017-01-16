@@ -139,6 +139,8 @@ Get base components::
 Get extension components
 ------------------------
 
+**Note**: instead of installing all the following packages separately, you would rather install the `alignak-demo` package that has all those packages as dependencies (see later in this document). The following procedure explains the separate installation of each package.
+
 Get and install Alignak modules::
 
     # Those two modules are "almost" necessary for the essential alignak features
