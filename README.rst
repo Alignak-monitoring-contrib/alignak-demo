@@ -264,7 +264,6 @@ This Alignak demo project installs some shell scripts into the Alignak libexec f
     mkdir ~/demo
 
     cp /usr/local/var/libexec/alignak/bash/* ~/demo
-    cp /usr/local/var/libexec/alignak/python/* ~/demo
 
 **Note** *a next version may install those scripts in the home directory but it is not yet possible;)*
 
@@ -329,11 +328,11 @@ As of now, Alignak is ready to start... let us go!
 Run Alignak:
 ::
 
-  cd ~/demo
-  # Detach several screen sessions identified as "alignak-daemon_name"
-  ./alignak_demo_start.sh
+    cd ~/demo
+    # Detach several screen sessions identified as "alignak-daemon_name"
+    ./alignak_demo_start.sh
 
-  # Stopping Alignak is './alignak_demo_stop.sh'
+    # Stopping Alignak is './alignak_demo_stop.sh'
 
 Alignak runs many processes that you can check with:
 ::
@@ -591,18 +590,42 @@ The default configuration is suitable for this demonstration but you may update 
 Configure Alignak backend for timeseries
 ----------------------------------------
 
-The Alignak backend allows to send collected performance data but it must be configured to know about where to send the timeseries data. Using the backend_client CLI script make it easy to configure this:
+The Alignak backend allows to send collected performance data to a timeseries database. It must be configured to know where to send the timeseries data. Using the backend_client CLI script makes it easy to configure this:
 ::
 
     cd ~/demo
 
-    # Use python CLI to add a Grafana instance
-    python2.7 backend_client.py -v add -t grafana --data=example_grafana.json my_grafana
+    # Get the example configuration files
+    cp /usr/local/etc/alignak/sample/backend/* ~/demo
 
-    # Use python CLI to add a Graphite instance
-    python2.7 backend_client.py -v add -t graphite --data=example_graphite.json my_graphite
 
-You can edit the *example_grafana.json* and *example_graphite.json* provided files to include your own Graphite / Grafana (or InfluxDB) parameters. For more information see the `Alignak backend documentation <http://alignak-backend.readthedocs.io/en/develop/api.html#timeseries-databases>`_.
+**Note** that it is recommended to stop Alignak when editing the backend configuration :)
+
+If you **do not** intend to use the StatsD daemon, execute these commands:
+::
+
+    # Use Alignak backend CLI to add a Grafana instance
+    alignak-backend-cli -v add -t grafana --data=example_grafana.json grafana_demo
+
+    # Use Alignak backend to add a Graphite instance
+    alignak-backend-cli -v add -t graphite --data=example_graphite.json graphite_demo
+
+
+If you **do** intend to use the StatsD daemon, execute these commands:
+::
+
+    # Use Alignak backend CLI to add a Grafana instance
+    alignak-backend-cli -v add -t grafana --data=example_grafana.json grafana_demo
+
+    # Use Alignak backend CLI to add a StatsD instance
+    alignak-backend-cli -v add -t statsd --data=example_statsd.json statsd_demo
+
+    # Use Alignak backend to add a Graphite instance
+    alignak-backend-cli -v add -t graphite --data=example_graphite_statsd.json graphite_demo
+
+You can edit the *example_*.json* provided files to include your own Graphite / Grafana (or InfluxDB) parameters. For more information see the `Alignak backend documentation <http://alignak-backend.readthedocs.io/en/develop/api.html#timeseries-databases>`_. It will be mandatory to update the Grafana configuration with your own Grafana API key else the backend will not be able to create the Grafana dashboards and panels automatically?
+
+**Note**: `alignak-backend-cli` is coming with the installation of the Alignak backend client.
 
 Upgrading
 ---------
@@ -630,22 +653,35 @@ What we see?
 
 Monitored system status
 -----------------------
-TBC...
-  http://demo.alignak.net
+
+The `Alignak Web UI <http://demo.alignak.net/>`_ running on our demo server allows to view the monitored system status. Have a look here: `http://demo.alignak.net <http://demo.alignak.net>`_. Several login may be used depending on the user role:
+
+* admin / admin, to get logged-in as an Administrator. You will see all the hosts and will be able to execute some commands (acknowledge a problem, schedule a downtime,...)
+
+* northman / north, to get logged-in as a power user in the North realm. You will see all the hosts of the All and North realms and will be able to execute commands.
+
+* southman / south, to get logged-in as a power user in the South realm. You will see all the hosts of the All and South realms and will be able to execute commands.
 
 
 Alignak internal metrics
 ------------------------
-  http://grafana.demo.alignak.net
-TBC
+
+Alignak maintains its own internal metrics and it is able to send them to a `StatsD server <https://github.com/etsy/statsd>`_.
+
+We are running a `demo Grafana server <http://grafana.demo.alignak.net>`_ that allows to see tha Alignak internal metrics. Several dashboards are available:
+
+* `Alignak internal metrics <http://grafana.demo.alignak.net/dashboard/db/alignak-internal-metrics>`_ shows the statistics provided by Alignak.
+
+* `Graphite server <http://grafana.demo.alignak.net/dashboard/db/graphite-server-carbon-metrics>`_ reports on Carbon/Graphite own monitoring.
 
 Install node.js on your server according to the recommended installation process. On FreeBSD:
 ::
+
     pkg install node
-    cd /usr/ports/www/node/ && make install clean
 
 To get the most recent StatsD (if you distro packaging do not provide it, you must clone the git repository:
 ::
+
     cd ~/repos
     git clone https://github.com/etsy/statsd
 
@@ -665,103 +701,4 @@ To get the most recent StatsD (if you distro packaging do not provide it, you mu
     # And leave the screen...
     $Ctrl+AD
 
-
-What's behind the backend script
-================================
-
-This simple script may be used to make simple operations with the Alignak backend:
-
-- create a new element based (or not) on a template
-
-- update a backend element
-
-- delete an element
-
-- get an element and dump its properties to the console or a file (in /tmp)
-
-- get (and dump) a list of elements
-
-A simple usage example for this script:
-::
-
-    # Assuming that you installed: alignak, alignak-backend and alignak-backend-import
-
-    # From the root of this repository
-    cd tests/cfg_passive_templates
-    # Import the test configuration in the Alignak backend
-    alignak-backend-import -d ./cfg_passive_templates.cfg
-    # The script imports the configuration and makes some console logs:
-        alignak_backend_import, inserted elements:
-        - 6 command(s)
-        - 3 host(s)
-        - 3 host_template(s)
-        - no hostdependency(s)
-        - no hostescalation(s)
-        - 12 hostgroup(s)
-        - 1 realm(s)
-        - 1 service(s)
-        - 14 service_template(s)
-        - no servicedependency(s)
-        - no serviceescalation(s)
-        - 12 servicegroup(s)
-        - 2 timeperiod(s)
-        - 2 user(s)
-        - 3 usergroup(s)
-
-    # Get an host from the backend
-    backend_client -t host get test_host_0
-
-    # The script dumps the json host on the console and creates a file: */tmp/alignak-object-dump-host-test_host_0.json*
-    {
-        ...
-        "active_checks_enabled": true,
-        "address": "127.0.0.1",
-        "address6": "",
-        "alias": "test_host_0",
-        ...
-        "customs": {
-            "_OSLICENSE": "gpl",
-            "_OSTYPE": "gnulinux"
-        },
-        ...
-    }
-
-    # Get the list of all hosts from the backend
-    backend_client --list -t host get
-
-    # The script dumps the json list of hosts on the console and creates a file: */tmp/alignak-object-list-hosts.json*
-    {
-        ...
-        "active_checks_enabled": true,
-        "address": "127.0.0.1",
-        "address6": "",
-        "alias": "test_host_0",
-        ...
-        "customs": {
-            "_OSLICENSE": "gpl",
-            "_OSTYPE": "gnulinux"
-        },
-        ...
-    }
-
-    # Create an host into the backend
-    backend_client -T windows-nsca-host -t host add myHost
-    # The script inform on the console
-        Created host 'myHost'
-
-    # Create an host into the backend with extra data
-    backend_client -T windows-nsca-host -t host --data='/tmp/create_data.json' add myHost
-    # The script reads the JSON content of the file /tmp/create_data.json and tries to create
-    # the host named myHost with the template and the read data
-
-    # Update an host into the backend
-    backend_client -t host --data='/tmp/update_data.json' update myHost
-    # The script reads the JSON content of the file /tmp/update_data.json and tries to update
-    # the host named myHost with the read data
-
-    # Delete an host from the backend
-    backend_client -T windows-nsca-host -t host delete myHost
-    # The script inform on the console
-        Deleted host 'myHost'
-
-
+As of now you have a running StatsD daemon that will collect the Alignak internal metrics to feed Graphite.
