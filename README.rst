@@ -636,7 +636,7 @@ Some updates are regularly pushed on the different alignak repositories and then
 
     cd ~/demo
     # Stop all alignak processes
-    ./alignak_demo_start.sh
+    ./alignak_demo_stop.sh
 
     # Check everything is stopped
     ps -ef | grep alignak-
