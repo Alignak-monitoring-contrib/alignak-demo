@@ -691,11 +691,31 @@ To get the most recent StatsD (if you distro packaging do not provide it, you mu
     cp exampleConfig.js alignak.js
     cat alignak.js
     {
-      graphitePort: 2003
-    , graphiteHost: "10.0.0.10"
-    , port: 8125
-    , backends: [ "./backends/graphite" ]
+          graphitePort: 2003
+        , graphiteHost: "127.0.0.1"
+        , port: 8125
+        , backends: [ "./backends/graphite" ]
+
+        /* Do not use any StatsD metric hierarchy */
+        , graphite: {
+            /* Do not use legacy namespace */
+              legacyNamespace: false
+
+            /* Set a global prefix */
+            , globalPrefix: "alignak-statsd"
+
+            /* Set empty prefixes */
+            , prefixCounter: ""
+            , prefixTimer: ""
+            , prefixGauge: ""
+            , prefixSet: ""
+
+            /* Do not set any global suffix
+            , globalSuffix: "_"
+            */
+        }
     }
+
 
     # Start the StatsD daemon in a screen
     $screen -S statsd
