@@ -139,6 +139,9 @@ Get base components::
 Get extension components
 ------------------------
 
+Modules
+~~~~~~~
+
 Get and install Alignak modules::
 
     # Those two modules are "almost" necessary for the essential alignak features
@@ -160,12 +163,18 @@ Get and install Alignak modules::
     # Note that the default module configuration is not suitable, but it will be installed later...
 
 
+Notifications
+~~~~~~~~~~~~~
+
 Get notifications package::
 
     # Install extra notifications package
     sudo pip install alignak-notifications
 
 **Note** *that this pack requires an SMTP server for the mail notifications to be sent out. If none is available you will get WARNING logs and the notifications will not be sent out, but the demo will run anyway :) See later in this document how to configure the mail notifications...*
+
+Checks packages
+~~~~~~~~~~~~~~~
 
 Get checks packages::
 
@@ -189,7 +198,12 @@ Get checks packages::
     # Restore alignak user/group and set correct permissions on installed configuration files
     sudo ./dev/set_permissions.sh
 
-    # Check what is installed (note that I also installed some RC packages...)
+Manage Alignak extensions
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To check what is installed (note that I also installed some RC packages...):
+::
+
     pip freeze | grep alignak
         alignak==0.2
         alignak-app==0.5.1
@@ -225,6 +239,7 @@ To get the list of outdated packages as a pip requirements list:
     pip list --outdated --format columns | grep alignak | awk '{printf "%s==%s\n", $1, $3}' > alignak-update.txt
     pip install -r alignak-update.txt
 
+
 Install check plugins
 ---------------------
 
@@ -251,7 +266,7 @@ Configure Alignak and monitored hosts/services
 **Note:** *you may configure Alignak on your own and set your proper monitored hosts and declare how to monitor them. This is the usual way for setting-up your monitoring solution... But, as we are in a demo process, and we want to make it simple, this repository has a prepared configuration to help going faster to a demonstration of Alignak features.*
 
 
-For this demonstration, we imagined a distributed configuration in two *realms*: North and South. This is not the default Alignak configuration (*eg. one instance of each daemon in one realm*) and thus it implies declaring and configuring extra daemons. As we are using some modules we also need to declare those modules in the corresponding daemons configuration. Alignak also has some configuration parameters that may be tuned.
+For this demonstration, we imagined a distributed configuration in three *realms*: All, North and South. This is not the default Alignak configuration (*eg. one instance of each daemon in one realm*) and thus it implies declaring and configuring extra daemons. As we are using some modules we also need to declare those modules in the corresponding daemons configuration. Alignak also has some configuration parameters that may be tuned.
 
 If you need more information `about alignak configuration <http://alignak-doc.readthedocs.io/en/update/04-1_alignak_configuration/index.html>`_.
 
@@ -293,6 +308,9 @@ It is not necessary to change anything in the Alignak backend configuration file
 
 **Note:** *the default parameters are suitable for a simple demo on a single server.*
 
+start / stop the backend
+~~~~~~~~~~~~~~~~~~~~~~~~
+
 Run the Alignak backend:
 ::
 
@@ -314,6 +332,9 @@ Run the Alignak backend:
     tail -f /usr/local/var/log/alignak-backend-access.log
 
 
+
+Feed the backend
+~~~~~~~~~~~~~~~~
 
 Run the Alignak backend import script to push the demo configuration into the backend:
 ::
@@ -344,6 +365,9 @@ Once imported, you can check that the configuration is correctly parsed by Align
 
 As of now, Alignak is ready to start... let us go!
 
+Run Alignak
+-----------
+
 Run Alignak:
 ::
 
@@ -352,6 +376,9 @@ Run Alignak:
     ./alignak_demo_start.sh
 
     # Stopping Alignak is './alignak_demo_stop.sh'
+
+Processes
+~~~~~~~~~
 
 Alignak runs many processes that you can check with:
 ::
@@ -411,6 +438,9 @@ Alignak runs many processes that you can check with:
         alignak  22514 22404  0 09:55 pts/32   00:00:00          |       \_ alignak-arbiter
 
 
+Log files
+~~~~~~~~~
+
 Each Alignak daemon has its own log file that you can find in the */usr/local/var/log/alignak* folder. If any error happen there will be at least an ERROR log in the corresponding file. You can *tail* the log files or use more sophisticated tools like *multitail* to stay tuned with Alignak activity
 ::
 
@@ -434,6 +464,9 @@ Each Alignak daemon has its own log file that you can find in the */usr/local/va
               -f /usr/local/var/log/alignak/schedulerd-north.log \
               -f /usr/local/var/log/alignak/schedulerd-south.log
 
+
+Monitoring events
+~~~~~~~~~~~~~~~~~
 
 You can follow the Alignak monitoring activity thanks to the monitoring events log created  by the Logs module. You can *tail* the */usr/local/var/log/alignak/monitoring-logs.log* file:
 ::
@@ -461,6 +494,9 @@ You can follow the Alignak monitoring activity thanks to the monitoring events l
     [1483714910] ERROR: HOST NOTIFICATION: imported_admin;always_down;DOWN;notify-host-by-xmpp;[Errno 2] No such file or directory
     [1483714939] INFO: HOST ALERT: chazay;UP;HARD;0;NRPE v2.15
     [1483714966] INFO: SERVICE ALERT: m2m-asso.fr;Http;OK;HARD;0;HTTP OK: HTTP/1.1 200 OK - 6016 bytes in 3,227 second response time
+
+Monitoring events configuration
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This file is a log of all the monitoring activity of Alignak. The *alignak.cfg* allows to define what are the events that are logged to this file. By default, only the active and passive checks ran by Alignak are not logged to this file:
 ::
