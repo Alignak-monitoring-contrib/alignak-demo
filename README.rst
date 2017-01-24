@@ -192,26 +192,38 @@ Get checks packages::
     # Check what is installed (note that I also installed some RC packages...)
     pip freeze | grep alignak
         alignak==0.2
-        alignak-backend==0.7.2
-        alignak-backend-client==0.5.2
-        alignak-backend-import==0.6.7
+        alignak-app==0.5.1
+        alignak-backend==0.8.5.1
+        alignak-backend-client==0.6.11.4
+        alignak-backend-import==0.7.2
         alignak-checks-monitoring==0.3.0
         alignak-checks-mysql==0.3.0
         alignak-checks-nrpe==0.3.3
         alignak-checks-snmp==0.3.5
         alignak-checks-windows-nsca==1.0rc1
         alignak-checks-wmi==0.3.0
-        alignak-demo==0.1.5
+        alignak-demo==0.1.12
         alignak-module-backend==0.3.3
         alignak-module-external-commands==0.3.0
         alignak-module-logs==0.3.3
         alignak-module-nrpe-booster==0.3.1
-        alignak-module-nsca==0.3.1
-        alignak-module-ws==0.3.0
-        alignak-notifications==0.3.0
-        alignak-webui==0.6.4
+        alignak-module-nsca==0.2.7
+        alignak-module-ws==0.3.2
+        alignak-notifications==0.3.1
+        alignak-webui==0.6.11
 
 As of now, you installed all the necessary Alignak stuff for starting a demo monitoring application, 1st step achieved!
+
+If you wish to know if the currently installed packages are up-to-date, you can use this command:
+::
+
+    pip list --outdated | grep alignak
+
+To get the list of outdated packages as a pip requirements list:
+::
+
+    pip list --outdated --format columns | grep alignak | awk '{printf "%s==%s\n", $1, $3}' > alignak-update.txt
+    pip install -r alignak-update.txt
 
 Install check plugins
 ---------------------
@@ -287,6 +299,8 @@ Run the Alignak backend:
     cd ~/demo
     # Detach a screen session identified as "alignak-backend"
     ./alignak_backend_start.sh
+    # This will run the alignak-backend-uwsgi in a screen session. If you do not mind about a
+    # backend screen, you should run: alignak-backend-uwsgi
 
     ps -ef | grep alignak-
         alignak  30166  1087  0 18:42 ?        00:00:00 SCREEN -d -S alignak-backend -m bash -c alignak-backend
@@ -294,6 +308,11 @@ Run the Alignak backend:
 
     # Joining the backend screen is 'screen -r alignak-backend'
     # Stopping the backend is './alignak_backend_stop.sh'
+
+    # The alignak backend writes some logs as a Web server does
+    tail -f /usr/local/var/log/alignak-backend-error.log
+    tail -f /usr/local/var/log/alignak-backend-access.log
+
 
 
 Run the Alignak backend import script to push the demo configuration into the backend:
@@ -541,6 +560,8 @@ Run the Alignak WebUI:
     cd ~/demo
     # Detach a screen session identified as "alignak-webui"
     ./alignak_webui_start.sh
+    # This will run the alignak-webui-uwsgi in a screen session. If you do not mind about a
+    # backend screen, you should run: alignak-webui-uwsgi
 
     ps -ef | grep alignak-
         alignak   3625  1429  0 07:32 ?        00:00:00 SCREEN -d -S alignak-webui -m bash -c alignak-webui
@@ -548,6 +569,11 @@ Run the Alignak WebUI:
 
     # Joining the webui screen is 'screen -r alignak-webui'
     # Stopping the webui is './alignak_webui_stop.sh'
+
+    # The alignak webui writes some logs as a Web server does
+    tail -f /usr/local/var/log/alignak-webui-error.log
+    tail -f /usr/local/var/log/alignak-webui-access.log
+
 
 Use your Web browser to navigate to http://127.0.0.1:5001 and log in with *admin* / *admin*.
 
