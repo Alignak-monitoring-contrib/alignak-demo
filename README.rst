@@ -228,18 +228,6 @@ To check what is installed (note that I also installed some RC packages...):
 
 As of now, you installed all the necessary Alignak stuff for starting a demo monitoring application, 1st step achieved!
 
-If you wish to know if the currently installed packages are up-to-date, you can use this command:
-::
-
-    pip list --outdated | grep alignak
-
-To get the list of outdated packages as a pip requirements list:
-::
-
-    pip list --outdated --format columns | grep alignak | awk '{printf "%s==%s\n", $1, $3}' > alignak-update.txt
-    pip install -r alignak-update.txt
-
-
 Install check plugins
 ---------------------
 
@@ -707,7 +695,26 @@ Some updates are regularly pushed on the different alignak repositories and then
 
 To upgrade all the alignak packages that were installed, you can:
 ::
+
     pip install -U pip list | grep alignak | awk '{ print $1}'
+
+
+To list the currently installed packages and to know if they are up-to-date, you can use this command:
+::
+
+    pip list --outdated | grep alignak
+
+
+To get the list of outdated packages as a pip requirements list:
+::
+
+    pip list --outdated --format columns | grep alignak | awk '{printf "%s==%s\n", $1, $3}' > alignak-update.txt
+
+and to update:
+::
+
+    pip install -r alignak-update.txt
+
 
 
 What we see?
