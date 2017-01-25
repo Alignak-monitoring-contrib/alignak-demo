@@ -456,6 +456,20 @@ Each Alignak daemon has its own log file that you can find in the */usr/local/va
               -f /usr/local/var/log/alignak/schedulerd-south.log
 
 
+Tracking the plugin execution
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When setting up a new configuration and installing or testing plugins it may be interesting to have information about the launched check plugins and the returned results. Alignak allows to add information in the log files about plugins execution:
+
+::
+    # Set and export an environment variable
+    export TEST_LOG_ACTIONS=1
+
+This variable make some more logs in the log files for:
+- launched command for the check plugins
+- check plugins result
+- notification commands
+
 Monitoring events
 ~~~~~~~~~~~~~~~~~
 
