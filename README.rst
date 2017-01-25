@@ -460,8 +460,8 @@ Tracking the plugin execution
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 When setting up a new configuration and installing or testing plugins it may be interesting to have information about the launched check plugins and the returned results. Alignak allows to add information in the log files about plugins execution:
-
 ::
+
     # Set and export an environment variable
     export TEST_LOG_ACTIONS=1
 
