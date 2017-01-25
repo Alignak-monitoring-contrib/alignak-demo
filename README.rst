@@ -319,6 +319,9 @@ Run the Alignak backend:
     tail -f /usr/local/var/log/alignak-backend-error.log
     tail -f /usr/local/var/log/alignak-backend-access.log
 
+The alignak backend runs thanks to uWSGI and its configuration is available in the */usr/local/alignak-backend/uwsgi.ini* where you can define the log files location. You can also configure the Alignak backend to send its internal metrics to a Graphite timeseries database.
+
+**Note** that a Grafana dashboard for the Alignak backend is available in the */usr/local/etc/alignak/sample/grafana* directory created when you installed the alignak-demo package;)
 
 
 Feed the backend
@@ -600,6 +603,12 @@ Run the Alignak WebUI:
 
 
 Use your Web browser to navigate to http://127.0.0.1:5001 and log in with *admin* / *admin*.
+
+The alignak WebUI runs thanks to uWSGI and its configuration is available in the */usr/local/alignak-webui/uwsgi.ini* where you can define the log files location. You can also configure the Alignak WebUI to send its internal metrics to a Graphite timeseries database.
+
+**Note** that a Grafana dashboard for the Alignak WebUI is available in the */usr/local/etc/alignak/sample/grafana* directory created when you installed the alignak-demo package;)
+
+
 
 
 Configure/run Alignak desktop applet
