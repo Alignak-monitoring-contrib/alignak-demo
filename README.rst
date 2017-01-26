@@ -60,6 +60,9 @@ In the *South* realm, we find some other hosts.
 
 Requirements
 ------------
+
+Mandatory requirements
+~~~~~~~~~~~~~~~~~~~~~~
 You will need some requirements for setting-up this demonstration:
 ::
 
@@ -71,6 +74,12 @@ You will need some requirements for setting-up this demonstration:
     sudo apt-get install git
     sudo apt-get install python2.7 python2.7-dev python-pip
 
+    # Needed for the PyOpenSSL / Cryptography dependencies of Alignak
+    sudo apt-get install libffi-dev libssl-dev
+
+
+Optional requirements
+~~~~~~~~~~~~~~~~~~~~~
 The scripts provided with this demo use the `screen` utility found on all Linux/Unix distro. As such::
 
     sudo apt-get install screen
@@ -100,22 +109,24 @@ Setting-up the demo
 We recommend having an up-to-date system;)
 ::
 
-  sudo apt-get update
+    sudo apt-get update
+    sudo apt-get upgrade
 
-Get base components
--------------------
+We also recommend using the most recent `pip` utility. On many distros pip is currently available as version 8 whereas the version 9 is available:
+::
+
+    pip install --upgrade pip
+
+
+1. Get base components
+----------------------
 
 **Note** that all the Alignak components need a root account (or *sudo* privilege) to get installed.
-
-**Note** that this pitch is based on the current `update-installer` branch of Alignak that is not yet merged on upstream. This branch will be merged for the 1.0 release.
 
 Get base components::
 
     mkdir ~/repos
     cd ~/repos
-
-    # Needed for the PyOpenSSL / Cryptography dependencies of Alignak
-    sudo apt-get install libssl-dev
 
     # Alignak framework
     git clone https://github.com/Alignak-monitoring/alignak
@@ -125,7 +136,6 @@ Get base components::
     sudo pip install -v .
 
     # Create alignak user/group and set correct permissions on installed configuration files
-    # As of now, this script is not yet merged to the upstream (the commands are listed at the end of the installation script)
     sudo ./dev/set_permissions.sh
 
     # Alignak backend
@@ -136,11 +146,25 @@ Get base components::
     # Alignak backend importation script
     sudo pip install alignak-backend-import
 
-Get extension components
-------------------------
+2. Get extension components
+---------------------------
+
+**Note**: If you intend to set-up your own monitoring configuration, you are yet ready!
+
+The next three chapters explain how to install Alignak modules, checks and notifications for the demo server.
+
+To avoid executing all these configuration steps, you can install a all-in-one package that will install all the other packages thanks to its dependencies:
+::
+
+    # Alignak demo configuration
+    # IMPORTANT: use the --force argument to allow overwriting previously installed files!
+    sudo pip install alignak-demo --force
+
 
 Modules
 ~~~~~~~
+
+*Execute these steps only if you did not installed `alignak-demo`*
 
 Get and install Alignak modules::
 
@@ -166,6 +190,8 @@ Get and install Alignak modules::
 Notifications
 ~~~~~~~~~~~~~
 
+*Execute these steps only if you did not installed `alignak-demo`*
+
 Get notifications package::
 
     # Install extra notifications package
@@ -175,6 +201,8 @@ Get notifications package::
 
 Checks packages
 ~~~~~~~~~~~~~~~
+
+*Execute these steps only if you did not installed `alignak-demo`*
 
 Get checks packages::
 
@@ -201,7 +229,7 @@ Get checks packages::
 Manage Alignak extensions
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To check what is installed (note that I also installed some RC packages...):
+To check what is installed:
 ::
 
     pip freeze | grep alignak
@@ -228,8 +256,8 @@ To check what is installed (note that I also installed some RC packages...):
 
 As of now, you installed all the necessary Alignak stuff for starting a demo monitoring application, 1st step achieved!
 
-Install check plugins
----------------------
+3. Install check plugins
+------------------------
 
 Some extra installation steps are still necessary because we are using some external plugins and then we need to install them.
 
@@ -248,8 +276,8 @@ You may instead install the Nagios plugins that are commonly available as:
 As of now, you really installed all the necessary stuff for starting a demo monitoring application, 2nd step achieved!
 
 
-Configure Alignak and monitored hosts/services
-----------------------------------------------
+4. Configure Alignak and monitored hosts/services
+-------------------------------------------------
 
 **Note:** *you may configure Alignak on your own and set your proper monitored hosts and declare how to monitor them. This is the usual way for setting-up your monitoring solution... But, as we are in a demo process, and we want to make it simple, this repository has a prepared configuration to help going faster to a demonstration of Alignak features.*
 
@@ -265,11 +293,11 @@ To avoid dealing with all this configuration steps, this repository contains a d
     sudo pip install alignak-demo --force
 
 
-Once installed, some extra configuration files got copied in the */usr/local/etc/alignak* directory and some pre-existing files were overriden (eg. default daemons configuration). We may now check that the configuration is correctly parsed by Alignak:
+Once installed, some extra configuration files got copied in the */usr/local/etc/alignak* directory and some pre-existing files were overwritten (eg. default daemons configuration). We may now check that the configuration is correctly parsed by Alignak:
 ::
 
     # Check Alignak demo configuration
-    alignak-arbiter -V -a /usr/local/etc/alignak/alignak.cfg
+    alignak-arbiter -V -a /usr/local/etc/alignak/alignak-backend-import.cfg
 
 **Note** *that an ERROR log will be raised because the backend connection is not available. this is correct because we configured to use the backend but did not yet started the backend! Some WARNING logs are also raised because of duplicate items. Both are nothing to take care of...*
 
@@ -289,12 +317,10 @@ As explained previously, the shell scripts that you just copied use the `screen`
 As of now, Alignak is configured and you are ready to run, 3rd step achieved!
 
 
-Configure, run and feed Alignak backend
----------------------------------------
+5. Configure, run and feed Alignak backend
+------------------------------------------
 
 It is not necessary to change anything in the Alignak backend configuration file except if your MongoDB installation is not a local database configured by default. Else, open the */usr/local)/etc/alignak-backend/settings.json* configuration file to set-up the parameters according to your configuration.
-
-**Note:** *the default parameters are suitable for a simple demo on a single server.*
 
 start / stop the backend
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -356,8 +382,8 @@ Once imported, you can check that the configuration is correctly parsed by Align
 
 As of now, Alignak is ready to start... let us go!
 
-Run Alignak
------------
+6. Run Alignak
+--------------
 
 Run Alignak:
 ::
@@ -582,8 +608,8 @@ Get the Alignak daemons status:
     http://127.0.0.1:8888/alignak_map
 
 
-Configure/run Alignak Web UI
-----------------------------
+7. Configure/run Alignak Web UI
+-------------------------------
 As of now, your configuration is monitored and you will receive notifications when something is detected as faulty. Everything is under control but why missing having an eye on what's happening in your system with a more sexy interface than tailing a log file and reading emails?
 
 Install the Alignak Web User Interface:
@@ -624,9 +650,8 @@ The alignak WebUI runs thanks to uWSGI and its configuration is available in the
 
 
 
-
-Configure/run Alignak desktop applet
-------------------------------------
+8. Configure/run Alignak desktop applet
+---------------------------------------
 Except when you are in Big Brother mode, you almost always do not need a full Web interface as the one provided by the Alignak WebUI. This is why Alignak provides a desktop applet available for Linux and Windows desktops.
 
 Install the Alignak App:
@@ -660,8 +685,8 @@ A notification popup will appear if something changed in the hosts / services st
 The default configuration is suitable for this demonstration but you may update the *$HOME/.local/alignak_app/settings.cfg* configuration file that is largely commented.
 
 
-Configure Alignak backend for timeseries
-----------------------------------------
+9. Configure Alignak backend for timeseries
+-------------------------------------------
 
 The Alignak backend allows to send collected performance data to a timeseries database. It must be configured to know where to send the timeseries data. Using the backend_client CLI script makes it easy to configure this:
 ::
@@ -700,8 +725,8 @@ You can edit the *example_*.json* provided files to include your own Graphite / 
 
 **Note**: `alignak-backend-cli` is coming with the installation of the Alignak backend client.
 
-Upgrading
----------
+10. Upgrading
+-------------
 Some updates are regularly pushed on the different alignak repositories and then you will sometime need to update this demo configuration. Before upgrading the application you should stop Alignak:
 ::
 
