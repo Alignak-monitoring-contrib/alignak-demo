@@ -662,7 +662,8 @@ Install the Alignak App:
     # For Linux and Windows users with python3
     pip3 install PyQt5 --user
 
-    # For Windows users, we recommend using python3, else install PyQt from the download page
+    # For Windows users, we recommend using python3, else install PyQt from the download page.
+    # Otherwise, you can find a Windows installer on repository, with all packages inside, to run it.
 
     # Alignak App
     pip install alignak_app --user
@@ -672,17 +673,20 @@ Install the Alignak App:
     cd alignak-app
     pip install . --user
 
-    # Run the app (1st run)
+    # Linux: Run the app (1st run)
     $HOME/.local/alignak_app/alignak-app start
-
     # Then you will be able for next runs to
     alignak-app start
+
+    # Windows: Ru the app
+    python "%APPDATA%\Python\alignak_app\bin\alignak-app.py
+    # If you install installer, just run "Alignak-app vX.x.x" shortcut
 
 The applet will require a username and a password that are the same os the one used for the Web UI (use *admin* / *admin*). Click on the Alignak icon in the desktop toolbar to activate the Alignak-app features: alignak status, host synthesis view, host/services states, ...
 
 A notification popup will appear if something changed in the hosts / services states existing in the Alignak backend.
 
-The default configuration is suitable for this demonstration but you may update the *$HOME/.local/alignak_app/settings.cfg* configuration file that is largely commented.
+The default configuration is suitable for this demonstration but you may update the *settings.cfg* configuration file that is largely commented. Under Linux, this file is located under *$HOME/.local/alignak_app/* folder. Under Windows, configuration file can be found under *%APPDATA%\Python\alignak_app\* or *%PROGRAMFILES%\Alignak-app* if you run installer.
 
 
 9. Configure Alignak backend for timeseries
