@@ -939,37 +939,106 @@ As of now you have a running StatsD daemon that will collect the Alignak interna
 
 Installing Graphite / Grafana
 -----------------------------
+
+**NOTE** this section is a draft chapter. Currently the installatin described here is not fully functional !
+
+Graphite Carbon
+~~~~~~~~~~~~~~~
 ::
 
-    apt-get update
+    $ sudo su
+
+    $ apt-get update
 
     # Set TZ as UTC
-    dpkg-reconfigure tzdata
+    $ dpkg-reconfigure tzdata
     => UTC
 
-    # Install Carbon / Whisper / Graphite
-    sudo apt-get install graphite-web graphite-carbon
+    # Install Carbon
+    $ apt-get install graphite-carbon
 
     # Configure Carbon
-    vi /etc/default/graphite-carbon
+    $ vi /etc/default/graphite-carbon
     # Enable carbon service on boot
     => CARBON_CACHE_ENABLED=true
 
     # Configuration file
-    vi /etc/carbon/carbon.conf
+    $ vi /etc/carbon/carbon.conf
     # Enable log rotation
     => ENABLE_LOGROTATION = True
 
     # Aggregation configuration (default is suitable...)
-    cp /usr/share/doc/graphite-carbon/examples/storage-aggregation.conf.example /etc/carbon/storage-aggregation.conf
+    $ cp /usr/share/doc/graphite-carbon/examples/storage-aggregation.conf.example /etc/carbon/storage-aggregation.conf
 
     # Start the metrics collector service (Carbon)
-    service carbon-cache start
+    $ service carbon-cache start
 
     # Monitor activity
-    tail -f /var/log/carbon/console.log
+    $ tail -f /var/log/carbon/console.log
 
     # Test carbon (send a metric test.count)
-    echo "test.count 4 `date +%s`" | nc -q0 127.0.0.1 2003
-    ls /var/lib/graphite/whisper
+    $ echo "test.count 4 `date +%s`" | nc -q0 127.0.0.1 2003
+    $ ls /var/lib/graphite/whisper
     => test/count.wsp
+
+Graphite API
+~~~~~~~~~~~~
+No need for the Graphite Web application, we will use Grafana ;)
+
+::
+
+    $ sudo su
+
+    # Install Graphite-API
+    $ apt-get install graphite-api
+
+    # Install Nginx / uWsgi
+    $ apt-get install nginx uwsgi uwsgi-plugin-python
+
+    # Configure uWsgi
+    $ vi /etc/uwsgi/apps-available/graphite-api.ini
+        [uwsgi]
+        processes = 2
+        socket = localhost:8080
+        plugins = python27
+        module = graphite_api.app:app
+
+    $ ln -s /etc/uwsgi/apps-available/graphite-api.ini /etc/uwsgi/apps-enabled
+    $ service uwsgi restart
+
+    # Configure nginx
+    $ vi /etc/nginx/sites-available/graphite.conf
+        server {
+            listen 80;
+
+            location / {
+                include uwsgi_params;
+                uwsgi_pass localhost:8080;
+            }
+        }
+
+    $ ln -s /etc/nginx/sites-available/graphite.conf /etc/nginx/sites-enabled
+    $ service nginx restart
+
+StatsD
+~~~~~~
+::
+
+    To be completed !
+
+
+Grafana
+~~~~~~~
+::
+
+    # Install Grafana (Version 3 only supported by the Alignak backend!)
+    wget https://grafanarel.s3.amazonaws.com/builds/grafana_3.1.1-1470047149_amd64.deb
+    apt-get install -y adduser libfontconfig
+    dpkg -i grafana_3.1.1-1470047149_amd64.deb
+
+    # Configure Grafana (not necessary...)
+    $ vi /etc/grafana/grafana.ini
+
+    $ service grafana-server start
+
+    # Open your web browser on http://127.0.0.1:3000
