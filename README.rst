@@ -887,20 +887,39 @@ We are running a `demo Grafana server <http://grafana.demo.alignak.net>`_ that a
 
 **Note** that a Grafana dashboard sample is available in the */usr/local/etc/alignak/sample/grafana* directory created when you installed the alignak-demo package;)
 
-Install node.js on your server according to the recommended installation process. On FreeBSD:
+
+
+Installing StatsD / Graphite / Grafana
+--------------------------------------
+
+**NOTE** this section is a draft chapter. Currently the installatin described here is not fully functional !
+
+StatsD
+~~~~~~
+Install node.js on your server according to the recommended installation process.
+
+On FreeBSD:
 ::
 
     pkg install node
 
+On Ubuntu / Debian:
+::
+
+    # For Node.js 6
+    curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+    sudo apt-get install -y nodejs
+
 To get the most recent StatsD (if you distro packaging do not provide it, you must clone the git repository:
 ::
 
-    cd ~/repos
-    git clone https://github.com/etsy/statsd
+    $ cd ~
+    $ git clone https://github.com/etsy/statsd
+    $ cd statsd
 
-    # Create an alignak.js file with the following content (adapt to your graphite configuration)
-    cp exampleConfig.js alignak.js
-    cat alignak.js
+    # Create an alignak.js file with the following content (for a localhost Graphite)
+    $ cp exampleConfig.js alignak.js
+    $ cat alignak.js
     {
           graphitePort: 2003
         , graphiteHost: "127.0.0.1"
@@ -929,18 +948,26 @@ To get the most recent StatsD (if you distro packaging do not provide it, you mu
 
 
     # Start the StatsD daemon in a screen
-    $screen -S statsd
-    $node stats.js alignak.js
+    $ screen -S statsd
+    $ node stats.js alignak.js
     # And leave the screen...
-    $Ctrl+AD
+    $ Ctrl+AD
+
+    # Test StatsD
+    $ ll /var/lib/graphite/whisper/alignak-statsd/statsd/
+        total 84
+        drwxr-xr-x 6 _graphite _graphite  4096 févr.  2 20:11 ./
+        drwxr-xr-x 3 _graphite _graphite  4096 févr.  2 20:11 ../
+        drwxr-xr-x 2 _graphite _graphite  4096 févr.  2 20:11 bad_lines_seen/
+        drwxr-xr-x 2 _graphite _graphite  4096 févr.  2 20:11 graphiteStats/
+        drwxr-xr-x 2 _graphite _graphite  4096 févr.  2 20:11 metrics_received/
+        -rw-r--r-- 1 _graphite _graphite 17308 févr.  2 20:12 numStats.wsp
+        drwxr-xr-x 2 _graphite _graphite  4096 févr.  2 20:11 packets_received/
+        -rw-r--r-- 1 _graphite _graphite 17308 févr.  2 20:12 processing_time.wsp
+        -rw-r--r-- 1 _graphite _graphite 17308 févr.  2 20:12 timestamp_lag.wsp
+
 
 As of now you have a running StatsD daemon that will collect the Alignak internal metrics to feed Graphite.
-
-
-Installing Graphite / Grafana
------------------------------
-
-**NOTE** this section is a draft chapter. Currently the installatin described here is not fully functional !
 
 Graphite Carbon
 ~~~~~~~~~~~~~~~
@@ -1002,6 +1029,7 @@ No need for the Graphite Web application, we will use Grafana ;)
         socket = localhost:8080
         plugins = python27
         module = graphite_api.app:app
+        buffer = 65536
 
     $ ln -s /etc/uwsgi/apps-available/graphite-api.ini /etc/uwsgi/apps-enabled
     $ service uwsgi restart
