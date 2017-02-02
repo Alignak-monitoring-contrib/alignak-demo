@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 echo "Stopping Alignak backend..."
-screen -X -S alignak-backend quit
+kill -INT `cat /tmp/alignak-backend.pid`
 sleep 1
 echo "Stopped"

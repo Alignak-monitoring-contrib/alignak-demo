@@ -123,7 +123,9 @@ We also recommend using the most recent `pip` utility. On many distros pip is cu
 
 **Note** that all the Alignak components need a root account (or *sudo* privilege) to get installed.
 
-Get base components::
+Alignak framework
+~~~~~~~~~~~~~~~~~
+::
 
     mkdir ~/repos
     cd ~/repos
@@ -138,13 +140,78 @@ Get base components::
     # Create alignak user/group and set correct permissions on installed configuration files
     sudo ./dev/set_permissions.sh
 
+Alignak backend
+~~~~~~~~~~~~~~~
+::
+
     # Alignak backend
-    # You need to have a running Mongo database.
-    # See the Alignak backend installation procedure if you need to set one up and running (http://alignak-backend.readthedocs.io/en/develop/install.html)
     sudo pip install alignak-backend
 
     # Alignak backend importation script
     sudo pip install alignak-backend-import
+
+**Note** that you will need to have a running Mongo database. See the `Alignak backend installation procedure <http://alignak-backend.readthedocs.io/en/develop/install.html>`_ if you need to set one up and running.
+
+An excerpt for installing MongoDB on an Ubuntu Xenial:
+::
+
+    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6
+    echo "deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/testing multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list
+    sudo apt-get update
+    sudo apt-get install -y mongodb-org
+    sudo service mongod start
+
+
+An excerpt for installing MongoDB on a debian Jessie:
+::
+
+    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6
+    echo "deb http://repo.mongodb.org/apt/debian jessie/mongodb-org/3.4 main" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list
+    sudo apt-get update
+    sudo apt-get install -y mongodb-org
+    sudo service mongod start
+
+
+Alignak webui
+~~~~~~~~~~~~~
+::
+
+    # Alignak webui
+    sudo pip install alignak-webui
+
+Resulting configuration
+~~~~~~~~~~~~~~~~~~~~~~~
+::
+
+    ls -al /usr/local/etc/
+    total 20
+    drwxrwsr-x  5 root    staff   4096 Feb  2 14:08 .
+    drwxrwsr-x 11 root    staff   4096 Feb  2 14:06 ..
+    drwxrwsr-x  7 alignak alignak 4096 Feb  2 16:02 alignak
+    drwxr-sr-x  2 root    staff   4096 Feb  2 14:07 alignak-backend
+    drwxr-sr-x  2 root    staff   4096 Feb  2 14:08 alignak-webui
+
+    ls -al /usr/local/etc/alignak
+    total 52
+    drwxrwsr-x 7 alignak alignak 4096 Feb  2 16:02 .
+    drwxrwsr-x 5 root    staff   4096 Feb  2 14:08 ..
+    -rw-rw-r-- 1 alignak alignak 2634 Feb  2 16:02 alignak-backend-import.cfg
+    -rw-rw-r-- 1 alignak alignak 6445 Feb  2 16:02 alignak.backend-run.cfg
+    -rw-rw-r-- 1 alignak alignak 6764 Feb  2 16:02 alignak.cfg
+    -rw-rw-r-- 1 alignak alignak 3762 Feb  2 16:02 alignak.ini
+    drwxrwsr-x 9 alignak alignak 4096 Feb  2 16:02 arbiter
+    drwxrwsr-x 2 alignak alignak 4096 Feb  2 14:06 certs
+    drwxrwsr-x 4 alignak alignak 4096 Feb  2 16:02 daemons
+    drwxrwsr-x 2 alignak alignak 4096 Feb  2 16:02 grafana
+    drwxrwsr-x 5 alignak alignak 4096 Feb  2 16:02 sample
+
+    ls -al /usr/local/var/log
+    total 12
+    drwxr-sr-x 3 root    staff   4096 Feb  2 14:06 .
+    drwxr-sr-x 6 root    staff   4096 Feb  2 14:06 ..
+    drwxr-sr-x 2 alignak alignak 4096 Feb  2 14:06 alignak
+
+
 
 2. Get extension components
 ---------------------------
@@ -160,6 +227,10 @@ To avoid executing all these configuration steps, you can install a all-in-one p
     # IMPORTANT: use the --force argument to allow overwriting previously installed files!
     sudo pip install alignak-demo --force
 
+    mkdir ~/demo
+    cp /usr/local/var/libexec/alignak/bash/* ~/demo
+
+**Note**: If you install the alignak-demo package, go to the step 5.
 
 Modules
 ~~~~~~~
@@ -232,27 +303,26 @@ Manage Alignak extensions
 To check what is installed:
 ::
 
-    pip freeze | grep alignak
-        alignak==0.2
-        alignak-app==0.5.1
-        alignak-backend==0.8.5.1
-        alignak-backend-client==0.6.11.4
-        alignak-backend-import==0.7.2
-        alignak-checks-monitoring==0.3.0
-        alignak-checks-mysql==0.3.0
-        alignak-checks-nrpe==0.3.3
-        alignak-checks-snmp==0.3.5
-        alignak-checks-windows-nsca==1.0rc1
-        alignak-checks-wmi==0.3.0
-        alignak-demo==0.1.12
-        alignak-module-backend==0.3.3
-        alignak-module-external-commands==0.3.0
-        alignak-module-logs==0.3.3
-        alignak-module-nrpe-booster==0.3.1
-        alignak-module-nsca==0.2.7
-        alignak-module-ws==0.3.2
-        alignak-notifications==0.3.1
-        alignak-webui==0.6.11
+    pip list | grep alignak
+        alignak (0.2)
+        alignak-backend (0.8.7)
+        alignak-backend-client (0.6.12)
+        alignak-backend-import (0.8.2)
+        alignak-checks-monitoring (0.3.0)
+        alignak-checks-mysql (0.3.0)
+        alignak-checks-nrpe (0.3.3)
+        alignak-checks-snmp (0.3.5)
+        alignak-checks-windows-nsca (0.3.0)
+        alignak-checks-wmi (0.3.0)
+        alignak-demo (0.1.13)
+        alignak-module-backend (0.4.0)
+        alignak-module-external-commands (0.3.0)
+        alignak-module-logs (0.3.3)
+        alignak-module-nrpe-booster (0.3.1)
+        alignak-module-nsca (0.3.2)
+        alignak-module-ws (0.3.2)
+        alignak-notifications (0.3.1)
+        alignak-webui (0.6.13.2)
 
 As of now, you installed all the necessary Alignak stuff for starting a demo monitoring application, 1st step achieved!
 
@@ -334,12 +404,17 @@ Run the Alignak backend:
     # This will run the alignak-backend-uwsgi in a screen session. If you do not mind about a
     # backend screen, you should run: alignak-backend-uwsgi
 
-    ps -ef | grep alignak-
-        alignak  30166  1087  0 18:42 ?        00:00:00 SCREEN -d -S alignak-backend -m bash -c alignak-backend
-        alignak  30168 30166  0 18:42 pts/18   00:00:00 /usr/bin/python /usr/local/bin/alignak-backend
+    ps -aux | grep uwsgi-
+        root 25193  0.5  0.4 238604  72044  9  I+J  10:13AM 7:10.69 uwsgi --ini /usr/local/etc/alignak-backend/uwsgi.ini
+        root 25191  0.0  0.0  17096   2076  9  I+J  10:13AM 0:00.00 /bin/sh /usr/local/bin/alignak-backend-uwsgi
+        root 25192  0.0  0.1  55876  10816  9  S+J  10:13AM 0:03.18 uwsgi --ini /usr/local/etc/alignak-backend/uwsgi.ini
+        root 25194  0.0  0.3 189536  57440  9  S+J  10:13AM 0:31.97 uwsgi --ini /usr/local/etc/alignak-backend/uwsgi.ini
+        root 25195  0.0  0.4 190048  60532  9  S+J  10:13AM 3:00.39 uwsgi --ini /usr/local/etc/alignak-backend/uwsgi.ini
+        root 25196  0.0  0.4 190304  60708  9  S+J  10:13AM 0:41.29 uwsgi --ini /usr/local/etc/alignak-backend/uwsgi.ini
 
     # Joining the backend screen is 'screen -r alignak-backend'
-    # Stopping the backend is './alignak_backend_stop.sh'
+    # Ctrl+C in the screen will stop the backend
+    # kill -SIGTERM `cat /tmp/alignak-backend.pid`
 
     # The alignak backend writes some logs as a Web server does
     tail -f /usr/local/var/log/alignak-backend-error.log
@@ -356,7 +431,7 @@ Feed the backend
 Run the Alignak backend import script to push the demo configuration into the backend:
 ::
 
-  alignak-backend-import -d /usr/local/etc/alignak/alignak.cfg
+  alignak-backend-import -d /usr/local/etc/alignak/alignak-backend-import.cfg
 
 **Note**: *there are other solutions to feed the Alignak backend but we choose to show how to get an existing configuration imported in the Alignak backend to migrate from an existing Nagios/Shinken to Alignak.*
 
@@ -630,12 +705,21 @@ Run the Alignak WebUI:
     # This will run the alignak-webui-uwsgi in a screen session. If you do not mind about a
     # backend screen, you should run: alignak-webui-uwsgi
 
-    ps -ef | grep alignak-
-        alignak   3625  1429  0 07:32 ?        00:00:00 SCREEN -d -S alignak-webui -m bash -c alignak-webui
-        alignak   3627  3625  3 07:32 pts/18   00:00:00 /usr/bin/python /usr/local/bin/alignak-webui
+    ps -aux | grep uwsgi
+        root 26312  0.0  0.0  17096   2076 13  I+J  10:23AM 0:00.00 /bin/sh /usr/local/bin/alignak-webui-uwsgi
+        root 26313  0.0  0.2 157324  38204 13  S+J  10:23AM 0:01.32 uwsgi --ini /usr/local/etc/alignak-webui/uwsgi.ini
+        root 26318  0.0  0.4 178952  64724 13  S+J  10:23AM 0:20.76 uwsgi --ini /usr/local/etc/alignak-webui/uwsgi.ini
+        root 26319  0.0  0.4 181512  68360 13  S+J  10:23AM 0:28.29 uwsgi --ini /usr/local/etc/alignak-webui/uwsgi.ini
+        root 26320  0.0  0.5 203016  86876 13  S+J  10:23AM 1:00.70 uwsgi --ini /usr/local/etc/alignak-webui/uwsgi.ini
+        root 26321  0.0  0.7 227336 111520 13  S+J  10:23AM 1:45.06 uwsgi --ini /usr/local/etc/alignak-webui/uwsgi.ini
 
     # Joining the webui screen is 'screen -r alignak-webui'
-    # Stopping the webui is './alignak_webui_stop.sh'
+    # Ctrl+C in the screen will stop the backend
+    # kill -SIGTERM `cat /tmp/alignak-webui.pid`
+
+    # Joining the backend screen is 'screen -r alignak-backend'
+    # Ctrl+C in the screen will stop the backend
+    # kill -SIGTERM `cat /tmp/alignak-backend.pid`
 
     # The alignak webui writes some logs as a Web server does
     tail -f /usr/local/var/log/alignak-webui-error.log
@@ -643,6 +727,12 @@ Run the Alignak WebUI:
 
 
 Use your Web browser to navigate to http://127.0.0.1:5001 and log in with *admin* / *admin*.
+
+To use the WebUI from another machine (eg. if you are using a virtual machine), you can set a fake local loop:
+::
+
+    ssh -L 5001:127.0.0.1:5001 login@ip_vm_test
+
 
 The alignak WebUI runs thanks to uWSGI and its configuration is available in the */usr/local/alignak-webui/uwsgi.ini* where you can define the log files location. You can also configure the Alignak WebUI to send its internal metrics to a Graphite timeseries database.
 
@@ -841,3 +931,41 @@ To get the most recent StatsD (if you distro packaging do not provide it, you mu
     $Ctrl+AD
 
 As of now you have a running StatsD daemon that will collect the Alignak internal metrics to feed Graphite.
+
+
+Installing Graphite / Grafana
+-----------------------------
+::
+
+    apt-get update
+
+    # Set TZ as UTC
+    dpkg-reconfigure tzdata
+    => UTC
+
+    # Install Carbon / Whisper / Graphite
+    sudo apt-get install graphite-web graphite-carbon
+
+    # Configure Carbon
+    vi /etc/default/graphite-carbon
+    # Enable carbon service on boot
+    => CARBON_CACHE_ENABLED=true
+
+    # Configuration file
+    vi /etc/carbon/carbon.conf
+    # Enable log rotation
+    => ENABLE_LOGROTATION = True
+
+    # Aggregation configuration (default is suitable...)
+    cp /usr/share/doc/graphite-carbon/examples/storage-aggregation.conf.example /etc/carbon/storage-aggregation.conf
+
+    # Start the metrics collector service (Carbon)
+    service carbon-cache start
+
+    # Monitor activity
+    tail -f /var/log/carbon/console.log
+
+    # Test carbon (send a metric test.count)
+    echo "test.count 4 `date +%s`" | nc -q0 127.0.0.1 2003
+    ls /var/lib/graphite/whisper
+    => test/count.wsp

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 echo "Stopping Alignak WebUI..."
-screen -X -S alignak-webui quit
+kill -INT `cat /tmp/alignak-webui.pid`
 sleep 1
 echo "Stopped"
