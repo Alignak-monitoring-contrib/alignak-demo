@@ -115,7 +115,7 @@ We recommend having an up-to-date system;)
 We also recommend using the most recent `pip` utility. On many distros pip is currently available as version 8 whereas the version 9 is available:
 ::
 
-    pip install --upgrade pip
+    sudo pip install --upgrade pip
 
 
 1. Get base components
@@ -212,8 +212,28 @@ Resulting configuration
     drwxr-sr-x 2 alignak alignak 4096 Feb  2 14:06 alignak
 
 
+2. Install check plugins
+------------------------
 
-2. Get extension components
+Some extra installation steps are still necessary because we are using some external plugins and then we need to install them.
+
+The NRPE checks package requires the `check_nrpe` plugin that is commonly available as:
+::
+
+    sudo apt-get install nagios-nrpe-plugin
+
+The monitoring checks package requires some extra plugins. Installation and configuration procedure is `available here <https://github.com/Alignak-monitoring-contrib/alignak-checks-monitoring/tree/updates#configuration>`_ or on the Monitoring Plugins project page.
+
+You may instead install the Nagios plugins that are commonly available as:
+::
+
+    sudo apt-get install nagios-plugins
+
+As of now, you really installed all the necessary stuff for starting a demo monitoring application, 2nd step achieved!
+
+
+
+3. Get extension components
 ---------------------------
 
 **Note**: If you intend to set-up your own monitoring configuration, you are yet ready!
@@ -227,10 +247,13 @@ To avoid executing all these configuration steps, you can install a all-in-one p
     # IMPORTANT: use the --force argument to allow overwriting previously installed files!
     sudo pip install alignak-demo --force
 
-    mkdir ~/demo
-    cp /usr/local/var/libexec/alignak/* ~/demo
+    # Re-update permissions on installed configuration files
+    sudo ./dev/set_permissions.sh
 
-**Note**: If you install the alignak-demo package, go to the step 5.
+    mkdir ~/demo
+    cp /usr/local/var/libexec/alignak/*.sh ~/demo
+
+**Note**: If you install the alignak-demo package, go directly to the step 5.
 
 Modules
 ~~~~~~~
@@ -326,26 +349,6 @@ To check what is installed:
 
 As of now, you installed all the necessary Alignak stuff for starting a demo monitoring application, 1st step achieved!
 
-3. Install check plugins
-------------------------
-
-Some extra installation steps are still necessary because we are using some external plugins and then we need to install them.
-
-The NRPE checks package requires the `check_nrpe` plugin that is commonly available as:
-::
-
-    sudo apt-get install nagios-nrpe-plugin
-
-The monitoring checks package requires some extra plugins. Installation and configuration procedure is `available here <https://github.com/Alignak-monitoring-contrib/alignak-checks-monitoring/tree/updates#configuration>`_ or on the Monitoring Plugins project page.
-
-You may instead install the Nagios plugins that are commonly available as:
-::
-
-    sudo apt-get install nagios-plugins
-
-As of now, you really installed all the necessary stuff for starting a demo monitoring application, 2nd step achieved!
-
-
 4. Configure Alignak and monitored hosts/services
 -------------------------------------------------
 
@@ -376,7 +379,7 @@ This Alignak demo project installs some shell scripts into the Alignak libexec f
 
     mkdir ~/demo
 
-    cp /usr/local/var/libexec/alignak/bash/* ~/demo
+    cp /usr/local/var/libexec/alignak/*.sh ~/demo
 
 **Note** *a next version may install those scripts in the home directory but it is not yet possible;)*
 
@@ -390,7 +393,7 @@ As of now, Alignak is configured and you are ready to run, 3rd step achieved!
 5. Configure, run and feed Alignak backend
 ------------------------------------------
 
-It is not necessary to change anything in the Alignak backend configuration file except if your MongoDB installation is not a local database configured by default. Else, open the */usr/local)/etc/alignak-backend/settings.json* configuration file to set-up the parameters according to your configuration.
+It is not necessary to change anything in the Alignak backend configuration file except if your MongoDB installation is not a local database configured by default. Else, open the */usr/local/etc/alignak-backend/settings.json* configuration file to set-up the parameters according to your configuration.
 
 start / stop the backend
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -399,10 +402,13 @@ Run the Alignak backend:
 ::
 
     cd ~/demo
-    # Detach a screen session identified as "alignak-backend"
-    ./alignak_backend_start.sh
+
+    # Detach a screen session identified as "alignak-backend" to run the backend processes
+    sudo ./alignak_backend_start.sh
+
     # This will run the alignak-backend-uwsgi in a screen session. If you do not mind about a
-    # backend screen, you should run: alignak-backend-uwsgi
+    # backend screen, you should run: sudo alignak-backend-uwsgi
+    # Using sudo because we assume that you are logged with a user account that is not the alignak one
 
     ps -aux | grep uwsgi-
         root 25193  0.5  0.4 238604  72044  9  I+J  10:13AM 7:10.69 uwsgi --ini /usr/local/etc/alignak-backend/uwsgi.ini
