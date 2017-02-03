@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 echo "Starting Alignak WebUI..."
 screen -d -S alignak-webui -m sh -c "alignak-webui-uwsgi"
 sleep 1

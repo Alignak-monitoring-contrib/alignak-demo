@@ -228,7 +228,7 @@ To avoid executing all these configuration steps, you can install a all-in-one p
     sudo pip install alignak-demo --force
 
     mkdir ~/demo
-    cp /usr/local/var/libexec/alignak/bash/* ~/demo
+    cp /usr/local/var/libexec/alignak/* ~/demo
 
 **Note**: If you install the alignak-demo package, go to the step 5.
 
@@ -1017,7 +1017,9 @@ No need for the Graphite Web application, we will use Grafana ;)
     $ sudo su
 
     # Install Graphite-API
-    $ apt-get install graphite-api
+    ##### $ apt-get install graphite-api; do not seem to survive a system restart :)
+    $ wget https://github.com/brutasse/graphite-api/releases/download/1.1.2/graphite-api_1.1.2-1447943657-ubuntu14.04_amd64.deb
+    $ dpkg -i
 
     # Install Nginx / uWsgi
     $ apt-get install nginx uwsgi uwsgi-plugin-python
