@@ -709,7 +709,7 @@ Run the Alignak WebUI:
     # Detach a screen session identified as "alignak-webui"
     ./alignak_webui_start.sh
     # This will run the alignak-webui-uwsgi in a screen session. If you do not mind about a
-    # backend screen, you should run: alignak-webui-uwsgi
+    # WebUI screen, you should run: alignak-webui-uwsgi
 
     ps -aux | grep uwsgi
         root 26312  0.0  0.0  17096   2076 13  I+J  10:23AM 0:00.00 /bin/sh /usr/local/bin/alignak-webui-uwsgi
@@ -720,12 +720,8 @@ Run the Alignak WebUI:
         root 26321  0.0  0.7 227336 111520 13  S+J  10:23AM 1:45.06 uwsgi --ini /usr/local/etc/alignak-webui/uwsgi.ini
 
     # Joining the webui screen is 'screen -r alignak-webui'
-    # Ctrl+C in the screen will stop the backend
+    # Ctrl+C in the screen will stop the WebUI
     # kill -SIGTERM `cat /tmp/alignak-webui.pid`
-
-    # Joining the backend screen is 'screen -r alignak-backend'
-    # Ctrl+C in the screen will stop the backend
-    # kill -SIGTERM `cat /tmp/alignak-backend.pid`
 
     # The alignak webui writes some logs as a Web server does
     tail -f /usr/local/var/log/alignak-webui-error.log
