@@ -36,8 +36,8 @@ To set-up this demo, you must:
 The monitored configuration
 ---------------------------
 
-On a single server, the monitored configuration is separated in three **realms** (*All*, *North* and *South*).
-Some hosts are in the *All* realm and others are in the *North* and *South* realm, both sub-realms of *All* realm.
+On a single server, the monitored configuration is separated in four **realms** (*All*, *North*, *South* and *South-East*).
+Some hosts are in the *All* realm and others are in the *North* and *South* realm, both sub-realms of *All* realm. The *South-East* realm is a sub-realm of *South* and it also contains some hosts.
 
 The *All* realm is (let's say...) a primary datacenter where main servers are located. *North* and *South* realms are a logical group for a part of our monitored configuration. They may be seen as secondary sites.
 
