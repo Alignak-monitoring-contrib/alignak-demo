@@ -39,6 +39,16 @@ screen -d -S alignak_south_scheduler -m sh -c "alignak-scheduler -c ${ALIGNAK_DA
 echo "Started"
 sleep 1
 
+echo "Starting 'South-East' realm daemons..."
+echo " - broker..."
+screen -d -S alignak_south_east_broker -m sh -c "alignak-broker -c ${ALIGNAK_DAEMONS_DIR}/South/brokerd-south-east.ini"
+echo " - poller..."
+screen -d -S alignak_south_east_poller -m sh -c "alignak-poller -c ${ALIGNAK_DAEMONS_DIR}/South/pollerd-south-east.ini"
+echo " - scheduler..."
+screen -d -S alignak_south_east_scheduler -m sh -c "alignak-scheduler -c ${ALIGNAK_DAEMONS_DIR}/South/schedulerd-south-east.ini"
+echo "Started"
+sleep 1
+
 echo "Starting 'All' realm daemons..."
 echo " - broker..."
 screen -d -S alignak_broker -m sh -c "alignak-broker -c ${ALIGNAK_DAEMONS_DIR}/brokerd.ini"
