@@ -837,6 +837,22 @@ Some updates are regularly pushed on the different alignak repositories and then
     pkill alignak-broker
 
 
+To upgrade Alignak, you can:
+::
+
+    cd ~/repos/alignak
+
+    # Get the last develop version
+    git pull
+
+    # Install alignak and all its python dependencies
+    # -v will activate the verbose mode of pip
+    sudo pip install -v .
+
+    # Create alignak user/group and set correct permissions on installed configuration files
+    sudo ./dev/set_permissions.sh
+
+
 To upgrade all the alignak packages that were installed, you can:
 ::
 
