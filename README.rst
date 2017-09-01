@@ -11,8 +11,6 @@ This repository contains many stuff for Alignak:
 
 - scripts to run the Alignak daemons for the demo server (may be used for other configurations)
 
-- a script to create, delete and get elements in the alignak backend
-
 
 What's behind the demo server
 =============================
@@ -134,7 +132,7 @@ Alignak framework
     git clone https://github.com/Alignak-monitoring/alignak
     cd alignak
     # Install alignak and all its python dependencies
-    # -v will activate the verbose mode of pip
+    # -v will activate the verbose mode of pip (not mandatory...)
     sudo pip install -v .
 
     # Create alignak user/group and set correct permissions on installed configuration files
@@ -144,11 +142,11 @@ Alignak backend
 ~~~~~~~~~~~~~~~
 ::
 
-    # Alignak backend
-    sudo pip install alignak-backend
-
-    # Alignak backend importation script
-    sudo pip install alignak-backend-import
+   # Alignak backend
+   sudo pip install alignak-backend
+   sudo chown -R alignak:alignak /usr/local/var/log/alignak-backend/
+   sudo find /usr/local/var/log/alignak-backend/ -type f -exec chmod 664 {} +
+   sudo find /usr/local/var/log/alignak-backend/ -type d -exec chmod 775 {} +
 
 **Note** that you will need to have a running Mongo database. See the `Alignak backend installation procedure <http://alignak-backend.readthedocs.io/en/develop/install.html>`_ if you need to set one up and running.
 
@@ -172,44 +170,81 @@ An excerpt for installing MongoDB on a debian Jessie:
     sudo service mongod start
 
 
+Alignak backend importation script
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Alignak ships a flat-file configuration importation script to feed the Alignak backend. This script is used to parse, check and import a Nagios-like configuration into the Alignak backend.
+
+**Note** that it is not mandatory to install and use this script because the Alignak WebUI allows to create all the monitored objects configuration from scratch :)
+
+For this demo, we will install and use the `alignak-backend-import` script? So let's install it
+::
+
+    # Alignak backend importation script
+    sudo pip install alignak-backend-import
+
+
 Alignak webui
 ~~~~~~~~~~~~~
 ::
 
-    # Alignak webui
-    sudo pip install alignak-webui
+   # Alignak webui
+   sudo pip install alignak-webui
+   sudo chown -R alignak:alignak /usr/local/var/log/alignak-webui/
+   sudo find /usr/local/var/log/alignak-webui/ -type f -exec chmod 664 {} +
+   sudo find /usr/local/var/log/alignak-webui/ -type d -exec chmod 775 {} +
 
-Resulting configuration
-~~~~~~~~~~~~~~~~~~~~~~~
+
+Installed files
+~~~~~~~~~~~~~~~
 ::
 
-    ls -al /usr/local/etc/
-    total 20
-    drwxrwsr-x  5 root    staff   4096 Feb  2 14:08 .
-    drwxrwsr-x 11 root    staff   4096 Feb  2 14:06 ..
-    drwxrwsr-x  7 alignak alignak 4096 Feb  2 16:02 alignak
-    drwxr-sr-x  2 root    staff   4096 Feb  2 14:07 alignak-backend
-    drwxr-sr-x  2 root    staff   4096 Feb  2 14:08 alignak-webui
+   ls -al /usr/local/etc/
+   total 20
+   drwxr-xr-x  5 root    root    4096 sept.  1 08:06 ./
+   drwxr-xr-x 11 root    root    4096 nov.  15  2016 ../
+   drwxrwxr-x  6 alignak alignak 4096 sept.  1 07:58 alignak/
+   drwxr-xr-x  2 root    root    4096 sept.  1 08:01 alignak-backend/
+   drwxr-xr-x  2 root    root    4096 sept.  1 08:06 alignak-webui/
 
-    ls -al /usr/local/etc/alignak
-    total 52
-    drwxrwsr-x 7 alignak alignak 4096 Feb  2 16:02 .
-    drwxrwsr-x 5 root    staff   4096 Feb  2 14:08 ..
-    -rw-rw-r-- 1 alignak alignak 2634 Feb  2 16:02 alignak-backend-import.cfg
-    -rw-rw-r-- 1 alignak alignak 6445 Feb  2 16:02 alignak.backend-run.cfg
-    -rw-rw-r-- 1 alignak alignak 6764 Feb  2 16:02 alignak.cfg
-    -rw-rw-r-- 1 alignak alignak 3762 Feb  2 16:02 alignak.ini
-    drwxrwsr-x 9 alignak alignak 4096 Feb  2 16:02 arbiter
-    drwxrwsr-x 2 alignak alignak 4096 Feb  2 14:06 certs
-    drwxrwsr-x 4 alignak alignak 4096 Feb  2 16:02 daemons
-    drwxrwsr-x 2 alignak alignak 4096 Feb  2 16:02 grafana
-    drwxrwsr-x 5 alignak alignak 4096 Feb  2 16:02 sample
+   ls -al /usr/local/etc/alignak
+   total 40
+   drwxrwxr-x 6 alignak alignak 4096 sept.  1 07:58 ./
+   drwxr-xr-x 5 root    root    4096 sept.  1 08:06 ../
+   -rw-rw-r-- 1 alignak alignak 9122 sept.  1 07:58 alignak.cfg
+   -rw-rw-r-- 1 alignak alignak 3808 sept.  1 07:58 alignak.ini
+   drwxrwxr-x 8 alignak alignak 4096 sept.  1 07:58 arbiter/
+   drwxrwxr-x 2 alignak alignak 4096 sept.  1 07:58 certs/
+   drwxrwxr-x 2 alignak alignak 4096 sept.  1 07:58 daemons/
+   drwxrwxr-x 3 alignak alignak 4096 sept.  1 07:58 sample/
 
-    ls -al /usr/local/var/log
-    total 12
-    drwxr-sr-x 3 root    staff   4096 Feb  2 14:06 .
-    drwxr-sr-x 6 root    staff   4096 Feb  2 14:06 ..
-    drwxr-sr-x 2 alignak alignak 4096 Feb  2 14:06 alignak
+   ls -al /usr/local/etc/alignak-backend
+   total 16
+   drwxr-xr-x 2 root root 4096 sept.  1 08:01 ./
+   drwxr-xr-x 5 root root 4096 sept.  1 08:06 ../
+   -rw-r--r-- 1 root root 1940 mars   7 07:09 settings.json
+   -rw-r--r-- 1 root root 1072 mars   7 07:09 uwsgi.ini
+
+   ls -al /usr/local/etc/alignak-webui
+   total 56
+   drwxr-xr-x 2 root root  4096 sept.  1 08:06 ./
+   drwxr-xr-x 5 root root  4096 sept.  1 08:06 ../
+   -rw-r--r-- 1 root root   853 févr. 28  2017 logging.json
+   -rwxr-xr-x 1 root root 37442 août   1 09:32 settings.cfg*
+   -rw-r--r-- 1 root root  1191 févr. 28  2017 uwsgi.ini
+
+   ls -al /usr/local/var/log
+   total 20
+   drwxr-xr-x 5 root    root    4096 sept.  1 08:06 ./
+   drwxr-xr-x 6 root    root    4096 sept.  1 07:58 ../
+   drwxr-xr-x 2 alignak alignak 4096 sept.  1 07:58 alignak/
+   drwxr-xr-x 2 alignak alignak 4096 sept.  1 08:01 alignak-backend/
+   drwxr-xr-x 2 alignak alignak 4096 sept.  1 08:06 alignak-webui/
+
+   ls -al /usr/local/var/run
+   total 12
+   drwxr-xr-x 3 root    root    4096 sept.  1 07:58 ./
+   drwxr-xr-x 6 root    root    4096 sept.  1 07:58 ../
+   drwxr-xr-x 2 alignak alignak 4096 sept.  1 07:58 alignak/
 
 
 2. Install check plugins
@@ -298,6 +333,8 @@ Checks packages
 
 *Execute these steps only if you did not installed `alignak-demo`*
 
+**Note** *that most of the checks packs are able to create the templates, commands,... directly into the Alignak backend during the installation process. To allow this creation, your Alignak backend must be running and available on its default interface (http://127.0.0.1:5000).*
+
 Get checks packages::
 
     # Install checks packages according to the hosts you want to monitor
@@ -320,34 +357,60 @@ Get checks packages::
     # Restore alignak user/group and set correct permissions on installed configuration files
     sudo ./dev/set_permissions.sh
 
-Manage Alignak extensions
-~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To check what is installed:
+Installed modules and files
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Files that were installed:
+::
+
+   ls -al /usr/local/etc/alignak
+   ...
+   drwxr-xr-x 5 root    root    4096 sept.  1 08:35 backend-json/
+      total 20
+      drwxrwxr-x 5 alignak alignak 4096 sept.  1 08:35 ./
+      drwxrwxr-x 7 alignak alignak 4096 sept.  1 08:13 ../
+      drwxrwxr-x 2 alignak alignak 4096 sept.  1 08:13 notifications/
+      drwxrwxr-x 2 alignak alignak 4096 sept.  1 08:31 snmp/
+      drwxrwxr-x 2 alignak alignak 4096 sept.  1 08:35 windows-nsca/
+   ...
+
+   ls -al /usr/local/etc/alignak/arbiter/packs
+   total 36
+   drwxrwxr-x 8 alignak alignak 4096 sept.  1 08:35 ./
+   drwxrwxr-x 8 alignak alignak 4096 sept.  1 07:58 ../
+   drwxrwxr-x 2 alignak alignak 4096 sept.  1 08:31 mysql/
+   drwxrwxr-x 2 alignak alignak 4096 sept.  1 08:13 notifications/
+   drwxrwxr-x 2 alignak alignak 4096 sept.  1 08:31 nrpe/
+   -rw-rw-r-- 1 alignak alignak  128 sept.  1 07:58 readme.cfg
+   drwxrwxr-x 2 alignak alignak 4096 sept.  1 08:35 resource.d/
+   drwxrwxr-x 2 alignak alignak 4096 sept.  1 08:31 snmp/
+   drwxrwxr-x 2 alignak alignak 4096 sept.  1 08:35 wmi/
+
+
+Modules that were installed:
 ::
 
     pip list | grep alignak
-        alignak (0.2)
-        alignak-backend (0.8.7)
-        alignak-backend-client (0.6.12)
-        alignak-backend-import (0.8.2)
-        alignak-checks-monitoring (0.3.0)
-        alignak-checks-mysql (0.3.0)
-        alignak-checks-nrpe (0.3.3)
-        alignak-checks-snmp (0.3.5)
-        alignak-checks-windows-nsca (0.3.0)
-        alignak-checks-wmi (0.3.0)
-        alignak-demo (0.1.13)
-        alignak-module-backend (0.4.0)
-        alignak-module-external-commands (0.3.0)
-        alignak-module-logs (0.3.3)
-        alignak-module-nrpe-booster (0.3.1)
-        alignak-module-nsca (0.3.2)
-        alignak-module-ws (0.3.2)
-        alignak-notifications (0.3.1)
-        alignak-webui (0.6.13.2)
+      alignak (0.2)
+      alignak-backend (0.9.0)
+      alignak-backend-client (0.9.4)
+      alignak-backend-import (0.9.2)
+      alignak-checks-mysql (0.3.0)
+      alignak-checks-nrpe (0.3.3)
+      alignak-checks-snmp (0.4.1)
+      alignak-checks-windows-nsca (0.4.1.2)
+      alignak-checks-wmi (0.3.0)
+      alignak-module-backend (0.9.1)
+      alignak-module-external-commands (0.3.1)
+      alignak-module-logs (0.5.5)
+      alignak-module-nrpe-booster (0.3.2)
+      alignak-module-nsca (0.3.3)
+      alignak-module-ws (0.6.0)
+      alignak-notifications (0.4.6)
+      alignak-webui (0.8.8.1)
 
-As of now, you installed all the necessary Alignak stuff for starting a demo monitoring application, 1st step achieved!
+As of now, you installed all the necessary Alignak stuff for starting a demo monitoring application, 3rd step achieved!
 
 4. Configure Alignak and monitored hosts/services
 -------------------------------------------------
@@ -370,7 +433,7 @@ Once installed, some extra configuration files got copied in the */usr/local/etc
 ::
 
     # Check Alignak demo configuration
-    alignak-arbiter -V -a /usr/local/etc/alignak/alignak-backend-import.cfg
+    alignak-arbiter -V -a /usr/local/etc/alignak/alignak.cfg
 
 **Note** *that an ERROR log will be raised because the backend connection is not available. this is correct because we configured to use the backend but did not yet started the backend! Some WARNING logs are also raised because of duplicate items. Both are nothing to take care of...*
 
@@ -387,7 +450,7 @@ This Alignak demo project installs some shell scripts into the Alignak libexec f
 
 As explained previously, the shell scripts that you just copied use the `screen` utility to detach the process execution from the current shell session.
 
-As of now, Alignak is configured and you are ready to run, 3rd step achieved!
+As of now, Alignak is configured and you are ready to run, 4th step achieved!
 
 
 5. Configure, run and feed Alignak backend
