@@ -1,28 +1,58 @@
 {
-  "id": 64,
-  "title": "Alignak webui",
-  "tags": [],
-  "style": "dark",
-  "timezone": "browser",
+  "__inputs": [
+    {
+      "name": "DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO",
+      "label": "alignak-graphite-graphite_demo",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "graphite",
+      "pluginName": "Graphite"
+    }
+  ],
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "4.1.1"
+    },
+    {
+      "type": "panel",
+      "id": "graph",
+      "name": "Graph",
+      "version": ""
+    },
+    {
+      "type": "datasource",
+      "id": "graphite",
+      "name": "Graphite",
+      "version": "1.0.0"
+    }
+  ],
+  "annotations": {
+    "list": []
+  },
   "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
   "hideControls": false,
-  "sharedCrosshair": false,
+  "id": null,
+  "links": [],
+  "refresh": "5s",
   "rows": [
     {
       "collapse": false,
-      "editable": true,
       "height": "250px",
       "panels": [
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "alignak-graphite-graphite_demo",
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
           "editable": true,
           "error": false,
           "fill": 1,
           "grid": {},
           "id": 1,
-          "isNew": true,
           "legend": {
             "alignAsTable": true,
             "avg": true,
@@ -94,13 +124,12 @@
             "Harakiri": "#BF1B00"
           },
           "bars": true,
-          "datasource": "alignak-graphite-graphite_demo",
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
           "editable": true,
           "error": false,
           "fill": 1,
           "grid": {},
           "id": 14,
-          "isNew": true,
           "legend": {
             "alignAsTable": true,
             "avg": true,
@@ -170,13 +199,12 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "alignak-graphite-graphite_demo",
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
           "editable": true,
           "error": false,
           "fill": 1,
           "grid": {},
           "id": 3,
-          "isNew": true,
           "legend": {
             "alignAsTable": true,
             "avg": true,
@@ -246,13 +274,12 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "alignak-graphite-graphite_demo",
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
           "editable": true,
           "error": false,
           "fill": 1,
           "grid": {},
           "id": 4,
-          "isNew": true,
           "legend": {
             "avg": false,
             "current": false,
@@ -326,13 +353,12 @@
         {
           "aliasColors": {},
           "bars": true,
-          "datasource": "alignak-graphite-graphite_demo",
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
           "editable": true,
           "error": false,
           "fill": 1,
           "grid": {},
           "id": 5,
-          "isNew": true,
           "legend": {
             "alignAsTable": true,
             "avg": true,
@@ -408,13 +434,12 @@
         {
           "aliasColors": {},
           "bars": true,
-          "datasource": "alignak-graphite-graphite_demo",
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
           "editable": true,
           "error": false,
           "fill": 1,
           "grid": {},
           "id": 6,
-          "isNew": true,
           "legend": {
             "alignAsTable": true,
             "avg": true,
@@ -482,24 +507,26 @@
           ]
         }
       ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
       "showTitle": true,
-      "title": "Overall server"
+      "title": "Overall server",
+      "titleSize": "h6"
     },
     {
       "collapse": false,
-      "editable": true,
       "height": "250px",
       "panels": [
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "alignak-graphite-graphite_demo",
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
           "editable": true,
           "error": false,
           "fill": 1,
           "grid": {},
           "id": 8,
-          "isNew": true,
           "legend": {
             "alignAsTable": true,
             "avg": true,
@@ -565,27 +592,19 @@
               "min": null,
               "show": true
             }
-          ],
-          "scopedVars": {
-            "worker": {
-              "selected": false,
-              "text": "worker1",
-              "value": "worker1"
-            }
-          }
+          ]
         },
         {
           "aliasColors": {
             "Harakiri": "#BF1B00"
           },
           "bars": true,
-          "datasource": "alignak-graphite-graphite_demo",
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
           "editable": true,
           "error": false,
           "fill": 1,
           "grid": {},
           "id": 13,
-          "isNew": true,
           "legend": {
             "alignAsTable": true,
             "avg": true,
@@ -651,25 +670,17 @@
               "min": null,
               "show": true
             }
-          ],
-          "scopedVars": {
-            "worker": {
-              "selected": false,
-              "text": "worker1",
-              "value": "worker1"
-            }
-          }
+          ]
         },
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "alignak-graphite-graphite_demo",
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
           "editable": true,
           "error": false,
           "fill": 1,
           "grid": {},
           "id": 9,
-          "isNew": true,
           "legend": {
             "alignAsTable": true,
             "avg": true,
@@ -735,25 +746,17 @@
               "min": null,
               "show": true
             }
-          ],
-          "scopedVars": {
-            "worker": {
-              "selected": false,
-              "text": "worker1",
-              "value": "worker1"
-            }
-          }
+          ]
         },
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "alignak-graphite-graphite_demo",
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
           "editable": true,
           "error": false,
           "fill": 1,
           "grid": {},
           "id": 10,
-          "isNew": true,
           "legend": {
             "avg": false,
             "current": false,
@@ -823,25 +826,17 @@
               "min": null,
               "show": true
             }
-          ],
-          "scopedVars": {
-            "worker": {
-              "selected": false,
-              "text": "worker1",
-              "value": "worker1"
-            }
-          }
+          ]
         },
         {
           "aliasColors": {},
           "bars": true,
-          "datasource": "alignak-graphite-graphite_demo",
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
           "editable": true,
           "error": false,
           "fill": 1,
           "grid": {},
           "id": 11,
-          "isNew": true,
           "legend": {
             "alignAsTable": true,
             "avg": true,
@@ -913,25 +908,17 @@
               "min": null,
               "show": true
             }
-          ],
-          "scopedVars": {
-            "worker": {
-              "selected": false,
-              "text": "worker1",
-              "value": "worker1"
-            }
-          }
+          ]
         },
         {
           "aliasColors": {},
           "bars": true,
-          "datasource": "alignak-graphite-graphite_demo",
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
           "editable": true,
           "error": false,
           "fill": 1,
           "grid": {},
           "id": 12,
-          "isNew": true,
           "legend": {
             "alignAsTable": true,
             "avg": true,
@@ -997,1633 +984,107 @@
               "min": null,
               "show": true
             }
-          ],
-          "scopedVars": {
-            "worker": {
-              "selected": false,
-              "text": "worker1",
-              "value": "worker1"
-            }
-          }
+          ]
         }
       ],
       "repeat": "worker",
-      "scopedVars": {
-        "worker": {
-          "selected": false,
-          "text": "worker1",
-          "value": "worker1"
-        }
-      },
+      "repeatIteration": null,
+      "repeatRowId": null,
       "showTitle": true,
-      "title": "$worker"
-    },
-    {
-      "collapse": false,
-      "editable": true,
-      "height": "250px",
-      "panels": [
-        {
-          "aliasColors": {},
-          "bars": false,
-          "datasource": "alignak-graphite-graphite_demo",
-          "editable": true,
-          "error": false,
-          "fill": 1,
-          "grid": {},
-          "id": 15,
-          "isNew": true,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": false,
-            "max": true,
-            "min": true,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 2,
-          "links": [],
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "repeatIteration": 1485154056210,
-          "seriesOverrides": [],
-          "span": 2,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "refId": "B",
-              "target": "alias($uwsgi_prefix.$statsd_prefix.$uwsgi_host.$worker.busyness, 'Busyness')",
-              "textEditor": false
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "",
-          "tooltip": {
-            "msResolution": false,
-            "shared": true,
-            "sort": 0,
-            "value_type": "cumulative"
-          },
-          "transparent": true,
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": 0,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "scopedVars": {
-            "worker": {
-              "selected": false,
-              "text": "worker2",
-              "value": "worker2"
-            }
-          }
-        },
-        {
-          "aliasColors": {
-            "Harakiri": "#BF1B00"
-          },
-          "bars": true,
-          "datasource": "alignak-graphite-graphite_demo",
-          "editable": true,
-          "error": false,
-          "fill": 1,
-          "grid": {},
-          "id": 16,
-          "isNew": true,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": false,
-            "max": true,
-            "min": true,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": false,
-          "linewidth": 2,
-          "links": [],
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 4,
-          "points": false,
-          "renderer": "flot",
-          "repeatIteration": 1485154056210,
-          "seriesOverrides": [],
-          "span": 2,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "refId": "B",
-              "target": "alias($uwsgi_prefix.$statsd_prefix.$uwsgi_host.$worker.harakiri, 'Harakiri')",
-              "textEditor": false
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "",
-          "tooltip": {
-            "msResolution": false,
-            "shared": true,
-            "sort": 0,
-            "value_type": "cumulative"
-          },
-          "transparent": true,
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": 0,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "scopedVars": {
-            "worker": {
-              "selected": false,
-              "text": "worker2",
-              "value": "worker2"
-            }
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "datasource": "alignak-graphite-graphite_demo",
-          "editable": true,
-          "error": false,
-          "fill": 1,
-          "grid": {},
-          "id": 17,
-          "isNew": true,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": false,
-            "max": true,
-            "min": true,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": false,
-          "linewidth": 2,
-          "links": [],
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 1,
-          "points": true,
-          "renderer": "flot",
-          "repeatIteration": 1485154056210,
-          "seriesOverrides": [],
-          "span": 2,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "refId": "B",
-              "target": "alias(derivative($uwsgi_prefix.$statsd_prefix.$uwsgi_host.$worker.requests), 'Requests')",
-              "textEditor": false
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "",
-          "tooltip": {
-            "msResolution": false,
-            "shared": true,
-            "sort": 0,
-            "value_type": "cumulative"
-          },
-          "transparent": true,
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "short",
-              "label": "requests",
-              "logBase": 1,
-              "max": null,
-              "min": 0,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": "",
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "scopedVars": {
-            "worker": {
-              "selected": false,
-              "text": "worker2",
-              "value": "worker2"
-            }
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "datasource": "alignak-graphite-graphite_demo",
-          "editable": true,
-          "error": false,
-          "fill": 1,
-          "grid": {},
-          "id": 18,
-          "isNew": true,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 2,
-          "links": [],
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "repeatIteration": 1485154056210,
-          "seriesOverrides": [],
-          "span": 2,
-          "stack": true,
-          "steppedLine": false,
-          "targets": [
-            {
-              "refId": "B",
-              "target": "alias($uwsgi_prefix.$statsd_prefix.$uwsgi_host.$worker.rss_size, 'RSS memory usage')",
-              "textEditor": false
-            },
-            {
-              "refId": "A",
-              "target": "alias($uwsgi_prefix.$statsd_prefix.$uwsgi_host.$worker.vsz_size, 'VSZ memory usage')",
-              "textEditor": false
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "",
-          "tooltip": {
-            "msResolution": false,
-            "shared": true,
-            "sort": 0,
-            "value_type": "cumulative"
-          },
-          "transparent": true,
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "bytes",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": 0,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "scopedVars": {
-            "worker": {
-              "selected": false,
-              "text": "worker2",
-              "value": "worker2"
-            }
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": true,
-          "datasource": "alignak-graphite-graphite_demo",
-          "editable": true,
-          "error": false,
-          "fill": 1,
-          "grid": {},
-          "id": 19,
-          "isNew": true,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": false,
-            "max": true,
-            "min": true,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": false,
-          "linewidth": 2,
-          "links": [],
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "repeatIteration": 1485154056210,
-          "seriesOverrides": [
-            {
-              "alias": "Transmitted",
-              "fillBelowTo": "Transmitted",
-              "lines": false
-            }
-          ],
-          "span": 2,
-          "stack": true,
-          "steppedLine": true,
-          "targets": [
-            {
-              "refId": "B",
-              "target": "alias(derivative($uwsgi_prefix.$statsd_prefix.$uwsgi_host.$worker.tx), 'Transmitted')",
-              "textEditor": true
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "",
-          "tooltip": {
-            "msResolution": false,
-            "shared": true,
-            "sort": 0,
-            "value_type": "cumulative"
-          },
-          "transparent": true,
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "bytes",
-              "label": "transmitted",
-              "logBase": 1,
-              "max": null,
-              "min": 0,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "scopedVars": {
-            "worker": {
-              "selected": false,
-              "text": "worker2",
-              "value": "worker2"
-            }
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": true,
-          "datasource": "alignak-graphite-graphite_demo",
-          "editable": true,
-          "error": false,
-          "fill": 1,
-          "grid": {},
-          "id": 20,
-          "isNew": true,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": false,
-            "max": true,
-            "min": true,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": false,
-          "linewidth": 2,
-          "links": [],
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 1,
-          "points": false,
-          "renderer": "flot",
-          "repeatIteration": 1485154056210,
-          "seriesOverrides": [],
-          "span": 2,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "refId": "B",
-              "target": "alias($uwsgi_prefix.$statsd_prefix.$uwsgi_host.$worker.avg_rt, 'Avg response time')",
-              "textEditor": false
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "",
-          "tooltip": {
-            "msResolution": false,
-            "shared": true,
-            "sort": 0,
-            "value_type": "cumulative"
-          },
-          "transparent": true,
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "µs",
-              "label": "avg response time",
-              "logBase": 1,
-              "max": null,
-              "min": 0,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "scopedVars": {
-            "worker": {
-              "selected": false,
-              "text": "worker2",
-              "value": "worker2"
-            }
-          }
-        }
-      ],
-      "repeat": null,
-      "repeatIteration": 1485290121014,
-      "repeatRowId": 2,
-      "scopedVars": {
-        "worker": {
-          "selected": false,
-          "text": "worker2",
-          "value": "worker2"
-        }
-      },
-      "showTitle": true,
-      "title": "$worker"
-    },
-    {
-      "collapse": false,
-      "editable": true,
-      "height": "250px",
-      "panels": [
-        {
-          "aliasColors": {},
-          "bars": false,
-          "datasource": "alignak-graphite-graphite_demo",
-          "editable": true,
-          "error": false,
-          "fill": 1,
-          "grid": {},
-          "id": 21,
-          "isNew": true,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": false,
-            "max": true,
-            "min": true,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 2,
-          "links": [],
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "repeatIteration": 1485154056210,
-          "seriesOverrides": [],
-          "span": 2,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "refId": "B",
-              "target": "alias($uwsgi_prefix.$statsd_prefix.$uwsgi_host.$worker.busyness, 'Busyness')",
-              "textEditor": false
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "",
-          "tooltip": {
-            "msResolution": false,
-            "shared": true,
-            "sort": 0,
-            "value_type": "cumulative"
-          },
-          "transparent": true,
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": 0,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "scopedVars": {
-            "worker": {
-              "selected": false,
-              "text": "worker3",
-              "value": "worker3"
-            }
-          }
-        },
-        {
-          "aliasColors": {
-            "Harakiri": "#BF1B00"
-          },
-          "bars": true,
-          "datasource": "alignak-graphite-graphite_demo",
-          "editable": true,
-          "error": false,
-          "fill": 1,
-          "grid": {},
-          "id": 22,
-          "isNew": true,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": false,
-            "max": true,
-            "min": true,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": false,
-          "linewidth": 2,
-          "links": [],
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 4,
-          "points": false,
-          "renderer": "flot",
-          "repeatIteration": 1485154056210,
-          "seriesOverrides": [],
-          "span": 2,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "refId": "B",
-              "target": "alias($uwsgi_prefix.$statsd_prefix.$uwsgi_host.$worker.harakiri, 'Harakiri')",
-              "textEditor": false
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "",
-          "tooltip": {
-            "msResolution": false,
-            "shared": true,
-            "sort": 0,
-            "value_type": "cumulative"
-          },
-          "transparent": true,
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": 0,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "scopedVars": {
-            "worker": {
-              "selected": false,
-              "text": "worker3",
-              "value": "worker3"
-            }
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "datasource": "alignak-graphite-graphite_demo",
-          "editable": true,
-          "error": false,
-          "fill": 1,
-          "grid": {},
-          "id": 23,
-          "isNew": true,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": false,
-            "max": true,
-            "min": true,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": false,
-          "linewidth": 2,
-          "links": [],
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 1,
-          "points": true,
-          "renderer": "flot",
-          "repeatIteration": 1485154056210,
-          "seriesOverrides": [],
-          "span": 2,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "refId": "B",
-              "target": "alias(derivative($uwsgi_prefix.$statsd_prefix.$uwsgi_host.$worker.requests), 'Requests')",
-              "textEditor": false
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "",
-          "tooltip": {
-            "msResolution": false,
-            "shared": true,
-            "sort": 0,
-            "value_type": "cumulative"
-          },
-          "transparent": true,
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "short",
-              "label": "requests",
-              "logBase": 1,
-              "max": null,
-              "min": 0,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": "",
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "scopedVars": {
-            "worker": {
-              "selected": false,
-              "text": "worker3",
-              "value": "worker3"
-            }
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "datasource": "alignak-graphite-graphite_demo",
-          "editable": true,
-          "error": false,
-          "fill": 1,
-          "grid": {},
-          "id": 24,
-          "isNew": true,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 2,
-          "links": [],
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "repeatIteration": 1485154056210,
-          "seriesOverrides": [],
-          "span": 2,
-          "stack": true,
-          "steppedLine": false,
-          "targets": [
-            {
-              "refId": "B",
-              "target": "alias($uwsgi_prefix.$statsd_prefix.$uwsgi_host.$worker.rss_size, 'RSS memory usage')",
-              "textEditor": false
-            },
-            {
-              "refId": "A",
-              "target": "alias($uwsgi_prefix.$statsd_prefix.$uwsgi_host.$worker.vsz_size, 'VSZ memory usage')",
-              "textEditor": false
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "",
-          "tooltip": {
-            "msResolution": false,
-            "shared": true,
-            "sort": 0,
-            "value_type": "cumulative"
-          },
-          "transparent": true,
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "bytes",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": 0,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "scopedVars": {
-            "worker": {
-              "selected": false,
-              "text": "worker3",
-              "value": "worker3"
-            }
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": true,
-          "datasource": "alignak-graphite-graphite_demo",
-          "editable": true,
-          "error": false,
-          "fill": 1,
-          "grid": {},
-          "id": 25,
-          "isNew": true,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": false,
-            "max": true,
-            "min": true,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": false,
-          "linewidth": 2,
-          "links": [],
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "repeatIteration": 1485154056210,
-          "seriesOverrides": [
-            {
-              "alias": "Transmitted",
-              "fillBelowTo": "Transmitted",
-              "lines": false
-            }
-          ],
-          "span": 2,
-          "stack": true,
-          "steppedLine": true,
-          "targets": [
-            {
-              "refId": "B",
-              "target": "alias(derivative($uwsgi_prefix.$statsd_prefix.$uwsgi_host.$worker.tx), 'Transmitted')",
-              "textEditor": true
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "",
-          "tooltip": {
-            "msResolution": false,
-            "shared": true,
-            "sort": 0,
-            "value_type": "cumulative"
-          },
-          "transparent": true,
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "bytes",
-              "label": "transmitted",
-              "logBase": 1,
-              "max": null,
-              "min": 0,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "scopedVars": {
-            "worker": {
-              "selected": false,
-              "text": "worker3",
-              "value": "worker3"
-            }
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": true,
-          "datasource": "alignak-graphite-graphite_demo",
-          "editable": true,
-          "error": false,
-          "fill": 1,
-          "grid": {},
-          "id": 26,
-          "isNew": true,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": false,
-            "max": true,
-            "min": true,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": false,
-          "linewidth": 2,
-          "links": [],
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 1,
-          "points": false,
-          "renderer": "flot",
-          "repeatIteration": 1485154056210,
-          "seriesOverrides": [],
-          "span": 2,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "refId": "B",
-              "target": "alias($uwsgi_prefix.$statsd_prefix.$uwsgi_host.$worker.avg_rt, 'Avg response time')",
-              "textEditor": false
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "",
-          "tooltip": {
-            "msResolution": false,
-            "shared": true,
-            "sort": 0,
-            "value_type": "cumulative"
-          },
-          "transparent": true,
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "µs",
-              "label": "avg response time",
-              "logBase": 1,
-              "max": null,
-              "min": 0,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "scopedVars": {
-            "worker": {
-              "selected": false,
-              "text": "worker3",
-              "value": "worker3"
-            }
-          }
-        }
-      ],
-      "repeat": null,
-      "repeatIteration": 1485290121014,
-      "repeatRowId": 2,
-      "scopedVars": {
-        "worker": {
-          "selected": false,
-          "text": "worker3",
-          "value": "worker3"
-        }
-      },
-      "showTitle": true,
-      "title": "$worker"
-    },
-    {
-      "collapse": false,
-      "editable": true,
-      "height": "250px",
-      "panels": [
-        {
-          "aliasColors": {},
-          "bars": false,
-          "datasource": "alignak-graphite-graphite_demo",
-          "editable": true,
-          "error": false,
-          "fill": 1,
-          "grid": {},
-          "id": 27,
-          "isNew": true,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": false,
-            "max": true,
-            "min": true,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 2,
-          "links": [],
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "repeatIteration": 1485154056210,
-          "seriesOverrides": [],
-          "span": 2,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "refId": "B",
-              "target": "alias($uwsgi_prefix.$statsd_prefix.$uwsgi_host.$worker.busyness, 'Busyness')",
-              "textEditor": false
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "",
-          "tooltip": {
-            "msResolution": false,
-            "shared": true,
-            "sort": 0,
-            "value_type": "cumulative"
-          },
-          "transparent": true,
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": 0,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "scopedVars": {
-            "worker": {
-              "selected": false,
-              "text": "worker4",
-              "value": "worker4"
-            }
-          }
-        },
-        {
-          "aliasColors": {
-            "Harakiri": "#BF1B00"
-          },
-          "bars": true,
-          "datasource": "alignak-graphite-graphite_demo",
-          "editable": true,
-          "error": false,
-          "fill": 1,
-          "grid": {},
-          "id": 28,
-          "isNew": true,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": false,
-            "max": true,
-            "min": true,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": false,
-          "linewidth": 2,
-          "links": [],
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 4,
-          "points": false,
-          "renderer": "flot",
-          "repeatIteration": 1485154056210,
-          "seriesOverrides": [],
-          "span": 2,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "refId": "B",
-              "target": "alias($uwsgi_prefix.$statsd_prefix.$uwsgi_host.$worker.harakiri, 'Harakiri')",
-              "textEditor": false
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "",
-          "tooltip": {
-            "msResolution": false,
-            "shared": true,
-            "sort": 0,
-            "value_type": "cumulative"
-          },
-          "transparent": true,
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": 0,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "scopedVars": {
-            "worker": {
-              "selected": false,
-              "text": "worker4",
-              "value": "worker4"
-            }
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "datasource": "alignak-graphite-graphite_demo",
-          "editable": true,
-          "error": false,
-          "fill": 1,
-          "grid": {},
-          "id": 29,
-          "isNew": true,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": false,
-            "max": true,
-            "min": true,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": false,
-          "linewidth": 2,
-          "links": [],
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 1,
-          "points": true,
-          "renderer": "flot",
-          "repeatIteration": 1485154056210,
-          "seriesOverrides": [],
-          "span": 2,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "refId": "B",
-              "target": "alias(derivative($uwsgi_prefix.$statsd_prefix.$uwsgi_host.$worker.requests), 'Requests')",
-              "textEditor": false
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "",
-          "tooltip": {
-            "msResolution": false,
-            "shared": true,
-            "sort": 0,
-            "value_type": "cumulative"
-          },
-          "transparent": true,
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "short",
-              "label": "requests",
-              "logBase": 1,
-              "max": null,
-              "min": 0,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": "",
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "scopedVars": {
-            "worker": {
-              "selected": false,
-              "text": "worker4",
-              "value": "worker4"
-            }
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "datasource": "alignak-graphite-graphite_demo",
-          "editable": true,
-          "error": false,
-          "fill": 1,
-          "grid": {},
-          "id": 30,
-          "isNew": true,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 2,
-          "links": [],
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "repeatIteration": 1485154056210,
-          "seriesOverrides": [],
-          "span": 2,
-          "stack": true,
-          "steppedLine": false,
-          "targets": [
-            {
-              "refId": "B",
-              "target": "alias($uwsgi_prefix.$statsd_prefix.$uwsgi_host.$worker.rss_size, 'RSS memory usage')",
-              "textEditor": false
-            },
-            {
-              "refId": "A",
-              "target": "alias($uwsgi_prefix.$statsd_prefix.$uwsgi_host.$worker.vsz_size, 'VSZ memory usage')",
-              "textEditor": false
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "",
-          "tooltip": {
-            "msResolution": false,
-            "shared": true,
-            "sort": 0,
-            "value_type": "cumulative"
-          },
-          "transparent": true,
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "bytes",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": 0,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "scopedVars": {
-            "worker": {
-              "selected": false,
-              "text": "worker4",
-              "value": "worker4"
-            }
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": true,
-          "datasource": "alignak-graphite-graphite_demo",
-          "editable": true,
-          "error": false,
-          "fill": 1,
-          "grid": {},
-          "id": 31,
-          "isNew": true,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": false,
-            "max": true,
-            "min": true,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": false,
-          "linewidth": 2,
-          "links": [],
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "repeatIteration": 1485154056210,
-          "seriesOverrides": [
-            {
-              "alias": "Transmitted",
-              "fillBelowTo": "Transmitted",
-              "lines": false
-            }
-          ],
-          "span": 2,
-          "stack": true,
-          "steppedLine": true,
-          "targets": [
-            {
-              "refId": "B",
-              "target": "alias(derivative($uwsgi_prefix.$statsd_prefix.$uwsgi_host.$worker.tx), 'Transmitted')",
-              "textEditor": true
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "",
-          "tooltip": {
-            "msResolution": false,
-            "shared": true,
-            "sort": 0,
-            "value_type": "cumulative"
-          },
-          "transparent": true,
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "bytes",
-              "label": "transmitted",
-              "logBase": 1,
-              "max": null,
-              "min": 0,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "scopedVars": {
-            "worker": {
-              "selected": false,
-              "text": "worker4",
-              "value": "worker4"
-            }
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": true,
-          "datasource": "alignak-graphite-graphite_demo",
-          "editable": true,
-          "error": false,
-          "fill": 1,
-          "grid": {},
-          "id": 32,
-          "isNew": true,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": false,
-            "max": true,
-            "min": true,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": false,
-          "linewidth": 2,
-          "links": [],
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 1,
-          "points": false,
-          "renderer": "flot",
-          "repeatIteration": 1485154056210,
-          "seriesOverrides": [],
-          "span": 2,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "refId": "B",
-              "target": "alias($uwsgi_prefix.$statsd_prefix.$uwsgi_host.$worker.avg_rt, 'Avg response time')",
-              "textEditor": false
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "",
-          "tooltip": {
-            "msResolution": false,
-            "shared": true,
-            "sort": 0,
-            "value_type": "cumulative"
-          },
-          "transparent": true,
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "µs",
-              "label": "avg response time",
-              "logBase": 1,
-              "max": null,
-              "min": 0,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "scopedVars": {
-            "worker": {
-              "selected": false,
-              "text": "worker4",
-              "value": "worker4"
-            }
-          }
-        }
-      ],
-      "repeat": null,
-      "repeatIteration": 1485290121014,
-      "repeatRowId": 2,
-      "scopedVars": {
-        "worker": {
-          "selected": false,
-          "text": "worker4",
-          "value": "worker4"
-        }
-      },
-      "showTitle": true,
-      "title": "$worker"
+      "title": "$worker",
+      "titleSize": "h6"
     }
   ],
+  "schemaVersion": 14,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "allValue": null,
+        "current": {
+          "text": "alignak-webui",
+          "value": "alignak-webui"
+        },
+        "datasource": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": "uWSGI prefix",
+        "multi": false,
+        "name": "uwsgi_prefix",
+        "options": [
+          {
+            "selected": true,
+            "text": "alignak-webui",
+            "value": "alignak-webui"
+          }
+        ],
+        "query": "alignak-webui",
+        "refresh": 0,
+        "type": "custom"
+      },
+      {
+        "allValue": null,
+        "current": {},
+        "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Host/StatsD prefix",
+        "multi": false,
+        "name": "statsd_prefix",
+        "options": [],
+        "query": "$uwsgi_prefix.*",
+        "refresh": 1,
+        "regex": "",
+        "sort": 0,
+        "tagValuesQuery": null,
+        "tags": [],
+        "tagsQuery": null,
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {},
+        "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
+        "hide": 0,
+        "includeAll": true,
+        "label": "uWSGI host",
+        "multi": false,
+        "name": "uwsgi_host",
+        "options": [],
+        "query": "$uwsgi_prefix.$statsd_prefix.*",
+        "refresh": 1,
+        "regex": "",
+        "sort": 0,
+        "tagValuesQuery": null,
+        "tags": [],
+        "tagsQuery": null,
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {},
+        "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Workers",
+        "multi": false,
+        "name": "worker",
+        "options": [],
+        "query": "$uwsgi_prefix.$statsd_prefix.$uwsgi_host.*",
+        "refresh": 1,
+        "regex": "/^(worker(.*))/",
+        "sort": 0,
+        "tagValuesQuery": null,
+        "tags": [],
+        "tagsQuery": null,
+        "type": "query",
+        "useTags": false
+      }
+    ]
+  },
   "time": {
     "from": "now-30m",
     "to": "now"
@@ -2653,145 +1114,7 @@
       "30d"
     ]
   },
-  "templating": {
-    "list": [
-      {
-        "allValue": null,
-        "current": {
-          "text": "alignak-webui",
-          "value": "alignak-webui"
-        },
-        "datasource": null,
-        "hide": 0,
-        "includeAll": false,
-        "label": "uWSGI prefix",
-        "multi": false,
-        "name": "uwsgi_prefix",
-        "options": [
-          {
-            "selected": true,
-            "text": "alignak-webui",
-            "value": "alignak-webui"
-          }
-        ],
-        "query": "alignak-webui",
-        "refresh": 0,
-        "type": "custom"
-      },
-      {
-        "allValue": null,
-        "current": {
-          "text": "alignakfromscratch",
-          "value": "alignakfromscratch"
-        },
-        "datasource": "alignak-graphite-graphite_demo",
-        "hide": 0,
-        "includeAll": false,
-        "label": "StatsD prefix",
-        "multi": false,
-        "name": "statsd_prefix",
-        "options": [
-          {
-            "text": "alignakfromscratch",
-            "value": "alignakfromscratch",
-            "selected": true
-          }
-        ],
-        "query": "$uwsgi_prefix.*",
-        "refresh": 1,
-        "regex": "",
-        "sort": 0,
-        "tagValuesQuery": null,
-        "tagsQuery": null,
-        "type": "query"
-      },
-      {
-        "allValue": null,
-        "current": {
-          "text": "All",
-          "value": "$__all"
-        },
-        "datasource": "alignak-graphite-graphite_demo",
-        "hide": 0,
-        "includeAll": true,
-        "label": "StatsD prefix",
-        "multi": false,
-        "name": "uwsgi_host",
-        "options": [
-          {
-            "text": "All",
-            "value": "$__all",
-            "selected": true
-          },
-          {
-            "text": "0_0_0_0:5001",
-            "value": "0_0_0_0:5001",
-            "selected": false
-          }
-        ],
-        "query": "$uwsgi_prefix.$statsd_prefix.*",
-        "refresh": 1,
-        "regex": "",
-        "sort": 0,
-        "tagValuesQuery": null,
-        "tagsQuery": null,
-        "type": "query"
-      },
-      {
-        "allValue": null,
-        "current": {
-          "text": "All",
-          "value": "$__all"
-        },
-        "datasource": "alignak-graphite-graphite_demo",
-        "hide": 0,
-        "includeAll": true,
-        "label": "Workers",
-        "multi": false,
-        "name": "worker",
-        "options": [
-          {
-            "text": "All",
-            "value": "$__all",
-            "selected": true
-          },
-          {
-            "text": "worker1",
-            "value": "worker1",
-            "selected": false
-          },
-          {
-            "text": "worker2",
-            "value": "worker2",
-            "selected": false
-          },
-          {
-            "text": "worker3",
-            "value": "worker3",
-            "selected": false
-          },
-          {
-            "text": "worker4",
-            "value": "worker4",
-            "selected": false
-          }
-        ],
-        "query": "$uwsgi_prefix.$statsd_prefix.$uwsgi_host.*",
-        "refresh": 1,
-        "regex": "/^(worker(.*))/",
-        "sort": 0,
-        "tagValuesQuery": null,
-        "tagsQuery": null,
-        "type": "query"
-      }
-    ]
-  },
-  "annotations": {
-    "list": []
-  },
-  "refresh": "5s",
-  "schemaVersion": 13,
-  "version": 2,
-  "links": [],
-  "gnetId": null
+  "timezone": "browser",
+  "title": "Alignak webui - 1.0.0",
+  "version": 1
 }

@@ -1,19 +1,53 @@
 {
-  "id": 43,
-  "title": "Alignak internal metrics",
-  "tags": [
-    "alignak",
-    "statsd"
+  "__inputs": [
+    {
+      "name": "DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO",
+      "label": "alignak-graphite-graphite_demo",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "graphite",
+      "pluginName": "Graphite"
+    }
   ],
-  "style": "dark",
-  "timezone": "browser",
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "4.1.1"
+    },
+    {
+      "type": "panel",
+      "id": "graph",
+      "name": "Graph",
+      "version": ""
+    },
+    {
+      "type": "datasource",
+      "id": "graphite",
+      "name": "Graphite",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "singlestat",
+      "name": "Singlestat",
+      "version": ""
+    }
+  ],
+  "annotations": {
+    "list": []
+  },
   "editable": true,
+  "gnetId": null,
+  "graphTooltip": 1,
   "hideControls": false,
-  "sharedCrosshair": false,
+  "id": null,
+  "links": [],
+  "refresh": "5m",
   "rows": [
     {
       "collapse": false,
-      "editable": true,
       "height": "150px",
       "panels": [
         {
@@ -25,7 +59,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": null,
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
           "editable": true,
           "error": false,
           "format": "none",
@@ -38,7 +72,6 @@
           },
           "id": 23,
           "interval": null,
-          "isNew": true,
           "links": [],
           "mappingType": 1,
           "mappingTypes": [
@@ -100,7 +133,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": null,
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
           "editable": true,
           "error": false,
           "format": "none",
@@ -113,7 +146,6 @@
           },
           "id": 88,
           "interval": null,
-          "isNew": true,
           "links": [],
           "mappingType": 1,
           "mappingTypes": [
@@ -175,7 +207,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": null,
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
           "editable": true,
           "error": false,
           "format": "none",
@@ -188,7 +220,6 @@
           },
           "id": 89,
           "interval": null,
-          "isNew": true,
           "links": [],
           "mappingType": 1,
           "mappingTypes": [
@@ -246,12 +277,11 @@
             "Processing time": "#6ED0E0"
           },
           "bars": false,
-          "datasource": null,
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
           "editable": true,
           "error": false,
           "fill": 1,
           "id": 1,
-          "isNew": true,
           "legend": {
             "avg": false,
             "current": false,
@@ -327,12 +357,11 @@
             "Metrics received count": "#BF1B00"
           },
           "bars": false,
-          "datasource": null,
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
           "editable": true,
           "error": false,
           "fill": 1,
           "id": 8,
-          "isNew": true,
           "legend": {
             "avg": false,
             "current": false,
@@ -407,12 +436,11 @@
             "Timestamp lag": "#EAB839"
           },
           "bars": false,
-          "datasource": null,
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
           "editable": true,
           "error": false,
           "fill": 1,
           "id": 90,
-          "isNew": true,
           "legend": {
             "avg": false,
             "current": false,
@@ -486,12 +514,11 @@
             "Calculation time": "#6ED0E0"
           },
           "bars": false,
-          "datasource": null,
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
           "editable": true,
           "error": false,
           "fill": 1,
           "id": 7,
-          "isNew": true,
           "legend": {
             "avg": false,
             "current": false,
@@ -562,12 +589,11 @@
             "Flush time": "#6ED0E0"
           },
           "bars": false,
-          "datasource": null,
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
           "editable": true,
           "error": false,
           "fill": 1,
           "id": 91,
-          "isNew": true,
           "legend": {
             "avg": false,
             "current": false,
@@ -638,12 +664,11 @@
             "Flush length": "#6ED0E0"
           },
           "bars": false,
-          "datasource": null,
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
           "editable": true,
           "error": false,
           "fill": 1,
           "id": 92,
-          "isNew": true,
           "legend": {
             "avg": false,
             "current": false,
@@ -707,90 +732,17 @@
               "show": false
             }
           ]
-        },
-        {
-          "aliasColors": {
-            "Calculation time": "#6ED0E0",
-            "Flush length": "#6ED0E0"
-          },
-          "bars": false,
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "fill": 1,
-          "id": 93,
-          "isNew": true,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 1,
-          "links": [],
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "span": 3,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "refId": "A",
-              "target": "alias($statsd_prefix.statsd.graphiteStats.last_flush, 'Last flush')"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Last flush",
-          "tooltip": {
-            "msResolution": false,
-            "shared": true,
-            "sort": 0,
-            "value_type": "cumulative"
-          },
-          "transparent": false,
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "name": null,
-            "show": false,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "ms",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": "0",
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": false
-            }
-          ]
         }
       ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
       "showTitle": true,
-      "title": "StatsD metrics"
+      "title": "StatsD metrics",
+      "titleSize": "h6"
     },
     {
       "collapse": false,
-      "editable": true,
       "height": "100px",
       "panels": [
         {
@@ -802,7 +754,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": null,
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
           "editable": true,
           "error": false,
           "format": "none",
@@ -815,7 +767,6 @@
           },
           "id": 37,
           "interval": null,
-          "isNew": true,
           "links": [],
           "mappingType": 1,
           "mappingTypes": [
@@ -869,14 +820,7 @@
               "value": "null"
             }
           ],
-          "valueName": "avg",
-          "scopedVars": {
-            "schedulers": {
-              "selected": false,
-              "text": "master",
-              "value": "master"
-            }
-          }
+          "valueName": "avg"
         },
         {
           "cacheTimeout": null,
@@ -887,7 +831,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": null,
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
           "editable": true,
           "error": false,
           "format": "none",
@@ -900,7 +844,6 @@
           },
           "id": 54,
           "interval": null,
-          "isNew": true,
           "links": [],
           "mappingType": 1,
           "mappingTypes": [
@@ -954,14 +897,7 @@
               "value": "null"
             }
           ],
-          "valueName": "avg",
-          "scopedVars": {
-            "schedulers": {
-              "selected": false,
-              "text": "master",
-              "value": "master"
-            }
-          }
+          "valueName": "avg"
         },
         {
           "cacheTimeout": null,
@@ -972,7 +908,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": null,
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
           "editable": true,
           "error": false,
           "format": "none",
@@ -983,9 +919,8 @@
             "thresholdLabels": false,
             "thresholdMarkers": true
           },
-          "id": 74,
+          "id": 118,
           "interval": null,
-          "isNew": true,
           "links": [],
           "mappingType": 1,
           "mappingTypes": [
@@ -1013,7 +948,7 @@
               "to": "null"
             }
           ],
-          "repeat": null,
+          "repeat": "schedulers",
           "span": 4,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
@@ -1024,12 +959,12 @@
           "targets": [
             {
               "refId": "A",
-              "target": "$statsd_prefix.$alignak_prefix.scheduler-$schedulers.configuration.hosts",
+              "target": "$statsd_prefix.$alignak_prefix.scheduler-$schedulers.configuration.contacts",
               "textEditor": false
             }
           ],
           "thresholds": "",
-          "title": "Scheduler $schedulers hosts",
+          "title": "Scheduler $schedulers contacts",
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
@@ -1039,284 +974,18 @@
               "value": "null"
             }
           ],
-          "valueName": "avg",
-          "scopedVars": {
-            "schedulers": {
-              "selected": false,
-              "text": "north",
-              "value": "north"
-            }
-          },
-          "repeatIteration": 1485094389106,
-          "repeatPanelId": 37
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "format": "none",
-          "gauge": {
-            "maxValue": 100,
-            "minValue": 0,
-            "show": false,
-            "thresholdLabels": false,
-            "thresholdMarkers": true
-          },
-          "id": 75,
-          "interval": null,
-          "isNew": true,
-          "links": [],
-          "mappingType": 1,
-          "mappingTypes": [
-            {
-              "name": "value to text",
-              "value": 1
-            },
-            {
-              "name": "range to text",
-              "value": 2
-            }
-          ],
-          "maxDataPoints": 100,
-          "minSpan": 2,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "rangeMaps": [
-            {
-              "from": "null",
-              "text": "N/A",
-              "to": "null"
-            }
-          ],
-          "repeat": null,
-          "span": 4,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "targets": [
-            {
-              "refId": "A",
-              "target": "$statsd_prefix.$alignak_prefix.scheduler-$schedulers.configuration.hosts",
-              "textEditor": false
-            }
-          ],
-          "thresholds": "",
-          "title": "Scheduler $schedulers hosts",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "avg",
-          "scopedVars": {
-            "schedulers": {
-              "selected": false,
-              "text": "south",
-              "value": "south"
-            }
-          },
-          "repeatIteration": 1485094389106,
-          "repeatPanelId": 37
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "format": "none",
-          "gauge": {
-            "maxValue": 100,
-            "minValue": 0,
-            "show": false,
-            "thresholdLabels": false,
-            "thresholdMarkers": true
-          },
-          "id": 76,
-          "interval": null,
-          "isNew": true,
-          "links": [],
-          "mappingType": 1,
-          "mappingTypes": [
-            {
-              "name": "value to text",
-              "value": 1
-            },
-            {
-              "name": "range to text",
-              "value": 2
-            }
-          ],
-          "maxDataPoints": 100,
-          "minSpan": 2,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "rangeMaps": [
-            {
-              "from": "null",
-              "text": "N/A",
-              "to": "null"
-            }
-          ],
-          "repeat": null,
-          "span": 4,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "targets": [
-            {
-              "refId": "A",
-              "target": "$statsd_prefix.$alignak_prefix.scheduler-$schedulers.configuration.services",
-              "textEditor": false
-            }
-          ],
-          "thresholds": "",
-          "title": "Scheduler $schedulers services",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "avg",
-          "scopedVars": {
-            "schedulers": {
-              "selected": false,
-              "text": "north",
-              "value": "north"
-            }
-          },
-          "repeatIteration": 1485094389106,
-          "repeatPanelId": 54
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "format": "none",
-          "gauge": {
-            "maxValue": 100,
-            "minValue": 0,
-            "show": false,
-            "thresholdLabels": false,
-            "thresholdMarkers": true
-          },
-          "id": 77,
-          "interval": null,
-          "isNew": true,
-          "links": [],
-          "mappingType": 1,
-          "mappingTypes": [
-            {
-              "name": "value to text",
-              "value": 1
-            },
-            {
-              "name": "range to text",
-              "value": 2
-            }
-          ],
-          "maxDataPoints": 100,
-          "minSpan": 2,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "rangeMaps": [
-            {
-              "from": "null",
-              "text": "N/A",
-              "to": "null"
-            }
-          ],
-          "repeat": null,
-          "span": 4,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "targets": [
-            {
-              "refId": "A",
-              "target": "$statsd_prefix.$alignak_prefix.scheduler-$schedulers.configuration.services",
-              "textEditor": false
-            }
-          ],
-          "thresholds": "",
-          "title": "Scheduler $schedulers services",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "avg",
-          "scopedVars": {
-            "schedulers": {
-              "selected": false,
-              "text": "south",
-              "value": "south"
-            }
-          },
-          "repeatIteration": 1485094389106,
-          "repeatPanelId": 54
+          "valueName": "avg"
         }
       ],
-      "title": "New row"
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": true,
+      "title": "Scheduler objects",
+      "titleSize": "h6"
     },
     {
-      "collapse": false,
-      "editable": true,
+      "collapse": true,
       "height": "100px",
       "panels": [
         {
@@ -1328,7 +997,242 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": null,
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "id": 120,
+          "interval": null,
+          "isNew": true,
+          "links": [],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 2,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "repeat": "schedulers",
+          "span": 4,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "refId": "A",
+              "target": "$statsd_prefix.$alignak_prefix.scheduler-$schedulers.actions.check.total.launched",
+              "textEditor": false
+            }
+          ],
+          "thresholds": "",
+          "title": "Scheduler $schedulers launched checks",
+          "transparent": false,
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "id": 119,
+          "interval": null,
+          "isNew": true,
+          "links": [],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 2,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "repeat": "schedulers",
+          "span": 4,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "refId": "A",
+              "target": "$statsd_prefix.$alignak_prefix.scheduler-$schedulers.actions.check.active.executed",
+              "textEditor": false
+            }
+          ],
+          "thresholds": "",
+          "title": "Scheduler $schedulers active checks",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "id": 121,
+          "interval": null,
+          "isNew": true,
+          "links": [],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "minSpan": 2,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "repeat": "schedulers",
+          "span": 4,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "refId": "A",
+              "target": "$statsd_prefix.$alignak_prefix.scheduler-$schedulers.actions.check.passive.executed",
+              "textEditor": false
+            }
+          ],
+          "thresholds": "",
+          "title": "Scheduler $schedulers passive checks",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
           "editable": true,
           "error": false,
           "format": "none",
@@ -1375,17 +1279,18 @@
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
             "lineColor": "rgb(31, 120, 193)",
-            "show": false
+            "show": true
           },
           "targets": [
             {
               "refId": "A",
-              "target": "$statsd_prefix.$alignak_prefix.scheduler-$schedulers.checks.total",
+              "target": "$statsd_prefix.$alignak_prefix.scheduler-$schedulers.actions.check.total.executed",
               "textEditor": false
             }
           ],
           "thresholds": "",
-          "title": "Scheduler $schedulers checks",
+          "title": "Scheduler $schedulers executed checks",
+          "transparent": false,
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
@@ -1395,14 +1300,7 @@
               "value": "null"
             }
           ],
-          "valueName": "avg",
-          "scopedVars": {
-            "schedulers": {
-              "selected": false,
-              "text": "master",
-              "value": "master"
-            }
-          }
+          "valueName": "current"
         },
         {
           "cacheTimeout": null,
@@ -1413,7 +1311,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": null,
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
           "editable": true,
           "error": false,
           "format": "none",
@@ -1424,7 +1322,7 @@
             "thresholdLabels": false,
             "thresholdMarkers": true
           },
-          "id": 78,
+          "id": 122,
           "interval": null,
           "isNew": true,
           "links": [],
@@ -1454,23 +1352,24 @@
               "to": "null"
             }
           ],
-          "repeat": null,
+          "repeat": "schedulers",
           "span": 4,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
             "lineColor": "rgb(31, 120, 193)",
-            "show": false
+            "show": true
           },
           "targets": [
             {
               "refId": "A",
-              "target": "$statsd_prefix.$alignak_prefix.scheduler-$schedulers.checks.total",
+              "target": "$statsd_prefix.$alignak_prefix.scheduler-$schedulers.actions.check.total.result.total",
               "textEditor": false
             }
           ],
           "thresholds": "",
-          "title": "Scheduler $schedulers checks",
+          "title": "Scheduler $schedulers checks results",
+          "transparent": false,
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
@@ -1480,110 +1379,18 @@
               "value": "null"
             }
           ],
-          "valueName": "avg",
-          "scopedVars": {
-            "schedulers": {
-              "selected": false,
-              "text": "north",
-              "value": "north"
-            }
-          },
-          "repeatIteration": 1485094389106,
-          "repeatPanelId": 38
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "format": "none",
-          "gauge": {
-            "maxValue": 100,
-            "minValue": 0,
-            "show": false,
-            "thresholdLabels": false,
-            "thresholdMarkers": true
-          },
-          "id": 79,
-          "interval": null,
-          "isNew": true,
-          "links": [],
-          "mappingType": 1,
-          "mappingTypes": [
-            {
-              "name": "value to text",
-              "value": 1
-            },
-            {
-              "name": "range to text",
-              "value": 2
-            }
-          ],
-          "maxDataPoints": 100,
-          "minSpan": 2,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "rangeMaps": [
-            {
-              "from": "null",
-              "text": "N/A",
-              "to": "null"
-            }
-          ],
-          "repeat": null,
-          "span": 4,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "targets": [
-            {
-              "refId": "A",
-              "target": "$statsd_prefix.$alignak_prefix.scheduler-$schedulers.checks.total",
-              "textEditor": false
-            }
-          ],
-          "thresholds": "",
-          "title": "Scheduler $schedulers checks",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "avg",
-          "scopedVars": {
-            "schedulers": {
-              "selected": false,
-              "text": "south",
-              "value": "south"
-            }
-          },
-          "repeatIteration": 1485094389106,
-          "repeatPanelId": 38
+          "valueName": "current"
         }
       ],
-      "title": "New row"
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": true,
+      "title": "Scheduler checks",
+      "titleSize": "h6"
     },
     {
-      "collapse": false,
-      "editable": true,
+      "collapse": true,
       "height": "100px",
       "panels": [
         {
@@ -1595,7 +1402,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": null,
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
           "editable": true,
           "error": false,
           "format": "none",
@@ -1647,12 +1454,12 @@
           "targets": [
             {
               "refId": "A",
-              "target": "$statsd_prefix.$alignak_prefix.scheduler-$schedulers.actions.notifications",
+              "target": "$statsd_prefix.$alignak_prefix.scheduler-$schedulers.actions.notification.total.launched",
               "textEditor": false
             }
           ],
           "thresholds": "",
-          "title": "Scheduler $schedulers notifications",
+          "title": "Scheduler $schedulers sent notifications",
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
@@ -1662,14 +1469,7 @@
               "value": "null"
             }
           ],
-          "valueName": "avg",
-          "scopedVars": {
-            "schedulers": {
-              "selected": false,
-              "text": "master",
-              "value": "master"
-            }
-          }
+          "valueName": "current"
         },
         {
           "cacheTimeout": null,
@@ -1680,7 +1480,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": null,
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
           "editable": true,
           "error": false,
           "format": "none",
@@ -1691,7 +1491,7 @@
             "thresholdLabels": false,
             "thresholdMarkers": true
           },
-          "id": 80,
+          "id": 123,
           "interval": null,
           "isNew": true,
           "links": [],
@@ -1721,7 +1521,7 @@
               "to": "null"
             }
           ],
-          "repeat": null,
+          "repeat": "schedulers",
           "span": 4,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
@@ -1732,12 +1532,12 @@
           "targets": [
             {
               "refId": "A",
-              "target": "$statsd_prefix.$alignak_prefix.scheduler-$schedulers.actions.notifications",
+              "target": "$statsd_prefix.$alignak_prefix.scheduler-$schedulers.actions.notification.total.timeout",
               "textEditor": false
             }
           ],
           "thresholds": "",
-          "title": "Scheduler $schedulers notifications",
+          "title": "Scheduler $schedulers timed-out notifications",
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
@@ -1747,116 +1547,24 @@
               "value": "null"
             }
           ],
-          "valueName": "avg",
-          "scopedVars": {
-            "schedulers": {
-              "selected": false,
-              "text": "north",
-              "value": "north"
-            }
-          },
-          "repeatIteration": 1485094389106,
-          "repeatPanelId": 39
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "format": "none",
-          "gauge": {
-            "maxValue": 100,
-            "minValue": 0,
-            "show": false,
-            "thresholdLabels": false,
-            "thresholdMarkers": true
-          },
-          "id": 81,
-          "interval": null,
-          "isNew": true,
-          "links": [],
-          "mappingType": 1,
-          "mappingTypes": [
-            {
-              "name": "value to text",
-              "value": 1
-            },
-            {
-              "name": "range to text",
-              "value": 2
-            }
-          ],
-          "maxDataPoints": 100,
-          "minSpan": 4,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "rangeMaps": [
-            {
-              "from": "null",
-              "text": "N/A",
-              "to": "null"
-            }
-          ],
-          "repeat": null,
-          "span": 4,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": true,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": true
-          },
-          "targets": [
-            {
-              "refId": "A",
-              "target": "$statsd_prefix.$alignak_prefix.scheduler-$schedulers.actions.notifications",
-              "textEditor": false
-            }
-          ],
-          "thresholds": "",
-          "title": "Scheduler $schedulers notifications",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "avg",
-          "scopedVars": {
-            "schedulers": {
-              "selected": false,
-              "text": "south",
-              "value": "south"
-            }
-          },
-          "repeatIteration": 1485094389106,
-          "repeatPanelId": 39
+          "valueName": "avg"
         }
       ],
-      "title": "New row"
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": true,
+      "title": "Scheduler notifications",
+      "titleSize": "h6"
     },
     {
-      "collapse": false,
-      "editable": true,
+      "collapse": true,
       "height": "150px",
       "panels": [
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": null,
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -1952,19 +1660,12 @@
               "min": null,
               "show": true
             }
-          ],
-          "scopedVars": {
-            "brokers": {
-              "selected": false,
-              "text": "master",
-              "value": "master"
-            }
-          }
+          ]
         },
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": null,
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -2039,426 +1740,24 @@
               "min": null,
               "show": true
             }
-          ],
-          "scopedVars": {
-            "brokers": {
-              "selected": false,
-              "text": "master",
-              "value": "master"
-            }
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "fill": 1,
-          "height": "",
-          "id": 67,
-          "isNew": true,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 2,
-          "links": [],
-          "minSpan": 4,
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "repeat": null,
-          "seriesOverrides": [],
-          "span": 4,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "refId": "A",
-              "target": "alias($statsd_prefix.$alignak_prefix.broker-$brokers.get-new-broks.poller.mean, 'From poller')",
-              "textEditor": true
-            },
-            {
-              "refId": "B",
-              "target": "alias($statsd_prefix.$alignak_prefix.broker-$brokers.get-new-broks.reactionner.mean, 'From reactionner')",
-              "textEditor": true
-            },
-            {
-              "refId": "C",
-              "target": "alias($statsd_prefix.$alignak_prefix.broker-$brokers.get-new-broks.receiver.mean, 'From receiver')",
-              "textEditor": true
-            },
-            {
-              "refId": "D",
-              "target": "alias($statsd_prefix.$alignak_prefix.broker-$brokers.get-new-broks.scheduler.mean, 'From scheduler')",
-              "textEditor": true
-            },
-            {
-              "refId": "E",
-              "target": "alias($statsd_prefix.$alignak_prefix.broker-$brokers.get-new-broks.arbiter.mean, 'From arbiter')",
-              "textEditor": true
-            },
-            {
-              "refId": "F",
-              "target": "alias($statsd_prefix.$alignak_prefix.broker-$brokers.get-new-broks.broker.mean, 'From self')",
-              "textEditor": true
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Broker $brokers, time to get broks",
-          "tooltip": {
-            "msResolution": false,
-            "shared": true,
-            "sort": 0,
-            "value_type": "cumulative"
-          },
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "ms",
-              "label": "",
-              "logBase": 1,
-              "max": null,
-              "min": "0",
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "scopedVars": {
-            "brokers": {
-              "selected": false,
-              "text": "north",
-              "value": "north"
-            }
-          },
-          "repeatIteration": 1485094389106,
-          "repeatPanelId": 2
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "fill": 1,
-          "height": "",
-          "id": 68,
-          "isNew": true,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 2,
-          "links": [],
-          "minSpan": 4,
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "repeat": null,
-          "seriesOverrides": [],
-          "span": 4,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "refId": "A",
-              "target": "alias($statsd_prefix.$alignak_prefix.broker-$brokers.get-new-broks.poller.mean, 'From poller')",
-              "textEditor": true
-            },
-            {
-              "refId": "B",
-              "target": "alias($statsd_prefix.$alignak_prefix.broker-$brokers.get-new-broks.reactionner.mean, 'From reactionner')",
-              "textEditor": true
-            },
-            {
-              "refId": "C",
-              "target": "alias($statsd_prefix.$alignak_prefix.broker-$brokers.get-new-broks.receiver.mean, 'From receiver')",
-              "textEditor": true
-            },
-            {
-              "refId": "D",
-              "target": "alias($statsd_prefix.$alignak_prefix.broker-$brokers.get-new-broks.scheduler.mean, 'From scheduler')",
-              "textEditor": true
-            },
-            {
-              "refId": "E",
-              "target": "alias($statsd_prefix.$alignak_prefix.broker-$brokers.get-new-broks.arbiter.mean, 'From arbiter')",
-              "textEditor": true
-            },
-            {
-              "refId": "F",
-              "target": "alias($statsd_prefix.$alignak_prefix.broker-$brokers.get-new-broks.broker.mean, 'From self')",
-              "textEditor": true
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Broker $brokers, time to get broks",
-          "tooltip": {
-            "msResolution": false,
-            "shared": true,
-            "sort": 0,
-            "value_type": "cumulative"
-          },
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "ms",
-              "label": "",
-              "logBase": 1,
-              "max": null,
-              "min": "0",
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "scopedVars": {
-            "brokers": {
-              "selected": false,
-              "text": "south",
-              "value": "south"
-            }
-          },
-          "repeatIteration": 1485094389106,
-          "repeatPanelId": 2
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "fill": 1,
-          "id": 69,
-          "isNew": true,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 2,
-          "links": [],
-          "minSpan": 4,
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "repeat": null,
-          "seriesOverrides": [],
-          "span": 4,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "refId": "A",
-              "target": "alias($statsd_prefix.$alignak_prefix.broker-$brokers.core.put-to-external-queue.mean, 'To external modules')",
-              "textEditor": true
-            },
-            {
-              "refId": "B",
-              "target": "alias($statsd_prefix.$alignak_prefix.broker-$brokers.core.manage-broks.mean, 'With internal modules')",
-              "textEditor": true
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Broker $brokers, time to manage broks",
-          "tooltip": {
-            "msResolution": false,
-            "shared": true,
-            "sort": 0,
-            "value_type": "cumulative"
-          },
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": "0",
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "scopedVars": {
-            "brokers": {
-              "selected": false,
-              "text": "north",
-              "value": "north"
-            }
-          },
-          "repeatIteration": 1485094389106,
-          "repeatPanelId": 5
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "fill": 1,
-          "id": 70,
-          "isNew": true,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 2,
-          "links": [],
-          "minSpan": 4,
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "repeat": null,
-          "seriesOverrides": [],
-          "span": 4,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "refId": "A",
-              "target": "alias($statsd_prefix.$alignak_prefix.broker-$brokers.core.put-to-external-queue.mean, 'To external modules')",
-              "textEditor": true
-            },
-            {
-              "refId": "B",
-              "target": "alias($statsd_prefix.$alignak_prefix.broker-$brokers.core.manage-broks.mean, 'With internal modules')",
-              "textEditor": true
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Broker $brokers, time to manage broks",
-          "tooltip": {
-            "msResolution": false,
-            "shared": true,
-            "sort": 0,
-            "value_type": "cumulative"
-          },
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": "0",
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "scopedVars": {
-            "brokers": {
-              "selected": false,
-              "text": "south",
-              "value": "south"
-            }
-          },
-          "repeatIteration": 1485094389106,
-          "repeatPanelId": 5
+          ]
         }
       ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
       "showTitle": true,
-      "title": "Brokers metrics"
+      "title": "Brokers metrics",
+      "titleSize": "h6"
     },
     {
-      "collapse": false,
-      "editable": true,
+      "collapse": true,
       "height": "250px",
       "panels": [
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": null,
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -2546,7 +1845,7 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": null,
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -2619,7 +1918,7 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": null,
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -2690,18 +1989,21 @@
           ]
         }
       ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
       "showTitle": true,
-      "title": "Arbiters metrics"
+      "title": "Arbiters metrics",
+      "titleSize": "h6"
     },
     {
-      "collapse": false,
-      "editable": true,
+      "collapse": true,
       "height": "250px",
       "panels": [
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": null,
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -2727,7 +2029,7 @@
           "renderer": "flot",
           "repeat": "pollers",
           "seriesOverrides": [],
-          "span": 4,
+          "span": 6,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -2771,201 +2073,28 @@
               "min": null,
               "show": true
             }
-          ],
-          "scopedVars": {
-            "pollers": {
-              "selected": false,
-              "text": "master",
-              "value": "master"
-            }
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "fill": 1,
-          "id": 71,
-          "isNew": true,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 2,
-          "links": [],
-          "minSpan": 4,
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "repeat": null,
-          "seriesOverrides": [],
-          "span": 4,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "refId": "D",
-              "target": "$statsd_prefix.$alignak_prefix.poller-$pollers.core.worker-fork.queue-size",
-              "textEditor": false
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Poller $pollers - workers queue size",
-          "tooltip": {
-            "msResolution": false,
-            "shared": true,
-            "sort": 0,
-            "value_type": "cumulative"
-          },
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": "0",
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "scopedVars": {
-            "pollers": {
-              "selected": false,
-              "text": "north",
-              "value": "north"
-            }
-          },
-          "repeatIteration": 1485094389106,
-          "repeatPanelId": 9
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "fill": 1,
-          "id": 72,
-          "isNew": true,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 2,
-          "links": [],
-          "minSpan": 4,
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "repeat": null,
-          "seriesOverrides": [],
-          "span": 4,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "refId": "D",
-              "target": "$statsd_prefix.$alignak_prefix.poller-$pollers.core.worker-fork.queue-size",
-              "textEditor": false
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Poller $pollers - workers queue size",
-          "tooltip": {
-            "msResolution": false,
-            "shared": true,
-            "sort": 0,
-            "value_type": "cumulative"
-          },
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": "0",
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "scopedVars": {
-            "pollers": {
-              "selected": false,
-              "text": "south",
-              "value": "south"
-            }
-          },
-          "repeatIteration": 1485094389106,
-          "repeatPanelId": 9
+          ]
         }
       ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
       "showTitle": true,
-      "title": "Pollers metrics"
+      "title": "Pollers metrics",
+      "titleSize": "h6"
     },
     {
       "collapse": false,
-      "editable": true,
       "height": "250px",
       "panels": [
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": null,
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
           "editable": true,
           "error": false,
           "fill": 1,
           "id": 29,
-          "isNew": true,
           "legend": {
             "alignAsTable": true,
             "avg": false,
@@ -2989,8 +2118,10 @@
           "repeat": "schedulers",
           "seriesOverrides": [
             {
-              "alias": "Mean duration",
-              "yaxis": 1
+              "alias": "Loop count",
+              "color": "#0A437C",
+              "fill": 0,
+              "yaxis": 2
             }
           ],
           "span": 4,
@@ -3000,217 +2131,32 @@
             {
               "hide": false,
               "refId": "A",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.whole.mean, 'Whole loop')",
-              "textEditor": false
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Scheduler $schedulers total loop duration",
-          "tooltip": {
-            "msResolution": false,
-            "shared": true,
-            "sort": 1,
-            "value_type": "cumulative"
-          },
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "ms",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": "0",
-              "show": true
-            },
-            {
-              "format": "ms",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": "0",
-              "show": true
-            }
-          ],
-          "scopedVars": {
-            "schedulers": {
-              "selected": false,
-              "text": "master",
-              "value": "master"
-            }
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "fill": 1,
-          "id": 14,
-          "isNew": true,
-          "legend": {
-            "alignAsTable": true,
-            "avg": false,
-            "current": false,
-            "hideEmpty": true,
-            "hideZero": true,
-            "max": true,
-            "min": false,
-            "rightSide": true,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 2,
-          "links": [],
-          "minSpan": 4,
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "repeat": "schedulers",
-          "seriesOverrides": [
-            {
-              "alias": "Mean duration",
-              "yaxis": 1
-            }
-          ],
-          "span": 4,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "hide": true,
-              "refId": "A",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.whole.mean, 'Whole loop')",
+              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.count, 'Loop count')",
               "textEditor": false
             },
             {
+              "hide": false,
               "refId": "B",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.update_downtimes_and_comments.mean, 'Update downtimes')",
+              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.duration.mean, 'Loop mean duration')",
               "textEditor": false
             },
             {
-              "refId": "G",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.schedule.mean, 'Schedule')",
-              "textEditor": false
-            },
-            {
+              "hide": false,
               "refId": "C",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.check_freshness.mean, 'Check freshness')",
+              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.duration.lower, 'Loop lower duration')",
               "textEditor": false
             },
             {
+              "hide": false,
               "refId": "D",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.consume_results.mean, 'Consume results')",
-              "textEditor": false
-            },
-            {
-              "refId": "I",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.get_new_actions.mean, 'Get new actions')",
-              "textEditor": false
-            },
-            {
-              "refId": "H",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.scatter_master_notifications.mean, 'Scatter notifications')",
-              "textEditor": false
-            },
-            {
-              "refId": "E",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.get_new_broks.mean, 'Get new broks')",
-              "textEditor": false
-            },
-            {
-              "refId": "J",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.delete_zombie_checks.mean, 'Delete zombie checks')",
-              "textEditor": false
-            },
-            {
-              "refId": "K",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.delete_zombie_actions.mean, 'Delete zombie actions')",
-              "textEditor": false
-            },
-            {
-              "refId": "F",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.clean_caches.mean, 'Clean cache')",
-              "textEditor": false
-            },
-            {
-              "hide": true,
-              "refId": "L",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.update_retention_file.mean, 'Update retention file')",
-              "textEditor": false
-            },
-            {
-              "refId": "M",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.check_orphaned.mean, 'Check orphaned')",
-              "textEditor": false
-            },
-            {
-              "refId": "N",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.get_and_register_update_program_status_brok.mean, 'Program status brok')",
-              "textEditor": false
-            },
-            {
-              "refId": "O",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.check_for_system_time_change.mean, 'Check time change')",
-              "textEditor": false
-            },
-            {
-              "refId": "P",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.manage_internal_checks.mean, 'Internal checks')",
-              "textEditor": false
-            },
-            {
-              "refId": "Q",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.clean_queues.mean, 'Clean queues')",
-              "textEditor": false
-            },
-            {
-              "refId": "R",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.update_business_values.mean, 'Update business values')",
-              "textEditor": false
-            },
-            {
-              "refId": "S",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.reset_topology_change_flag.mean, 'Reset topology flag')",
-              "textEditor": false
-            },
-            {
-              "refId": "T",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.check_for_expire_acknowledge.mean, 'Check acknowledges')",
-              "textEditor": false
-            },
-            {
-              "refId": "U",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.send_broks_to_modules.mean, 'Send broks')",
-              "textEditor": false
-            },
-            {
-              "refId": "V",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.get_objects_from_from_queues.mean, 'Get from queues')",
-              "textEditor": false
-            },
-            {
-              "refId": "W",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.get_latency_average_percentile.mean, 'Compute latency')",
+              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.duration.upper, 'Loop upper duration')",
               "textEditor": false
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Scheduler $schedulers loop duration details",
+          "title": "Scheduler $schedulers loop",
           "tooltip": {
             "msResolution": false,
             "shared": true,
@@ -3227,38 +2173,30 @@
           "yaxes": [
             {
               "format": "ms",
-              "label": null,
+              "label": "",
               "logBase": 1,
               "max": null,
               "min": "0",
               "show": true
             },
             {
-              "format": "ms",
-              "label": null,
+              "format": "short",
+              "label": "Count",
               "logBase": 1,
               "max": null,
               "min": "0",
               "show": true
             }
-          ],
-          "scopedVars": {
-            "schedulers": {
-              "selected": false,
-              "text": "master",
-              "value": "master"
-            }
-          }
+          ]
         },
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": null,
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
           "editable": true,
           "error": false,
           "fill": 1,
           "id": 28,
-          "isNew": true,
           "legend": {
             "alignAsTable": true,
             "avg": false,
@@ -3335,28 +2273,20 @@
               "min": "0",
               "show": true
             }
-          ],
-          "scopedVars": {
-            "schedulers": {
-              "selected": false,
-              "text": "master",
-              "value": "master"
-            }
-          }
+          ]
         },
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": null,
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
           "editable": true,
           "error": false,
           "fill": 1,
-          "id": 82,
-          "isNew": true,
+          "id": 115,
           "legend": {
             "alignAsTable": true,
             "avg": false,
-            "current": false,
+            "current": true,
             "max": true,
             "min": false,
             "rightSide": true,
@@ -3373,11 +2303,13 @@
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
-          "repeat": null,
+          "repeat": "schedulers",
           "seriesOverrides": [
             {
-              "alias": "Mean duration",
-              "yaxis": 1
+              "alias": "Loop count",
+              "color": "#0A437C",
+              "fill": 0,
+              "yaxis": 2
             }
           ],
           "span": 4,
@@ -3387,14 +2319,32 @@
             {
               "hide": false,
               "refId": "A",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.whole.mean, 'Whole loop')",
+              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.actions.check.total.launched, 'Checks total')",
+              "textEditor": false
+            },
+            {
+              "hide": false,
+              "refId": "B",
+              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.actions.check.active.launched, 'Checks active')",
+              "textEditor": false
+            },
+            {
+              "hide": false,
+              "refId": "C",
+              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.actions.check.passive.launched, 'Checks passive')",
+              "textEditor": false
+            },
+            {
+              "hide": true,
+              "refId": "D",
+              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.actions.check.loop.launched, 'Checks loop')",
               "textEditor": false
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Scheduler $schedulers total loop duration",
+          "title": "Scheduler $schedulers launched checks",
           "tooltip": {
             "msResolution": false,
             "shared": true,
@@ -3410,46 +2360,36 @@
           },
           "yaxes": [
             {
-              "format": "ms",
-              "label": null,
+              "format": "short",
+              "label": "",
               "logBase": 1,
               "max": null,
               "min": "0",
               "show": true
             },
             {
-              "format": "ms",
-              "label": null,
+              "format": "short",
+              "label": "Count",
               "logBase": 1,
               "max": null,
               "min": "0",
               "show": true
             }
-          ],
-          "scopedVars": {
-            "schedulers": {
-              "selected": false,
-              "text": "north",
-              "value": "north"
-            }
-          },
-          "repeatIteration": 1485094389106,
-          "repeatPanelId": 29
+          ]
         },
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": null,
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
           "editable": true,
           "error": false,
           "fill": 1,
-          "id": 83,
-          "isNew": true,
+          "id": 155,
           "legend": {
             "alignAsTable": true,
             "avg": false,
-            "current": false,
-            "max": true,
+            "current": true,
+            "max": false,
             "min": false,
             "rightSide": true,
             "show": true,
@@ -3465,11 +2405,13 @@
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
-          "repeat": null,
+          "repeat": "schedulers",
           "seriesOverrides": [
             {
-              "alias": "Mean duration",
-              "yaxis": 1
+              "alias": "Results total",
+              "color": "#0A437C",
+              "fill": 0,
+              "yaxis": 2
             }
           ],
           "span": 4,
@@ -3479,14 +2421,32 @@
             {
               "hide": false,
               "refId": "A",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.whole.mean, 'Whole loop')",
+              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.actions.check.total.result.done, 'Results done')",
+              "textEditor": false
+            },
+            {
+              "hide": false,
+              "refId": "B",
+              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.actions.check.total.result.inpoller, 'Results in poller')",
+              "textEditor": false
+            },
+            {
+              "hide": false,
+              "refId": "C",
+              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.actions.check.total.result.scheduled, 'Results scheduled')",
+              "textEditor": false
+            },
+            {
+              "hide": false,
+              "refId": "D",
+              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.actions.check.total.result.total, 'Results total')",
               "textEditor": false
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Scheduler $schedulers total loop duration",
+          "title": "Scheduler $schedulers checks results",
           "tooltip": {
             "msResolution": false,
             "shared": true,
@@ -3502,48 +2462,36 @@
           },
           "yaxes": [
             {
-              "format": "ms",
-              "label": null,
+              "format": "short",
+              "label": "",
               "logBase": 1,
               "max": null,
               "min": "0",
               "show": true
             },
             {
-              "format": "ms",
-              "label": null,
+              "format": "short",
+              "label": "Total",
               "logBase": 1,
               "max": null,
               "min": "0",
               "show": true
             }
-          ],
-          "scopedVars": {
-            "schedulers": {
-              "selected": false,
-              "text": "south",
-              "value": "south"
-            }
-          },
-          "repeatIteration": 1485094389106,
-          "repeatPanelId": 29
+          ]
         },
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": null,
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
           "editable": true,
           "error": false,
           "fill": 1,
-          "id": 84,
-          "isNew": true,
+          "id": 117,
           "legend": {
             "alignAsTable": true,
             "avg": false,
-            "current": false,
-            "hideEmpty": true,
-            "hideZero": true,
-            "max": true,
+            "current": true,
+            "max": false,
             "min": false,
             "rightSide": true,
             "show": true,
@@ -3559,11 +2507,13 @@
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
-          "repeat": null,
+          "repeat": "schedulers",
           "seriesOverrides": [
             {
-              "alias": "Mean duration",
-              "yaxis": 1
+              "alias": "Loop count",
+              "color": "#0A437C",
+              "fill": 0,
+              "yaxis": 2
             }
           ],
           "span": 4,
@@ -3571,127 +2521,22 @@
           "steppedLine": false,
           "targets": [
             {
-              "hide": true,
+              "hide": false,
               "refId": "A",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.whole.mean, 'Whole loop')",
+              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.actions.eventhandler.total.launched, 'Event handlers total')",
               "textEditor": false
             },
             {
-              "refId": "B",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.update_downtimes_and_comments.mean, 'Update downtimes')",
-              "textEditor": false
-            },
-            {
-              "refId": "G",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.schedule.mean, 'Schedule')",
-              "textEditor": false
-            },
-            {
-              "refId": "C",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.check_freshness.mean, 'Check freshness')",
-              "textEditor": false
-            },
-            {
+              "hide": false,
               "refId": "D",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.consume_results.mean, 'Consume results')",
-              "textEditor": false
-            },
-            {
-              "refId": "I",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.get_new_actions.mean, 'Get new actions')",
-              "textEditor": false
-            },
-            {
-              "refId": "H",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.scatter_master_notifications.mean, 'Scatter notifications')",
-              "textEditor": false
-            },
-            {
-              "refId": "E",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.get_new_broks.mean, 'Get new broks')",
-              "textEditor": false
-            },
-            {
-              "refId": "J",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.delete_zombie_checks.mean, 'Delete zombie checks')",
-              "textEditor": false
-            },
-            {
-              "refId": "K",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.delete_zombie_actions.mean, 'Delete zombie actions')",
-              "textEditor": false
-            },
-            {
-              "refId": "F",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.clean_caches.mean, 'Clean cache')",
-              "textEditor": false
-            },
-            {
-              "hide": true,
-              "refId": "L",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.update_retention_file.mean, 'Update retention file')",
-              "textEditor": false
-            },
-            {
-              "refId": "M",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.check_orphaned.mean, 'Check orphaned')",
-              "textEditor": false
-            },
-            {
-              "refId": "N",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.get_and_register_update_program_status_brok.mean, 'Program status brok')",
-              "textEditor": false
-            },
-            {
-              "refId": "O",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.check_for_system_time_change.mean, 'Check time change')",
-              "textEditor": false
-            },
-            {
-              "refId": "P",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.manage_internal_checks.mean, 'Internal checks')",
-              "textEditor": false
-            },
-            {
-              "refId": "Q",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.clean_queues.mean, 'Clean queues')",
-              "textEditor": false
-            },
-            {
-              "refId": "R",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.update_business_values.mean, 'Update business values')",
-              "textEditor": false
-            },
-            {
-              "refId": "S",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.reset_topology_change_flag.mean, 'Reset topology flag')",
-              "textEditor": false
-            },
-            {
-              "refId": "T",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.check_for_expire_acknowledge.mean, 'Check acknowledges')",
-              "textEditor": false
-            },
-            {
-              "refId": "U",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.send_broks_to_modules.mean, 'Send broks')",
-              "textEditor": false
-            },
-            {
-              "refId": "V",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.get_objects_from_from_queues.mean, 'Get from queues')",
-              "textEditor": false
-            },
-            {
-              "refId": "W",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.get_latency_average_percentile.mean, 'Compute latency')",
+              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.actions.eventhandler.loop.launched, 'Event handlers / loop')",
               "textEditor": false
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Scheduler $schedulers loop duration details",
+          "title": "Scheduler $schedulers event handlers",
           "tooltip": {
             "msResolution": false,
             "shared": true,
@@ -3707,48 +2552,36 @@
           },
           "yaxes": [
             {
-              "format": "ms",
-              "label": null,
+              "format": "short",
+              "label": "",
               "logBase": 1,
               "max": null,
               "min": "0",
               "show": true
             },
             {
-              "format": "ms",
-              "label": null,
+              "format": "short",
+              "label": "Count",
               "logBase": 1,
               "max": null,
               "min": "0",
               "show": true
             }
-          ],
-          "scopedVars": {
-            "schedulers": {
-              "selected": false,
-              "text": "north",
-              "value": "north"
-            }
-          },
-          "repeatIteration": 1485094389106,
-          "repeatPanelId": 14
+          ]
         },
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": null,
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
           "editable": true,
           "error": false,
           "fill": 1,
-          "id": 85,
-          "isNew": true,
+          "id": 116,
           "legend": {
             "alignAsTable": true,
             "avg": false,
-            "current": false,
-            "hideEmpty": true,
-            "hideZero": true,
-            "max": true,
+            "current": true,
+            "max": false,
             "min": false,
             "rightSide": true,
             "show": true,
@@ -3764,11 +2597,13 @@
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
-          "repeat": null,
+          "repeat": "schedulers",
           "seriesOverrides": [
             {
-              "alias": "Mean duration",
-              "yaxis": 1
+              "alias": "Loop count",
+              "color": "#0A437C",
+              "fill": 0,
+              "yaxis": 2
             }
           ],
           "span": 4,
@@ -3776,127 +2611,28 @@
           "steppedLine": false,
           "targets": [
             {
-              "hide": true,
+              "hide": false,
               "refId": "A",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.whole.mean, 'Whole loop')",
+              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.actions.notification.total.launched, 'Notifications total')",
               "textEditor": false
             },
             {
+              "hide": true,
               "refId": "B",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.update_downtimes_and_comments.mean, 'Update downtimes')",
+              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.actions.notification.total.launched, 'Notifications active')",
               "textEditor": false
             },
             {
-              "refId": "G",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.schedule.mean, 'Schedule')",
-              "textEditor": false
-            },
-            {
-              "refId": "C",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.check_freshness.mean, 'Check freshness')",
-              "textEditor": false
-            },
-            {
+              "hide": false,
               "refId": "D",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.consume_results.mean, 'Consume results')",
-              "textEditor": false
-            },
-            {
-              "refId": "I",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.get_new_actions.mean, 'Get new actions')",
-              "textEditor": false
-            },
-            {
-              "refId": "H",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.scatter_master_notifications.mean, 'Scatter notifications')",
-              "textEditor": false
-            },
-            {
-              "refId": "E",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.get_new_broks.mean, 'Get new broks')",
-              "textEditor": false
-            },
-            {
-              "refId": "J",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.delete_zombie_checks.mean, 'Delete zombie checks')",
-              "textEditor": false
-            },
-            {
-              "refId": "K",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.delete_zombie_actions.mean, 'Delete zombie actions')",
-              "textEditor": false
-            },
-            {
-              "refId": "F",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.clean_caches.mean, 'Clean cache')",
-              "textEditor": false
-            },
-            {
-              "hide": true,
-              "refId": "L",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.update_retention_file.mean, 'Update retention file')",
-              "textEditor": false
-            },
-            {
-              "refId": "M",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.check_orphaned.mean, 'Check orphaned')",
-              "textEditor": false
-            },
-            {
-              "refId": "N",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.get_and_register_update_program_status_brok.mean, 'Program status brok')",
-              "textEditor": false
-            },
-            {
-              "refId": "O",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.check_for_system_time_change.mean, 'Check time change')",
-              "textEditor": false
-            },
-            {
-              "refId": "P",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.manage_internal_checks.mean, 'Internal checks')",
-              "textEditor": false
-            },
-            {
-              "refId": "Q",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.clean_queues.mean, 'Clean queues')",
-              "textEditor": false
-            },
-            {
-              "refId": "R",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.update_business_values.mean, 'Update business values')",
-              "textEditor": false
-            },
-            {
-              "refId": "S",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.reset_topology_change_flag.mean, 'Reset topology flag')",
-              "textEditor": false
-            },
-            {
-              "refId": "T",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.check_for_expire_acknowledge.mean, 'Check acknowledges')",
-              "textEditor": false
-            },
-            {
-              "refId": "U",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.send_broks_to_modules.mean, 'Send broks')",
-              "textEditor": false
-            },
-            {
-              "refId": "V",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.get_objects_from_from_queues.mean, 'Get from queues')",
-              "textEditor": false
-            },
-            {
-              "refId": "W",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.loop.get_latency_average_percentile.mean, 'Compute latency')",
+              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.actions.notification.loop.launched, 'Notifications / loop')",
               "textEditor": false
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Scheduler $schedulers loop duration details",
+          "title": "Scheduler $schedulers notifications",
           "tooltip": {
             "msResolution": false,
             "shared": true,
@@ -3912,242 +2648,43 @@
           },
           "yaxes": [
             {
-              "format": "ms",
-              "label": null,
+              "format": "short",
+              "label": "",
               "logBase": 1,
               "max": null,
               "min": "0",
               "show": true
             },
             {
-              "format": "ms",
-              "label": null,
+              "format": "short",
+              "label": "Count",
               "logBase": 1,
               "max": null,
               "min": "0",
               "show": true
             }
-          ],
-          "scopedVars": {
-            "schedulers": {
-              "selected": false,
-              "text": "south",
-              "value": "south"
-            }
-          },
-          "repeatIteration": 1485094389106,
-          "repeatPanelId": 14
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "fill": 1,
-          "id": 86,
-          "isNew": true,
-          "legend": {
-            "alignAsTable": true,
-            "avg": false,
-            "current": false,
-            "max": true,
-            "min": false,
-            "rightSide": true,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 2,
-          "links": [],
-          "minSpan": 4,
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 2,
-          "points": true,
-          "renderer": "flot",
-          "repeat": null,
-          "seriesOverrides": [
-            {
-              "alias": "Mean duration",
-              "yaxis": 1
-            }
-          ],
-          "span": 4,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "refId": "G",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.core.hook.load_retention.mean, 'Load retention')",
-              "textEditor": false
-            },
-            {
-              "refId": "A",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.core.hook.save_retention.mean, 'Save retention')",
-              "textEditor": false
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Scheduler $schedulers retention",
-          "tooltip": {
-            "msResolution": false,
-            "shared": true,
-            "sort": 1,
-            "value_type": "cumulative"
-          },
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "ms",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": "0",
-              "show": true
-            },
-            {
-              "format": "ms",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": "0",
-              "show": true
-            }
-          ],
-          "scopedVars": {
-            "schedulers": {
-              "selected": false,
-              "text": "north",
-              "value": "north"
-            }
-          },
-          "repeatIteration": 1485094389106,
-          "repeatPanelId": 28
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "fill": 1,
-          "id": 87,
-          "isNew": true,
-          "legend": {
-            "alignAsTable": true,
-            "avg": false,
-            "current": false,
-            "max": true,
-            "min": false,
-            "rightSide": true,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 2,
-          "links": [],
-          "minSpan": 4,
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 2,
-          "points": true,
-          "renderer": "flot",
-          "repeat": null,
-          "seriesOverrides": [
-            {
-              "alias": "Mean duration",
-              "yaxis": 1
-            }
-          ],
-          "span": 4,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "refId": "G",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.core.hook.load_retention.mean, 'Load retention')",
-              "textEditor": false
-            },
-            {
-              "refId": "A",
-              "target": "alias($statsd_prefix.$alignak_prefix.scheduler-$schedulers.core.hook.save_retention.mean, 'Save retention')",
-              "textEditor": false
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Scheduler $schedulers retention",
-          "tooltip": {
-            "msResolution": false,
-            "shared": true,
-            "sort": 1,
-            "value_type": "cumulative"
-          },
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "ms",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": "0",
-              "show": true
-            },
-            {
-              "format": "ms",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": "0",
-              "show": true
-            }
-          ],
-          "scopedVars": {
-            "schedulers": {
-              "selected": false,
-              "text": "south",
-              "value": "south"
-            }
-          },
-          "repeatIteration": 1485094389106,
-          "repeatPanelId": 28
+          ]
         }
       ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
       "showTitle": true,
-      "title": "Schedulers metrics"
+      "title": "Schedulers metrics",
+      "titleSize": "h6"
     },
     {
       "collapse": false,
-      "editable": true,
       "height": "250px",
       "panels": [
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": null,
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
           "editable": true,
           "error": false,
           "fill": 1,
           "id": 36,
-          "isNew": true,
           "legend": {
             "avg": false,
             "current": false,
@@ -4168,7 +2705,7 @@
           "renderer": "flot",
           "repeat": "receivers",
           "seriesOverrides": [],
-          "span": 6,
+          "span": 12,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -4217,32 +2754,38 @@
               "min": null,
               "show": true
             }
-          ],
-          "scopedVars": {
-            "receivers": {
-              "selected": false,
-              "text": "master",
-              "value": "master"
-            }
-          }
-        },
+          ]
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": true,
+      "title": "Receivers metrics",
+      "titleSize": "h6"
+    },
+    {
+      "collapse": false,
+      "height": "250px",
+      "panels": [
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": null,
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
           "editable": true,
           "error": false,
           "fill": 1,
-          "id": 73,
-          "isNew": true,
+          "id": 113,
           "legend": {
+            "alignAsTable": true,
             "avg": false,
             "current": false,
-            "max": false,
+            "max": true,
             "min": false,
+            "rightSide": true,
             "show": true,
             "total": false,
-            "values": false
+            "values": true
           },
           "lines": true,
           "linewidth": 2,
@@ -4250,34 +2793,47 @@
           "minSpan": 4,
           "nullPointMode": "connected",
           "percentage": false,
-          "pointradius": 5,
+          "pointradius": 2,
           "points": false,
           "renderer": "flot",
-          "repeat": null,
-          "seriesOverrides": [],
-          "span": 6,
+          "repeat": "reactionners",
+          "seriesOverrides": [
+            {
+              "alias": "Mean duration",
+              "yaxis": 1
+            }
+          ],
+          "span": 12,
           "stack": false,
           "steppedLine": false,
           "targets": [
             {
+              "hide": false,
               "refId": "A",
-              "target": "alias($statsd_prefix.$alignak_prefix.receiver-$receivers.core.get-objects-from-queues.mean, 'Get objects from modules')",
+              "target": "alias($statsd_prefix.$alignak_prefix.reactionner-$reactionners.core.manage-returns.mean, 'Manage returns')",
               "textEditor": false
             },
             {
+              "hide": false,
               "refId": "B",
-              "target": "alias($statsd_prefix.$alignak_prefix.receiver-$receivers.core.push-external-commands.mean, 'Push external commands')",
+              "target": "alias($statsd_prefix.$alignak_prefix.reactionner-$reactionners.core.get-new-actions.mean, 'Get new actions')",
+              "textEditor": false
+            },
+            {
+              "hide": false,
+              "refId": "C",
+              "target": "alias($statsd_prefix.$alignak_prefix.reactionner-$reactionners.core.paused-loop.mean, 'Pause loop')",
               "textEditor": false
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Receiver $receivers timers",
+          "title": "Reactionner $reactionners main metrics",
           "tooltip": {
             "msResolution": false,
             "shared": true,
-            "sort": 0,
+            "sort": 1,
             "value_type": "cumulative"
           },
           "type": "graph",
@@ -4297,31 +2853,374 @@
               "show": true
             },
             {
+              "format": "ms",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "id": 114,
+          "legend": {
+            "alignAsTable": true,
+            "avg": false,
+            "current": false,
+            "max": true,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "minSpan": 4,
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "repeat": "reactionners",
+          "seriesOverrides": [
+            {
+              "alias": "Mean duration",
+              "yaxis": 1
+            }
+          ],
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "hide": false,
+              "refId": "A",
+              "target": "alias($statsd_prefix.$alignak_prefix.reactionner-$reactionners.con-init.scheduler.count, 'Connection init')",
+              "textEditor": false
+            },
+            {
+              "hide": false,
+              "refId": "B",
+              "target": "alias($statsd_prefix.$alignak_prefix.reactionner-$reactionners.con-get-running-id.scheduler.count, 'Connection id')",
+              "textEditor": false
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Reactionner $reactionners connections",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 1,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "ms",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "ms",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "id": 154,
+          "legend": {
+            "alignAsTable": true,
+            "avg": false,
+            "current": false,
+            "max": true,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": false,
+          "linewidth": 2,
+          "links": [],
+          "minSpan": 4,
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 2,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "Mean duration",
+              "yaxis": 1
+            }
+          ],
+          "span": 4,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "hide": false,
+              "refId": "A",
+              "target": "alias($statsd_prefix.$alignak_prefix.reactionner-$reactionners.core.worker-fork_1.actions-queue-size, 'Actions queue')",
+              "textEditor": false
+            },
+            {
+              "hide": false,
+              "refId": "B",
+              "target": "alias($statsd_prefix.$alignak_prefix.reactionner-$reactionners.core.worker-fork_1.results-queue-size, 'Results queue')",
+              "textEditor": false
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Reactionner $reactionners queues",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 1,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
               "format": "short",
               "label": null,
               "logBase": 1,
               "max": null,
-              "min": null,
+              "min": "0",
               "show": true
+            },
+            {
+              "format": "ms",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": false
             }
-          ],
-          "scopedVars": {
-            "receivers": {
-              "selected": false,
-              "text": "north",
-              "value": "north"
-            }
-          },
-          "repeatIteration": 1485094389106,
-          "repeatPanelId": 36
+          ]
         }
       ],
+      "repeat": "reactionners",
+      "repeatIteration": null,
+      "repeatRowId": null,
       "showTitle": true,
-      "title": "Receivers metrics"
+      "title": "Reactionners metrics",
+      "titleSize": "h6"
     }
   ],
+  "schemaVersion": 14,
+  "style": "dark",
+  "tags": [
+    "alignak",
+    "statsd"
+  ],
+  "templating": {
+    "list": [
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "text": "alignak-statsd",
+          "value": "alignak-statsd"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": "StatsD Graphite prefix",
+        "multi": false,
+        "name": "statsd_prefix",
+        "options": [
+          {
+            "selected": true,
+            "text": "alignak-statsd",
+            "value": "alignak-statsd"
+          }
+        ],
+        "query": "alignak-statsd",
+        "type": "custom"
+      },
+      {
+        "allValue": null,
+        "current": {
+          "text": "alignak-demo",
+          "value": "alignak-demo"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": "Alignak prefix",
+        "multi": false,
+        "name": "alignak_prefix",
+        "options": [
+          {
+            "selected": true,
+            "text": "alignak-demo",
+            "value": "alignak-demo"
+          }
+        ],
+        "query": "alignak-demo",
+        "type": "custom"
+      },
+      {
+        "allValue": null,
+        "current": {},
+        "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
+        "hide": 0,
+        "includeAll": true,
+        "label": null,
+        "multi": false,
+        "name": "arbiters",
+        "options": [],
+        "query": "$statsd_prefix.$alignak_prefix.*",
+        "refresh": 1,
+        "regex": "/arbiter-(.*)/",
+        "sort": 0,
+        "tagValuesQuery": null,
+        "tags": [],
+        "tagsQuery": null,
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {},
+        "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
+        "hide": 0,
+        "includeAll": true,
+        "label": null,
+        "multi": false,
+        "name": "schedulers",
+        "options": [],
+        "query": "$statsd_prefix.$alignak_prefix.*",
+        "refresh": 1,
+        "regex": "/scheduler-(.*)/",
+        "sort": 0,
+        "tagValuesQuery": null,
+        "tags": [],
+        "tagsQuery": null,
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {},
+        "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
+        "hide": 0,
+        "includeAll": true,
+        "label": null,
+        "multi": false,
+        "name": "brokers",
+        "options": [],
+        "query": "$statsd_prefix.$alignak_prefix.*",
+        "refresh": 1,
+        "regex": "/broker-(.*)/",
+        "sort": 0,
+        "tagValuesQuery": null,
+        "tags": [],
+        "tagsQuery": null,
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {},
+        "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
+        "hide": 0,
+        "includeAll": true,
+        "label": null,
+        "multi": false,
+        "name": "pollers",
+        "options": [],
+        "query": "$statsd_prefix.$alignak_prefix.*",
+        "refresh": 1,
+        "regex": "/poller-(.*)/",
+        "sort": 0,
+        "tagValuesQuery": null,
+        "tags": [],
+        "tagsQuery": null,
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {},
+        "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
+        "hide": 0,
+        "includeAll": true,
+        "label": null,
+        "multi": false,
+        "name": "reactionners",
+        "options": [],
+        "query": "$statsd_prefix.$alignak_prefix.*",
+        "refresh": 1,
+        "regex": "/reactionner-(.*)/",
+        "sort": 0,
+        "tagValuesQuery": null,
+        "tags": [],
+        "tagsQuery": null,
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {},
+        "datasource": "${DS_ALIGNAK-GRAPHITE-GRAPHITE_DEMO}",
+        "hide": 0,
+        "includeAll": true,
+        "label": null,
+        "multi": false,
+        "name": "receivers",
+        "options": [],
+        "query": "$statsd_prefix.$alignak_prefix.*",
+        "refresh": 1,
+        "regex": "/receiver-(.*)/",
+        "sort": 0,
+        "tagValuesQuery": null,
+        "tags": [],
+        "tagsQuery": null,
+        "type": "query",
+        "useTags": false
+      }
+    ]
+  },
   "time": {
-    "from": "now-6h",
+    "from": "now/d",
     "to": "now"
   },
   "timepicker": {
@@ -4349,287 +3248,7 @@
       "30d"
     ]
   },
-  "templating": {
-    "list": [
-      {
-        "allValue": null,
-        "current": {
-          "text": "alignak-demo",
-          "value": "alignak-demo"
-        },
-        "hide": 0,
-        "includeAll": false,
-        "label": "Alignak prefix",
-        "multi": false,
-        "name": "alignak_prefix",
-        "options": [
-          {
-            "selected": true,
-            "text": "alignak-demo",
-            "value": "alignak-demo"
-          }
-        ],
-        "query": "alignak-demo",
-        "type": "custom"
-      },
-      {
-        "allValue": null,
-        "current": {
-          "text": "alignak-statsd",
-          "value": "alignak-statsd"
-        },
-        "hide": 0,
-        "includeAll": false,
-        "label": "StatsD Graphite prefix",
-        "multi": false,
-        "name": "statsd_prefix",
-        "options": [
-          {
-            "selected": true,
-            "text": "alignak-statsd",
-            "value": "alignak-statsd"
-          }
-        ],
-        "query": "alignak-statsd",
-        "type": "custom"
-      },
-      {
-        "allValue": null,
-        "current": {
-          "text": "All",
-          "value": "$__all"
-        },
-        "datasource": "587c903ca03284774aad4a28",
-        "hide": 0,
-        "includeAll": true,
-        "label": null,
-        "multi": false,
-        "name": "arbiters",
-        "options": [
-          {
-            "selected": true,
-            "text": "All",
-            "value": "$__all"
-          },
-          {
-            "selected": false,
-            "text": "master",
-            "value": "master"
-          }
-        ],
-        "query": "$statsd_prefix.$alignak_prefix.*",
-        "refresh": 0,
-        "regex": "/arbiter-(.*)/",
-        "sort": 0,
-        "tagValuesQuery": null,
-        "tagsQuery": null,
-        "type": "query"
-      },
-      {
-        "allValue": null,
-        "current": {
-          "selected": true,
-          "text": "All",
-          "value": "$__all"
-        },
-        "datasource": "587c903ca03284774aad4a28",
-        "hide": 0,
-        "includeAll": true,
-        "label": null,
-        "multi": false,
-        "name": "schedulers",
-        "options": [
-          {
-            "selected": true,
-            "text": "All",
-            "value": "$__all"
-          },
-          {
-            "selected": false,
-            "text": "master",
-            "value": "master"
-          },
-          {
-            "selected": false,
-            "text": "north",
-            "value": "north"
-          },
-          {
-            "selected": false,
-            "text": "south",
-            "value": "south"
-          }
-        ],
-        "query": "$statsd_prefix.$alignak_prefix.*",
-        "refresh": 0,
-        "regex": "/scheduler-(.*)/",
-        "sort": 0,
-        "tagValuesQuery": null,
-        "tagsQuery": null,
-        "type": "query"
-      },
-      {
-        "allValue": null,
-        "current": {
-          "selected": true,
-          "text": "All",
-          "value": "$__all"
-        },
-        "datasource": "587c903ca03284774aad4a28",
-        "hide": 0,
-        "includeAll": true,
-        "label": null,
-        "multi": false,
-        "name": "brokers",
-        "options": [
-          {
-            "selected": true,
-            "text": "All",
-            "value": "$__all"
-          },
-          {
-            "selected": false,
-            "text": "master",
-            "value": "master"
-          },
-          {
-            "selected": false,
-            "text": "north",
-            "value": "north"
-          },
-          {
-            "selected": false,
-            "text": "south",
-            "value": "south"
-          }
-        ],
-        "query": "$statsd_prefix.$alignak_prefix.*",
-        "refresh": 0,
-        "regex": "/broker-(.*)/",
-        "sort": 0,
-        "tagValuesQuery": null,
-        "tagsQuery": null,
-        "type": "query"
-      },
-      {
-        "allValue": null,
-        "current": {
-          "text": "All",
-          "value": "$__all"
-        },
-        "datasource": "587c903ca03284774aad4a28",
-        "hide": 0,
-        "includeAll": true,
-        "label": null,
-        "multi": false,
-        "name": "pollers",
-        "options": [
-          {
-            "selected": true,
-            "text": "All",
-            "value": "$__all"
-          },
-          {
-            "selected": false,
-            "text": "master",
-            "value": "master"
-          },
-          {
-            "selected": false,
-            "text": "north",
-            "value": "north"
-          },
-          {
-            "selected": false,
-            "text": "south",
-            "value": "south"
-          }
-        ],
-        "query": "$statsd_prefix.$alignak_prefix.*",
-        "refresh": 0,
-        "regex": "/poller-(.*)/",
-        "sort": 0,
-        "tagValuesQuery": null,
-        "tagsQuery": null,
-        "type": "query"
-      },
-      {
-        "allValue": null,
-        "current": {
-          "text": "All",
-          "value": "$__all"
-        },
-        "datasource": "587c903ca03284774aad4a28",
-        "hide": 0,
-        "includeAll": true,
-        "label": null,
-        "multi": false,
-        "name": "reactionners",
-        "options": [
-          {
-            "selected": true,
-            "text": "All",
-            "value": "$__all"
-          },
-          {
-            "selected": false,
-            "text": "master",
-            "value": "master"
-          }
-        ],
-        "query": "$statsd_prefix.$alignak_prefix.*",
-        "refresh": 0,
-        "regex": "/reactionner-(.*)/",
-        "sort": 0,
-        "tagValuesQuery": null,
-        "tagsQuery": null,
-        "type": "query"
-      },
-      {
-        "allValue": null,
-        "current": {
-          "text": "All",
-          "value": "$__all"
-        },
-        "datasource": "587c903ca03284774aad4a28",
-        "hide": 0,
-        "includeAll": true,
-        "label": null,
-        "multi": false,
-        "name": "receivers",
-        "options": [
-          {
-            "selected": true,
-            "text": "All",
-            "value": "$__all"
-          },
-          {
-            "selected": false,
-            "text": "master",
-            "value": "master"
-          },
-          {
-            "selected": false,
-            "text": "north",
-            "value": "north"
-          }
-        ],
-        "query": "$statsd_prefix.$alignak_prefix.*",
-        "refresh": 0,
-        "regex": "/receiver-(.*)/",
-        "sort": 0,
-        "tagValuesQuery": null,
-        "tagsQuery": null,
-        "type": "query"
-      }
-    ]
-  },
-  "annotations": {
-    "list": []
-  },
-  "refresh": "30s",
-  "schemaVersion": 13,
-  "version": 50,
-  "links": [],
-  "gnetId": null
+  "timezone": "browser",
+  "title": "Alignak internal metrics - 1.0",
+  "version": 2
 }
