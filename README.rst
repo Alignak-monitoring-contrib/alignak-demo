@@ -144,9 +144,8 @@ Alignak backend
 
    # Alignak backend
    sudo pip install alignak-backend
+   # To allow alignak user to view the log files
    sudo chown -R alignak:alignak /usr/local/var/log/alignak-backend/
-   sudo find /usr/local/var/log/alignak-backend/ -type f -exec chmod 664 {} +
-   sudo find /usr/local/var/log/alignak-backend/ -type d -exec chmod 775 {} +
 
 **Note** that you will need to have a running Mongo database. See the `Alignak backend installation procedure <http://alignak-backend.readthedocs.io/en/develop/install.html>`_ if you need to set one up and running.
 
@@ -189,9 +188,8 @@ Alignak webui
 
    # Alignak webui
    sudo pip install alignak-webui
+   # To allow alignak user to view the log files
    sudo chown -R alignak:alignak /usr/local/var/log/alignak-webui/
-   sudo find /usr/local/var/log/alignak-webui/ -type f -exec chmod 664 {} +
-   sudo find /usr/local/var/log/alignak-webui/ -type d -exec chmod 775 {} +
 
 
 Installed files
@@ -275,6 +273,8 @@ As of now, you really installed all the necessary stuff for starting a demo moni
 
 The next three chapters explain how to install Alignak modules, checks and notifications for the demo server.
 
+**Note** *because most of the checks packs are able to create the templates, commands,... directly into the Alignak backend during the installation processyou should start the Alignak backend before installing the checks packs and modules ;) See later in this document how to start the Alignak backend...*
+
 To avoid executing all these configuration steps, you can install a all-in-one package that will install all the other packages thanks to its dependencies:
 ::
 
@@ -287,6 +287,8 @@ To avoid executing all these configuration steps, you can install a all-in-one p
 
     mkdir ~/demo
     cp /usr/local/var/libexec/alignak/*.sh ~/demo
+
+**Note**: it is the easisest solution to quickly have a running demo server, but it will miss all the important configuration part for a monitoring system :)
 
 **Note**: If you install the alignak-demo package, go directly to the step 5.
 
@@ -354,7 +356,7 @@ Get checks packages::
 
     # Note that the default packs configuration is not always suitable, but it will be installed later...
 
-    # Restore alignak user/group and set correct permissions on installed configuration files
+    # Restore alignak user/group ownership and set correct permissions on installed configuration files
     sudo ./dev/set_permissions.sh
 
 
@@ -425,28 +427,19 @@ If you need more information `about alignak configuration <http://alignak-doc.re
 To avoid dealing with all this configuration steps, this repository contains a default demo configuration that uses all (or almost...) the previously installed components.::
 
     # Alignak demo configuration
-    # IMPORTANT: use the --force argument to allow overwriting previously installed files!
-    sudo pip install alignak-demo --force
+    cd ~/repos
+    git clone https://github.com/Alignak-monitoring-contrib/alignak-demo
+
+Some extra configuration files are shipped in the *alignak_demo/etc* directory. You may copy those files to replace the default Alignak shipped configuration, but, as we will use the Alignak backend, most of the configuration will stay in the backend database and copying the files is not necessary.
+
+    cp -R ~/demo/alignak-demo/alignak_demo/etc /usr/local/etc/alignak
 
 
-Once installed, some extra configuration files got copied in the */usr/local/etc/alignak* directory and some pre-existing files were overwritten (eg. default daemons configuration). We may now check that the configuration is correctly parsed by Alignak:
-::
-
-    # Check Alignak demo configuration
-    alignak-arbiter -V -a /usr/local/etc/alignak/alignak.cfg
-
-**Note** *that an ERROR log will be raised because the backend connection is not available. this is correct because we configured to use the backend but did not yet started the backend! Some WARNING logs are also raised because of duplicate items. Both are nothing to take care of...*
-
-This Alignak demo project installs some shell scripts into the Alignak libexec folder. For ease of use, you may copy those scripts in your home directory.
+Some utility scripts are also shipped in the *alignak_demo/libexec* folder. For ease of use, you may copy those scripts in your home directory.
 ::
 
     mkdir ~/demo
-
     cp /usr/local/var/libexec/alignak/*.sh ~/demo
-
-**Note** *a next version may install those scripts in the home directory but it is not yet possible;)*
-
-**FreeBSD users** have some scripts available in the *csh* sub-directory instead of *bash* :)
 
 As explained previously, the shell scripts that you just copied use the `screen` utility to detach the process execution from the current shell session.
 
@@ -500,15 +493,17 @@ Feed the backend
 Run the Alignak backend import script to push the demo configuration into the backend:
 ::
 
-  alignak-backend-import -d /usr/local/etc/alignak/alignak-backend-import.cfg
+    # Import the demo configuration into the backend
+    cd ~/repos/alignak-demo
+    alignak-backend-import -d ./alignak_demo/etc/alignak-backend-import.cfg
 
 **Note**: *there are other solutions to feed the Alignak backend but we choose to show how to get an existing configuration imported in the Alignak backend to migrate from an existing Nagios/Shinken to Alignak.*
 
 Once imported, you can check that the configuration is correctly parsed by Alignak:
 ::
 
-    # Check Alignak demo configuration
-    alignak-arbiter -V -a /usr/local/etc/alignak/alignak.cfg
+    # Check Alignak demo configuration (from the git repo)
+    alignak-arbiter -V -a ~/repos/alignak-demo/alignak_demo/etc/alignak.cfg
 
         [2017-01-06 11:57:28 CET] INFO: [alignak.objects.config] Creating packs for realms
         [2017-01-06 11:57:28 CET] INFO: [alignak.objects.config] Number of hosts in the realm North: 2 (distributed in 2 linked packs)
@@ -533,6 +528,17 @@ Run Alignak:
 ::
 
     cd ~/demo
+
+    # Define where to find the Alignak configuration file
+    # As default, it will use the */usr/local/etc/alignak/alignak.cfg* file. If you copied the
+    # files to the default location, it is not necessary to define those variables
+    export ALIGNAKCFG=~/repos/alignak-demo/alignak_demo/etc/alignak.cfg
+    export ALIGNAKCFG=~/repos/alignak-demo/alignak_demo/etc/daemons
+
+    # For FreeBSD users:
+    setenv ALIGNAKCFG /root/repos/alignak-demo/alignak_demo/
+    setenv ALIGNAKDAEMONS /root/repos/alignak-demo/alignak_demo/etc/daemons/
+
     # Detach several screen sessions identified as "alignak-daemon_name"
     ./alignak_demo_start.sh
 
@@ -718,7 +724,7 @@ As explained previously the alignak notifications pack needs to be configured fo
 With the default parameters, you will have some WARNING logs in the *schedulerd.log* file, such as:
 ::
 
-    [2017-01-07 10:00:47 CET] WARNING: [alignak.scheduler] The notification command '/usr/local/var/libexec/alignak/notify_by_email.py -t service -S localhost -ST 25 -SL your_smtp_login -SP your_smtp_password -fh -to guest@localhost -fr alignak@monitoring -nt PROBLEM -hn "alignak_glpi" -ha 176.31.224.51 -sn "Disk /var" -s CRITICAL -ls UNKNOWN -o "NRPE: Command 'check_var' not defined" -dt 0 -db "1483779644.85" -i 2  -p ""' raised an error (exit code=1): 'Traceback (most recent call last):'
+    [2017-01-07 10:00:47 CET] WARNING: [alignak.scheduler] The notification command '/usr/local/var/libexec/alignak/notify_by_email.py -t service -S localhost -ST 25 -SL your_smtp_login -SP your_smtp_password -fh -to guest@localhost -fr alignak@monitoring -nt PROBLEM -hn "alignak_glpi" -ha 127.0.0.1 -sn "Disk /var" -s CRITICAL -ls UNKNOWN -o "NRPE: Command 'check_var' not defined" -dt 0 -db "1483779644.85" -i 2  -p ""' raised an error (exit code=1): 'Traceback (most recent call last):'
 
 To configure the Alignak mail notifications, edit the */usr/local/etc/alignak/arbiter/packs/resource.d/notifications.cfg* file and set the proper parameters for your configuration:
 ::
@@ -750,6 +756,14 @@ Get the Alignak daemons status:
 ::
 
     http://127.0.0.1:8888/alignak_map
+
+**Note** that the default configuration requires an HTTP authorized access with a basic HTTP authorization from a user existing in the alignak backend. You can disable this in the `mod-ws.cfg` file, else use *curl* with this syntax:
+::
+
+   $ curl -H "Content-Type: application/json" -X GET -d '{"username":"admin","password":"admin"}' http://127.0.0.1:8888/alignak_map
+
+
+For more information about the Alignak available services, please see the `Alignak Web Services online documentation <http://alignak-module-ws.readthedocs.io/en/latest/>`_.
 
 
 7. Configure/run Alignak Web UI
@@ -833,21 +847,27 @@ Install the Alignak App:
     # Then you will be able for next runs to
     alignak-app start
 
-    # Windows: Ru the app
+    # Windows: Run the app
     python "%APPDATA%\Python\alignak_app\bin\alignak-app.py
-    # If you install installer, just run "Alignak-app vX.x.x" shortcut
+    # If you used the Windows installer, just run the desktop shortcut "Alignak-app"
 
 The applet will require a username and a password that are the same os the one used for the Web UI (use *admin* / *admin*). Click on the Alignak icon in the desktop toolbar to activate the Alignak-app features: alignak status, host synthesis view, host/services states, ...
 
 A notification popup will appear if something changed in the hosts / services states existing in the Alignak backend.
 
-The default configuration is suitable for this demonstration but you may update the *settings.cfg* configuration file that is largely commented. Under Linux, this file is located under *$HOME/.local/alignak_app/* folder. Under Windows, configuration file can be found under *%APPDATA%\Python\alignak_app\* or *%PROGRAMFILES%\Alignak-app* if you run installer.
+The default configuration is suitable for this demonstration but you may update the *settings.cfg* configuration file that is largely commented. On Linux, this file is located under *$HOME/.local/alignak_app/* folder. On Windows, configuration file can be found under *%APPDATA%\Python\alignak_app\* or *%PROGRAMFILES%\Alignak-app* if you run installer.
 
 
 9. Configure Alignak backend for timeseries
 -------------------------------------------
 
-The Alignak backend allows to send collected performance data to a timeseries database. It must be configured to know where to send the timeseries data. Using the backend_client CLI script makes it easy to configure this:
+The Alignak backend allows to send collected performance data to a timeseries database. It must be configured to know where to send the timeseries data.
+
+**Note**: Using StatsD as a front-end to the Graphite Carbon collector is not mandatory but it will help to have more regular statistics and it will maintain a metrics cache. But the purpose of this doc is not to discuss about the benefits / drawbacks of StatsD...
+
+Using the Alignak WebUI makes it really easy to configure. Navigate to the Web UI Alignak backend menu and select the *Backend Grafana* item. Enter edition mode and add a new item. Also create a new Graphite item related to the Grafana item you just created, and that's it ...
+
+You can also use command line scripts to create such information in the Alignak backend. Using the `alignak-backend-client` script makes it easy to configure this:
 ::
 
     cd ~/demo
@@ -855,8 +875,6 @@ The Alignak backend allows to send collected performance data to a timeseries da
     # Get the example configuration files
     cp /usr/local/etc/alignak/sample/backend/* ~/demo
 
-
-**Note** that it is recommended to stop Alignak when editing the backend configuration :)
 
 If you **do not** intend to use the StatsD daemon, execute these commands:
 ::
@@ -880,7 +898,9 @@ If you **do** intend to use the StatsD daemon, execute these commands:
     # Use Alignak backend to add a Graphite instance
     alignak-backend-cli -v add -t graphite --data=example_graphite_statsd.json graphite_demo
 
-You can edit the *example_*.json* provided files to include your own Graphite / Grafana (or InfluxDB) parameters. For more information see the `Alignak backend documentation <http://alignak-backend.readthedocs.io/en/develop/api.html#timeseries-databases>`_. It will be mandatory to update the Grafana configuration with your own Grafana API key else the backend will not be able to create the Grafana dashboards and panels automatically?
+You can edit the *example_*.json* provided files to include your own Graphite / Grafana (or InfluxDB) parameters. For more information see the `Alignak backend documentation <http://alignak-backend.readthedocs.io/en/develop/api.html#timeseries-databases>`_.
+
+**Warning**: It will be mandatory to update the Grafana configuration with your own Grafana API key else the backend will not be able to create the Grafana dashboards and panels automatically!
 
 **Note**: `alignak-backend-cli` is coming with the installation of the Alignak backend client.
 
@@ -896,7 +916,7 @@ Some updates are regularly pushed on the different alignak repositories and then
     # Check everything is stopped
     ps -ef | grep alignak-
 
-    # Kill remaining processes :)
+    # Kill remaining processes. It may happen on a demo server;)
     pkill alignak-broker
 
 
@@ -958,15 +978,23 @@ The `Alignak Web UI <http://demo.alignak.net/>`_ running on our demo server allo
 Alignak internal metrics
 ------------------------
 
-Alignak maintains its own internal metrics and it is able to send them to a `StatsD server <https://github.com/etsy/statsd>`_.
+Alignak maintains its own internal metrics and it is able to send them to a `StatsD server <https://github.com/etsy/statsd>`_. Install the StatsD server locally (as explained later in this document) and update the `alignak.cfg` configuration file to enable this feature:
+::
 
-We are running a `demo Grafana server <http://grafana.demo.alignak.net>`_ that allows to see tha Alignak internal metrics. Several dashboards are available:
+   # Export all alignak inner performances into a statsd server.
+   # By default at localhost:8125 (UDP) with the alignak prefix
+   # Default is not enabled
+   statsd_host=localhost
+   #statsd_port=8125
+   statsd_prefix=alignak
+   statsd_enabled=1
 
-* `Alignak internal metrics <http://grafana.demo.alignak.net/dashboard/db/alignak-internal-metrics>`_ shows the statistics provided by Alignak.
 
-* `Graphite server <http://grafana.demo.alignak.net/dashboard/db/graphite-server-carbon-metrics>`_ reports on Carbon/Graphite own monitoring.
+We are running a `demo Grafana server <http://grafana.demo.alignak.net>`_ that allows to see the Alignak internal metrics. Several dashboards are available:
 
-**Note** that a Grafana dashboard sample is available in the */usr/local/etc/alignak/sample/grafana* directory created when you installed the alignak-demo package;)
+* `Alignak internal metrics <http://grafana.demo.alignak.net/dashboard/db/alignak-internal-metrics>`_ shows the statistics provided by Alignak. This sample dashboard is available in the Alignak repository, *contrib* folder.
+
+* `Graphite server <http://grafana.demo.alignak.net/dashboard/db/graphite-server-carbon-metrics>`_ reports on Carbon/Graphite own monitoring. This dashboard is available from the Grafana.net web site.
 
 
 
@@ -1142,7 +1170,7 @@ Grafana
 ~~~~~~~
 ::
 
-    # Install Grafana (Version 3 only supported by the Alignak backend!)
+    # Install Grafana (Version 4 only supported by the Alignak backend!)
     wget https://grafanarel.s3.amazonaws.com/builds/grafana_3.1.1-1470047149_amd64.deb
     apt-get install -y adduser libfontconfig
     dpkg -i grafana_3.1.1-1470047149_amd64.deb
