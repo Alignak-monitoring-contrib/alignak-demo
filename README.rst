@@ -12,6 +12,9 @@ This repository contains many stuff for Alignak:
 - scripts to run the Alignak daemons for the demo server (may be used for other configurations)
 
 
+All the procedures in this document are existing in the Alignak documentation which is available on `Read The Docs <http://docs.alignak.net>`_. The aim of this document is simply to contain a simple and easy procedure to set-up a standard configuration demonstrating what Alignak is capable of.
+
+
 What's behind the demo server
 =============================
 
@@ -34,17 +37,21 @@ To set-up this demo, you must:
 The monitored configuration
 ---------------------------
 
+Some explanations about the hosts, services that will be monitored ...
+
 On a single server, the monitored configuration is separated in four **realms** (*All*, *North*, *South* and *South-East*).
 Some hosts are in the *All* realm and others are in the *North* and *South* realm, both sub-realms of *All* realm. The *South-East* realm is a sub-realm of *South* and it also contains some hosts.
 
-The *All* realm is (let's say...) a primary datacenter where main servers are located. *North* and *South* realms are a logical group for a part of our monitored configuration. They may be seen as secondary sites.
+To explain shortly the *realm* concept, the *All* realm is (let's say...) a primary datacenter where main servers are located. *North* and *South* realms are logical groups for a part of our monitored configuration. They may be seen as secondary sites or datacenters.
 
 According to Alignak daemon logic, the master Arbiter dispatches the configuration to the daemons of each realm and we must declare, for each realm:
 
 - a scheduler
 - a broker
 - a poller
-- a receiver (not mandatory but we want to have NSCA collector)
+- a receiver (not mandatory but we want to have an NSCA collector)
+
+Some other configuration is possible but we will make it simple for this simple demo;)
 
 In the *All* realm, we find the following hosts:
 
@@ -56,62 +63,15 @@ In the *North* realm, we find some passive hosts checked thanks to NSCA.
 In the *South* realm, we find some other hosts.
 
 
-Requirements
-------------
-
-Mandatory requirements
-~~~~~~~~~~~~~~~~~~~~~~
-You will need some requirements for setting-up this demonstration:
-::
-
-    # Update your server
-    sudo apt-get update
-    sudo apt-get upgrade
-
-    # Install git and python
-    sudo apt-get install git
-    sudo apt-get install python2.7 python2.7-dev python-pip
-
-    # Needed for the PyOpenSSL / Cryptography dependencies of Alignak
-    sudo apt-get install libffi-dev libssl-dev
-
-
-Optional requirements
-~~~~~~~~~~~~~~~~~~~~~
-The scripts provided with this demo use the `screen` utility found on all Linux/Unix distro. As such::
-
-    sudo apt-get install screen
-
-Some screen hint and tips:
-::
-
-    # Listing the active screens
-    screen -ls
-
-    # Joining a screen
-    screen -r alignak-backend
-
-    # Leaving a screen (without killing it)
-    screen -r alignak-backend
-    Ctrl a+d
-
-    # Switching between active screens
-    Ctrl a+n
-
-**Note**: *It is not mandatory to use the provided scripts, but it is more simple for a first try;)*
-
-
 Setting-up the demo
 ===================
 
-We recommend having an up-to-date system;)
-::
+We recommend having an up-to-date system::
 
     sudo apt-get update
     sudo apt-get upgrade
 
-We also recommend using the most recent `pip` utility. On many distros pip is currently available as version 8 whereas the version 9 is available:
-::
+We also recommend using the most recent `pip` utility::
 
     sudo pip install --upgrade pip
 
@@ -125,18 +85,116 @@ Alignak framework
 ~~~~~~~~~~~~~~~~~
 ::
 
-    mkdir ~/repos
-    cd ~/repos
+   # Add the Alignak repositories to the system source (stable and develop releases)
+   sudo echo deb https://dl.bintray.com/alignak/alignak-deb-stable xenial main | sudo tee -a /etc/apt/sources.list.d/alignak.list
+   sudo echo deb https://dl.bintray.com/alignak/alignak-deb-testing xenial main | sudo tee -a /etc/apt/sources.list.d/alignak.list
 
-    # Alignak framework
-    git clone https://github.com/Alignak-monitoring/alignak
-    cd alignak
-    # Install alignak and all its python dependencies
-    # -v will activate the verbose mode of pip (not mandatory...)
-    sudo pip install -v .
+   # Add Alignak repositories GPG key
+   sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv D401AB61
+sudo /usr   lo
+   # Update packages cache
+   sudo apt-get update
 
-    # Create alignak user/group and set correct permissions on installed configuration files
-    sudo ./dev/set_permissions.sh
+   # Install most recent Alignak version
+   sudo apt install alignak
+   # Alignak default configuration files are copied to /usr/local/share/alignak
+
+   # Execute Alignak post-installation script (create user account and install Python libraries)
+   sudo /usr/local/share/alignak/post-install.sh
+
+   # Run a default configuration verification
+   alignak-arbiter -V -e /usr/local/share/alignak/etc/alignak.ini
+
+.. warning:: if an error is raised during the configuration verification, your current logged-in user account is probably not authorized to write the pid file in the working directory. You should add your user account to the ``alignak`` group created by the post installation script: ``usermod -a -G alignak my_account``
+
+Alignak monitored configuration
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Obviously, the default shipped configuration do not contain much hosts to check! Indeed, the default configuration do not include any host at all! So, now, we will start adding some hosts to be monitored by Alignak.
+
+Run the configuration verification one more time and examine the console output. Some noticeable log::
+
+   # Run a default configuration verification
+   alignak-arbiter -V -e /usr/local/share/alignak/etc/alignak.ini
+      ...
+      [2018-06-28 19:17:31] WARNING: [arbiter-master.alignak.daemon] - No Nagios-like legacy configuration files configured.
+      [2018-06-28 19:17:31] WARNING: [arbiter-master.alignak.daemon] - If you need some, edit the 'alignak.ini' configuration file to declare one or more 'cfg=' variables.
+      ...
+      [2018-06-28 19:17:31] INFO: [arbiter-master.alignak.objects.config] - creating 'host' objects
+      [2018-06-28 19:17:31] INFO: [arbiter-master.alignak.objects.config]   no host objects in the configuration
+
+
+To start with a very simple configuration, we will only monitor one host using a fake internal check that makes this host always being considered as **UP**. The default installation script copied a very simple Nagios legacy configuration in the */usr/local/share/alignak/etc* directory::
+
+   # Edit the alignak.ini file to declare a Nagios legacy configuration
+   sudo vi /usr/local/share/alignak/etc/alignak.ini
+      cfg=alignak.cfg
+
+This will make the Alignak arbiter open and parse the configuration declared in the *alignak.cfg* file located in the same directory as the *alignak.ini* configuration file.
+
+.. warning:: using the default shipped configuration files is rarely a good idea! When you will update Alignak for a more recent version, these files will be replaced with the most recent versions delivered with the update! On a production server **you must use your own configuration** located in (per example) */usr/local/etc/alignak* or */etc/alignak*
+
+Run a new configuration verification and examine the console output. Some noticeable log::
+
+   # Run a default configuration verification
+   alignak-arbiter -V -e /usr/local/share/alignak/etc/alignak.ini
+      ...
+
+Run the configuration verification one more time and examine the console output. Notice that the previous warning disappeared and that Alignak detected 8 hosts to monitor::
+
+   # Run a default configuration verification
+   alignak-arbiter -V -e /usr/local/share/alignak/etc/alignak.ini
+      ...
+      [2018-06-28 19:29:09] INFO: [arbiter-master.alignak.objects.config] - creating 'host' objects
+      [2018-06-28 19:29:09] INFO: [arbiter-master.alignak.objects.config]   created 8.
+      ...
+      [2018-06-28 19:48:06] INFO: [arbiter-master.alignak.objects.config] Checking hosts...
+      [2018-06-28 19:48:06] INFO: [arbiter-master.alignak.objects.config]     Checked 1 hosts
+
+.. note:: indeed Alignak created 8 hosts and hosts templates, but it will really monitor 1 host... this is what the log is meaning!
+
+.. tip:: running the same verification command with the ``-vv`` option will produce a verbose log with many information about the configuration parsing and loading.
+
+Starting Alignak
+~~~~~~~~~~~~~~~~
+
+Now that we have something to monitor, let's start monitoring::
+
+   # Enable Alignak on system start
+   sudo systemctl enable alignak.service
+
+   # Start Alignak daemons system services
+   sudo systemctl start alignak.service
+
+   # View the Alignak process tree
+   ps -faux | grep alignak
+      alignak   3264  0.5  4.0 985536 41224 ?        Sl   19:36   0:00 alignak-receiver receiver-master
+      alignak   3271  0.0  3.8 173744 39100 ?        S    19:36   0:00  \_ alignak-receiver receiver-master
+      alignak   3266  1.6  4.1 986092 41788 ?        Sl   19:36   0:01 alignak-broker broker-master
+      alignak   3277  0.0  3.8 173760 39076 ?        S    19:36   0:00  \_ alignak-broker broker-master
+      alignak   3269  0.9  4.1 985804 41740 ?        Sl   19:36   0:00 alignak-poller poller-master
+      alignak   3279  0.0  3.8 173732 39044 ?        S    19:36   0:00  \_ alignak-poller poller-master
+      alignak   3493  0.0  4.0 985804 40668 ?        S    19:36   0:00  \_ alignak-poller-master worker fork_1
+      alignak   3270  1.1  4.1 986776 42308 ?        Sl   19:36   0:00 alignak-scheduler scheduler-master
+      alignak   3280  0.0  3.8 174004 38644 ?        S    19:36   0:00  \_ alignak-scheduler scheduler-master
+      alignak   3273  1.4  4.1 987208 42592 ?        Sl   19:36   0:01 alignak-arbiter arbiter-master
+      alignak   3283  0.0  3.8 173800 39252 ?        S    19:36   0:00  \_ alignak-arbiter arbiter-master
+      alignak   3275  0.9  4.0 985808 41640 ?        Sl   19:36   0:00 alignak-reactionner reactionner-master
+      alignak   3284  0.0  3.8 173736 38968 ?        S    19:36   0:00  \_ alignak-reactionner reactionner-master
+      alignak   3494  0.0  3.9 985808 40588 ?        S    19:36   0:00  \_ alignak-reactionner-master worker fork_1
+
+   # Check Alignak daemons are up and running (get daemon identity)
+   curl http://127.0.0.1:7768
+   curl http://127.0.0.1:7769
+   curl http://127.0.0.1:7770
+   curl http://127.0.0.1:7771
+   curl http://127.0.0.1:7772
+   curl http://127.0.0.1:7773
+
+   # Tail Alignak events log
+   tail -f /usr/local/var/log/alignak/alignak-events.log
+      [2018-06-28 19:36:24] INFO: CURRENT HOST STATE: localhost;UP;HARD;0;
+
 
 Alignak backend
 ~~~~~~~~~~~~~~~
@@ -147,26 +205,90 @@ Alignak backend
    # To allow alignak user to view the log files
    sudo chown -R alignak:alignak /usr/local/var/log/alignak-backend/
 
-**Note** that you will need to have a running Mongo database. See the `Alignak backend installation procedure <http://alignak-backend.readthedocs.io/en/develop/install.html>`_ if you need to set one up and running.
+**Note** that you will need to have a running MongoDB server. See the `Alignak backend installation procedure <http://alignak-backend.readthedocs.io/en/develop/install.html>`_ if you need to set one up and running.
 
-An excerpt for installing MongoDB on an Ubuntu Xenial:
-::
+An excerpt for installing MongoDB on an Ubuntu Xenial::
 
-    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6
-    echo "deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/testing multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list
+    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4
+    echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/4.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list
     sudo apt-get update
     sudo apt-get install -y mongodb-org
-    sudo service mongod start
+    sudo systemctl enable mongod.service
+    sudo systemctl start mongod.service
 
 
-An excerpt for installing MongoDB on a debian Jessie:
-::
+Configuring MongoDB is not mandatory because the Alignak backend do not require any authenticated connection to the database. But if you wish a more secure DB access with user authentication, you must configure MongoDB::
 
-    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6
-    echo "deb http://repo.mongodb.org/apt/debian jessie/mongodb-org/3.4 main" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list
-    sudo apt-get update
-    sudo apt-get install -y mongodb-org
-    sudo service mongod start
+   mongo
+
+   # Not necessary, but interesting... with the most recent 4.0 version, anew monitoring tool is available;)
+   > db.enableFreeMonitoring()
+   {
+      "state" : "enabled",
+      "message" : "To see your monitoring data, navigate to the unique URL below. Anyone you share the URL with will also be able to view this page. You can disable monitoring at any time by running db.disableFreeMonitoring().",
+      "url" : "https://cloud.mongodb.com/freemonitoring/cluster/KAI3EQPMSZHNGDELYLDNA6QVCPZ5IK6B",
+      "userReminder" : "",
+      "ok" : 1
+   }
+
+   # Create an admin user for the server
+   > use admin
+   > db.createUser(
+      {
+         user: "alignak",
+         pwd: "alignak",
+         roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]
+      }
+   )
+
+   Successfully added user: {
+      "user" : "alignak",
+      "roles" : [
+         {
+            "role" : "userAdminAnyDatabase",
+            "db" : "admin"
+         }
+      ]
+   }
+
+   # Exit and restart the server
+   Ctrl+C
+
+   # Configure mongo in authorization mode
+   sudo vi /etc/mongod.conf
+      security:
+         authorization: enabled
+
+   # Restart mongo
+   sudo systemctl restart mongod.service
+   # As of now, you will need to authenticate for any operation on the MongoDB databases
+
+   mongo -u alignak -p alignak
+   > show dbs
+   admin   0.000GB
+   config  0.000GB
+   local   0.000GB
+
+
+   > use alignak
+   > db.createUser(
+      {
+         user: "alignak",
+         pwd: "alignak",
+         roles: [ "readWrite", "dbAdmin" ]
+      }
+   )
+
+   Successfully added user: { "user" : "alignak", "roles" : [ "readWrite", "dbAdmin" ] }
+
+   > db.test.save( { test: "test" } )
+   # This will create atest collection in the database, which will create the DB in mongo server
+
+   > show dbs
+   admin    0.000GB
+   alignak  0.001GB
+   config   0.000GB
+   local    0.000GB
 
 
 Alignak backend importation script
@@ -273,7 +395,7 @@ As of now, you really installed all the necessary stuff for starting a demo moni
 
 The next three chapters explain how to install Alignak modules, checks and notifications for the demo server.
 
-**Note** *because most of the checks packs are able to create the templates, commands,... directly into the Alignak backend during the installation processyou should start the Alignak backend before installing the checks packs and modules ;) See later in this document how to start the Alignak backend...*
+**Note** *because most of the checks packs are able to create the templates, commands,... directly into the Alignak backend during the installation process you should start the Alignak backend before installing the checks packs and modules ;) See later in this document how to start the Alignak backend...*
 
 To avoid executing all these configuration steps, you can install a all-in-one package that will install all the other packages thanks to its dependencies:
 ::
@@ -904,280 +1026,3 @@ You can edit the *example_*.json* provided files to include your own Graphite / 
 
 **Note**: `alignak-backend-cli` is coming with the installation of the Alignak backend client.
 
-10. Upgrading
--------------
-Some updates are regularly pushed on the different alignak repositories and then you will sometime need to update this demo configuration. Before upgrading the application you should stop Alignak:
-::
-
-    cd ~/demo
-    # Stop all alignak processes
-    ./alignak_demo_stop.sh
-
-    # Check everything is stopped
-    ps -ef | grep alignak-
-
-    # Kill remaining processes. It may happen on a demo server;)
-    pkill alignak-broker
-
-
-To upgrade Alignak, you can:
-::
-
-    cd ~/repos/alignak
-
-    # Get the last develop version
-    git pull
-
-    # Install alignak and all its python dependencies
-    # -v will activate the verbose mode of pip
-    sudo pip install -v .
-
-    # Create alignak user/group and set correct permissions on installed configuration files
-    sudo ./dev/set_permissions.sh
-
-
-To upgrade all the alignak packages that were installed, you can:
-::
-
-    pip install -U pip list | grep alignak | awk '{ print $1}'
-
-
-To list the currently installed packages and to know if they are up-to-date, you can use this command:
-::
-
-    pip list --outdated | grep alignak
-
-
-To get the list of outdated packages as a pip requirements list:
-::
-
-    pip list --outdated --format columns | grep alignak | awk '{printf "%s==%s\n", $1, $3}' > alignak-update.txt
-
-and to update:
-::
-
-    pip install -r alignak-update.txt
-
-
-
-What we see?
-============
-
-Monitored system status
------------------------
-
-The `Alignak Web UI <http://demo.alignak.net/>`_ running on our demo server allows to view the monitored system status. Have a look here: `http://demo.alignak.net <http://demo.alignak.net>`_. Several login may be used depending on the user role:
-
-* admin / admin, to get logged-in as an Administrator. You will see all the hosts and will be able to execute some commands (acknowledge a problem, schedule a downtime,...)
-
-* northman / north, to get logged-in as a power user in the North realm. You will see all the hosts of the All and North realms and will be able to execute commands.
-
-* southman / south, to get logged-in as a power user in the South realm. You will see all the hosts of the All and South realms and will be able to execute commands.
-
-
-Alignak internal metrics
-------------------------
-
-Alignak maintains its own internal metrics and it is able to send them to a `StatsD server <https://github.com/etsy/statsd>`_. Install the StatsD server locally (as explained later in this document) and update the `alignak.cfg` configuration file to enable this feature:
-::
-
-   # Export all alignak inner performances into a statsd server.
-   # By default at localhost:8125 (UDP) with the alignak prefix
-   # Default is not enabled
-   statsd_host=localhost
-   #statsd_port=8125
-   statsd_prefix=alignak
-   statsd_enabled=1
-
-
-We are running a `demo Grafana server <http://grafana.demo.alignak.net>`_ that allows to see the Alignak internal metrics. Several dashboards are available:
-
-* `Alignak internal metrics <http://grafana.demo.alignak.net/dashboard/db/alignak-internal-metrics>`_ shows the statistics provided by Alignak. This sample dashboard is available in the Alignak repository, *contrib* folder.
-
-* `Graphite server <http://grafana.demo.alignak.net/dashboard/db/graphite-server-carbon-metrics>`_ reports on Carbon/Graphite own monitoring. This dashboard is available from the Grafana.net web site.
-
-
-
-Installing StatsD / Graphite / Grafana
---------------------------------------
-
-**NOTE** this section is a draft chapter. Currently the installatin described here is not fully functional !
-
-StatsD
-~~~~~~
-Install node.js on your server according to the recommended installation process.
-
-On FreeBSD:
-::
-
-    pkg install node
-
-On Ubuntu / Debian:
-::
-
-    # For Node.js 6
-    curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
-    sudo apt-get install -y nodejs
-
-To get the most recent StatsD (if you distro packaging do not provide it, you must clone the git repository:
-::
-
-    $ cd ~
-    $ git clone https://github.com/etsy/statsd
-    $ cd statsd
-
-    # Create an alignak.js file with the following content (for a localhost Graphite)
-    $ cp exampleConfig.js alignak.js
-    $ cat alignak.js
-    {
-          graphitePort: 2003
-        , graphiteHost: "127.0.0.1"
-        , port: 8125
-        , backends: [ "./backends/graphite" ]
-
-        /* Do not use any StatsD metric hierarchy */
-        , graphite: {
-            /* Do not use legacy namespace */
-              legacyNamespace: false
-
-            /* Set a global prefix */
-            , globalPrefix: "alignak-statsd"
-
-            /* Set empty prefixes */
-            , prefixCounter: ""
-            , prefixTimer: ""
-            , prefixGauge: ""
-            , prefixSet: ""
-
-            /* Do not set any global suffix
-            , globalSuffix: "_"
-            */
-        }
-    }
-
-
-    # Start the StatsD daemon in a screen
-    $ screen -S statsd
-    $ node stats.js alignak.js
-    # And leave the screen...
-    $ Ctrl+AD
-
-    # Test StatsD
-    $ ll /var/lib/graphite/whisper/alignak-statsd/statsd/
-        total 84
-        drwxr-xr-x 6 _graphite _graphite  4096 févr.  2 20:11 ./
-        drwxr-xr-x 3 _graphite _graphite  4096 févr.  2 20:11 ../
-        drwxr-xr-x 2 _graphite _graphite  4096 févr.  2 20:11 bad_lines_seen/
-        drwxr-xr-x 2 _graphite _graphite  4096 févr.  2 20:11 graphiteStats/
-        drwxr-xr-x 2 _graphite _graphite  4096 févr.  2 20:11 metrics_received/
-        -rw-r--r-- 1 _graphite _graphite 17308 févr.  2 20:12 numStats.wsp
-        drwxr-xr-x 2 _graphite _graphite  4096 févr.  2 20:11 packets_received/
-        -rw-r--r-- 1 _graphite _graphite 17308 févr.  2 20:12 processing_time.wsp
-        -rw-r--r-- 1 _graphite _graphite 17308 févr.  2 20:12 timestamp_lag.wsp
-
-
-As of now you have a running StatsD daemon that will collect the Alignak internal metrics to feed Graphite.
-
-Graphite Carbon
-~~~~~~~~~~~~~~~
-::
-
-    $ sudo su
-
-    $ apt-get update
-
-    # Set TZ as UTC
-    $ dpkg-reconfigure tzdata
-    => UTC
-
-    # Install Carbon
-    $ apt-get install graphite-carbon
-
-    # Configure Carbon
-    $ vi /etc/default/graphite-carbon
-    # Enable carbon service on boot
-    => CARBON_CACHE_ENABLED=true
-
-    # Configuration file
-    $ vi /etc/carbon/carbon.conf
-    # Enable log rotation
-    => ENABLE_LOGROTATION = True
-
-    # Aggregation configuration (default is suitable...)
-    $ cp /usr/share/doc/graphite-carbon/examples/storage-aggregation.conf.example /etc/carbon/storage-aggregation.conf
-
-    # Start the metrics collector service (Carbon)
-    $ service carbon-cache start
-
-    # Monitor activity
-    $ tail -f /var/log/carbon/console.log
-
-    # Test carbon (send a metric test.count)
-    $ echo "test.count 4 `date +%s`" | nc -q0 127.0.0.1 2003
-    $ ls /var/lib/graphite/whisper
-    => test/count.wsp
-
-Graphite API
-~~~~~~~~~~~~
-No need for the Graphite Web application, we will use Grafana ;)
-
-::
-
-    $ sudo su
-
-    # Install Graphite-API
-    ##### $ apt-get install graphite-api; do not seem to survive a system restart :)
-    $ wget https://github.com/brutasse/graphite-api/releases/download/1.1.2/graphite-api_1.1.2-1447943657-ubuntu14.04_amd64.deb
-    $ dpkg -i
-
-    # Install Nginx / uWsgi
-    $ apt-get install nginx uwsgi uwsgi-plugin-python
-
-    # Configure uWsgi
-    $ vi /etc/uwsgi/apps-available/graphite-api.ini
-        [uwsgi]
-        processes = 2
-        socket = localhost:8080
-        plugins = python27
-        module = graphite_api.app:app
-        buffer = 65536
-
-    $ ln -s /etc/uwsgi/apps-available/graphite-api.ini /etc/uwsgi/apps-enabled
-    $ service uwsgi restart
-
-    # Configure nginx
-    $ vi /etc/nginx/sites-available/graphite.conf
-        server {
-            listen 80;
-
-            location / {
-                include uwsgi_params;
-                uwsgi_pass localhost:8080;
-            }
-        }
-
-    $ ln -s /etc/nginx/sites-available/graphite.conf /etc/nginx/sites-enabled
-    $ service nginx restart
-
-StatsD
-~~~~~~
-::
-
-    To be completed !
-
-
-Grafana
-~~~~~~~
-::
-
-    # Install Grafana (Version 4 only supported by the Alignak backend!)
-    wget https://grafanarel.s3.amazonaws.com/builds/grafana_3.1.1-1470047149_amd64.deb
-    apt-get install -y adduser libfontconfig
-    dpkg -i grafana_3.1.1-1470047149_amd64.deb
-
-    # Configure Grafana (not necessary...)
-    $ vi /etc/grafana/grafana.ini
-
-    $ service grafana-server start
-
-    # Open your web browser on http://127.0.0.1:3000
